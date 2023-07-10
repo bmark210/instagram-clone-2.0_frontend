@@ -1,8 +1,8 @@
 import axios from "../../axios";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { LoginParams, RegisterParams } from "../../types/authTypes";
 import { RootState } from "../store";
-import { User } from "../../types/user";
+import { OneUser, User } from "../../types/user/user";
 
 export const fetchLogin = createAsyncThunk(
   "auth/fetchLogin",
@@ -44,10 +44,13 @@ const authSlice = createSlice({
         state.data = null;
         state.status = "loading";
       })
-      .addCase(fetchLogin.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.status = "loaded";
-      })
+      .addCase(
+        fetchLogin.fulfilled,
+        (state, action: PayloadAction<OneUser>) => {
+          state.data = action.payload;
+          state.status = "loaded";
+        }
+      )
       .addCase(fetchLogin.rejected, (state) => {
         state.data = null;
         state.status = "error";
@@ -56,7 +59,7 @@ const authSlice = createSlice({
         state.data = null;
         state.status = "loading";
       })
-      .addCase(fetchAuth.fulfilled, (state, action) => {
+      .addCase(fetchAuth.fulfilled, (state, action: PayloadAction<OneUser>) => {
         state.data = action.payload;
         state.status = "loaded";
       })
@@ -68,10 +71,13 @@ const authSlice = createSlice({
         state.data = null;
         state.status = "loading";
       })
-      .addCase(fetchRegister.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.status = "loaded";
-      })
+      .addCase(
+        fetchRegister.fulfilled,
+        (state, action: PayloadAction<OneUser>) => {
+          state.data = action.payload;
+          state.status = "loaded";
+        }
+      )
       .addCase(fetchRegister.rejected, (state) => {
         state.data = null;
         state.status = "error";

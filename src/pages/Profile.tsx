@@ -6,10 +6,9 @@ import SavedActiveIcon from "../components/common/icons/Saved/SavedActiveIcon";
 import SavedIcon from "../components/common/icons/Saved/SavedIcon";
 import TaggedActiveIcon from "../components/common/icons/Tagged/TaggedActiveIcon";
 import TaggedIcon from "../components/common/icons/Tagged/TaggedIcon";
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchUserByUsername } from "../api/endpoints/users";
-import { OneUser, User } from "../types/user";
+import { OneUser, User } from "../types/user/user";
 import { RootState } from "../redux/store";
 import defaultAvatar from "../assets/avatars/default_avatar.jpg";
 import { fetchPostsByUserId } from "../api/endpoints/posts";
@@ -23,15 +22,18 @@ import {
   updateFollowingsByUserId,
 } from "../api/serveses/follows/setFollowing";
 import ContentLoader from "react-content-loader";
+import { useAppSelector } from "../redux/hooks";
+import { OnePost } from "../types/post/post";
 
 const Profile = () => {
-  const currentUser: User | null = useSelector(
+  const currentUser: User | null = useAppSelector(
     (state: RootState) => state.auth
   );
   const [isOpenCreateAvatarModal, setIsOpenCreateAvatarModal] = useState(false);
   const { username } = useParams<{ username: string }>();
   const [user, setUser] = useState<null | OneUser>(null);
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([] as OnePost[]);
+  console.log("posts", posts);
 
   const [followersLength, setFollowersLength] = useState<number | undefined>();
   const [isFollowing, setIsFollowing] = useState(false);
@@ -162,7 +164,7 @@ const Profile = () => {
           </div>
           <div className="flex flex-row w-3/4 items-center mb-4 gap-6">
             <div className="flex flex-row">
-              <span className="font-medium mr-1">324</span>
+              <span className="font-medium mr-1">{posts?.length}</span>
               <p className="text-base font-normal ">posts</p>
             </div>
             <div className="flex flex-row">

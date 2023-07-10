@@ -14,9 +14,8 @@ import MoreActiveIcon from "./common/icons/More/MoreActiveIcon";
 import CreateActivIcon from "./common/icons/Create/CreateActivIcon";
 import ExploreActiveIcon from "./common/icons/Explore/ExploreActiveIcon";
 import ExploreIcon from "./common/icons/Explore/ExploreIcon";
-import { useSelector } from "react-redux";
 import MoreModal from "./modals/MoreModal";
-import { RootState } from "../redux/store";
+import { useAppSelector } from "../redux/hooks";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,11 +26,9 @@ const SideBar = () => {
     target.src = defaultAvatar;
   }
 
-  const currentUsername = useSelector(
-    (state: RootState) => state.auth.data?.username
-  );
-  const currentUserAvatarUrl = useSelector(
-    (state: RootState) => state.auth.data?.avatar?.downloadURL
+  const currentUsername = useAppSelector((state) => state.auth.data?.username);
+  const currentUserAvatarUrl = useAppSelector(
+    (state) => state.auth.data?.avatar?.downloadURL
   );
 
   return (

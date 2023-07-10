@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import defaultAvatar from "../../assets/avatars/default_avatar.jpg";
 import { addCaption } from "../../api/serveses/caption/addCaption";
+import { useAppSelector } from "../../redux/hooks";
 
 const EditProfile = () => {
-  const user = useSelector((state: RootState) => state.auth.data);
+  const user = useAppSelector((state) => state.auth.data);
+
   function handleImageError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
@@ -36,7 +36,7 @@ const EditProfile = () => {
           onError={handleImageError}
         />
         <div className="flex flex-col">
-          <p>{user.username}</p>
+          <p>{user?.username}</p>
           <button className="text-sm text-blue-primary font-medium">
             Change profile photo
           </button>

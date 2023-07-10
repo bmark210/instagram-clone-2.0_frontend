@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 import home_phones from "../assets/images/instLigin.jpg";
 import InstagramLogoIcon from "../components/common/icons/InstagramLogoIcon";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { fetchLogin, selectIsAuth } from "../redux/slices/auth";
-import { useSelector } from "react-redux";
 import { LoginParams } from "../types/authTypes";
+import { useAppDispach, useAppSelector } from "../redux/hooks";
 
 const Login = () => {
-  const isAuth = useSelector(selectIsAuth);
-  const dispatch = useDispatch();
+  const isAuth = useAppSelector(selectIsAuth);
+  const dispatch = useAppDispach();
   const navigate = useNavigate();
   const [error] = useState("");
 
@@ -26,7 +25,7 @@ const Login = () => {
 
   const onSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const userData = await dispatch(fetchLogin(data) as any);
+    const userData = await dispatch(fetchLogin(data));
     console.log("userData", userData);
 
     if (!userData.payload) {

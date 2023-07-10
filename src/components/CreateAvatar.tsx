@@ -1,14 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "../axios";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import PagePreloader from "./loaders/PagePreloader";
+import { useAppSelector } from "../redux/hooks";
 const CreateAvatar = () => {
-  const currentAvatar = useSelector(
-    (state: RootState) => state.auth.data?.avatar
-  );
+  const currentAvatar = useAppSelector((state) => state.auth.data?.avatar);
   const [loading, setLoading] = useState(false);
-  const image = useRef(null);
+  const image = useRef<HTMLInputElement>(null);
   const [avatar, setAvatar] = useState({
     name: "",
     downloadURL: "",
@@ -31,14 +28,18 @@ const CreateAvatar = () => {
     }
   }, [avatar]);
 
-  const handleChangeFileAndSubmit = async (e: any) => {
+  const handleChangeFileAndSubmit = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     try {
       setLoading(true);
       const formData = new FormData();
-      const file = e.target.files[0];
-      formData.append("avatar", file);
-      const { data } = await axios.post("/avatar", formData);
-      setAvatar(data);
+      if (e.target.files) {
+        const file = e.target.files[0];
+        formData.append("avatar", file);
+        const { data } = await axios.post("/avatar", formData);
+        setAvatar(data);
+      }
     } catch (error) {
       alert("Ошибка при загрузке файла");
     }
@@ -47,11 +48,15 @@ const CreateAvatar = () => {
   const handleDeleteAvatar = async () => {
     try {
       setLoading(true);
-      await axios.patch("/avatar", { name: currentAvatar.name }).then((res) => {
-        console.log(res);
-      });
-      window.location.reload();
-      await axios.patch("/users/avatar", { avatar: {} });
+      if (currentAvatar?.name) {
+        await axios
+          .patch("/avatar", { name: currentAvatar.name })
+          .then((res) => {
+            console.log(res);
+          });
+        window.location.reload();
+        await axios.patch("/users/avatar", { avatar: {} });
+      }
     } catch (error) {
       console.log(error);
       alert("Ошибка при удалении аватара");
@@ -88,7 +93,7 @@ const CreateAvatar = () => {
           onChange={handleChangeFileAndSubmit}
           hidden
         />
-        {currentAvatar.downloadURL && (
+        {currentAvatar?.downloadURL && (
           <button
             onClick={handleDeleteAvatar}
             className="text-red-primary mb-2 font-medium border-b border-gray-base"

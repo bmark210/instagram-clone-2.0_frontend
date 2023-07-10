@@ -1,8 +1,9 @@
 import CameraImage from "../assets/camera.png";
 import ContentLoader from "react-content-loader";
+import { OnePost } from "../types/post/post";
 
 interface Props {
-  posts: any;
+  posts: OnePost[];
   isCurrentUser: boolean | null;
 }
 const Publications = ({ posts, isCurrentUser }: Props) => {
@@ -28,8 +29,8 @@ const Publications = ({ posts, isCurrentUser }: Props) => {
     <div className="min-w-max mx-auto">
       {posts.length ? (
         <div className="grid grid-cols-3 gap-1 mt-4 mb-12">
-          {posts.map((post: any) => (
-            <div className="w-[313px] h-[250px]" key={post.id}>
+          {posts.map((post) => (
+            <div className="w-[313px] h-[250px]" key={post._id}>
               <img
                 src={post.image.downloadURL}
                 className="min-w-full h-full object-cover"

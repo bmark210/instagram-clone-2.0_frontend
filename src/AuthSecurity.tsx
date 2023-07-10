@@ -1,22 +1,22 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { fetchAuth } from "./redux/slices/auth";
 import { selectIsAuth } from "./redux/slices/auth";
+import { useAppDispach, useAppSelector } from "./redux/hooks";
 
 const AuthProtection = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispach();
   const navigate = useNavigate();
-  const isAuth = useSelector(selectIsAuth);
+  const isAuth = useAppSelector(selectIsAuth);
 
   useEffect(() => {
-    dispatch(fetchAuth() as any);
+    dispatch(fetchAuth());
     if (!isAuth && !window.localStorage.getItem("token")) {
       navigate("/auth/login", { replace: true });
     }
   }, []);
 
-  return <>{<Outlet />}</>;
+  return <Outlet />;
 };
 
 export default AuthProtection;

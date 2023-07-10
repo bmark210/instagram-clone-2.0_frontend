@@ -3,10 +3,9 @@ import React, { useRef, useState, useEffect } from "react";
 import axios from "../axios";
 import ContentLoader from "react-content-loader";
 import PlaceIcon from "../components/common/icons/PlaceIcon";
-import { RootState } from "../redux/store";
-import { useSelector } from "react-redux";
 import defaultAvatar from "../assets/avatars/default_avatar.jpg";
-import { User } from "../types/user";
+import { User } from "../types/user/user";
+import { useAppSelector } from "../redux/hooks";
 
 interface Props {
   isOpen: boolean;
@@ -24,9 +23,7 @@ type Fields = {
 };
 
 const Create = ({ isOpen, setIsOpen }: Props) => {
-  const currentUser: User | null = useSelector(
-    (state: RootState) => state.auth
-  );
+  const currentUser: User | null = useAppSelector((state) => state.auth);
   const currentUserAvatarUrl =
     currentUser.data?.avatar.downloadURL || defaultAvatar;
 

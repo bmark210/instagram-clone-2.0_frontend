@@ -1,14 +1,8 @@
-import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import AdIcon from "../components/common/icons/AdIcon";
 import MetaIcon from "../components/common/icons/MetaIcon/MetaIcon";
 import PersonIcon from "../components/common/icons/PersonIcon";
 import SecurityIcon from "../components/common/icons/SecurityIcon";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import defaultAvatar from "../assets/avatars/default_avatar.jpg";
-import Header from "../components/post/header";
-import Footer from "../components/Footer";
 
 const Settings = () => {
   return (

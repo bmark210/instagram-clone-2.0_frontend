@@ -1,20 +1,21 @@
 import SavedLittleIcon from "../common/icons/Saved/SavedLittleIcon";
-import { useDispatch } from "react-redux";
 import { logout } from "../../redux/slices/auth";
 import SettingsLittleIcon from "../common/icons/Settings/SettingsLittleIcon";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispach } from "../../redux/hooks";
 
 interface Props {
   setIsMoreModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  username: string | undefined;
+  username?: string;
 }
 
 const MoreModal = ({ setIsMoreModalOpen, username }: Props) => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useAppDispach();
   const onClickLogout = () => {
     dispatch(logout());
     window.localStorage.removeItem("token");
-    window.location.reload();
+    navigate("/auth/login");
   };
   return (
     <div

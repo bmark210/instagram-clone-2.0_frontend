@@ -1,7 +1,3 @@
-// import Layout from "@layouts/Layout";
-// import Feed from "@pages/Feed";
-// import Login from "@pages/Login";
-
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import loadable from "@loadable/component";
 import AuthLayout from "./layouts/AuthLayout.tsx";
@@ -20,7 +16,7 @@ import Settings from "./pages/Settings.tsx";
 import EditProfile from "./components/Settings/EditProfile.tsx";
 import AppsAndWebsites from "./components/Settings/AppsAndWebsites.tsx";
 import Publications from "./components/Publications.tsx";
-import AllSuggestions from "./components/rigthSideBar/allSuggestions.tsx";
+import AllSuggestions from "./components/rigthSideBar/AllSuggestions.tsx";
 
 const MainLayout = loadable(
   () => pMinDelay(import("./layouts/MainLayout.tsx"), 400),
@@ -29,39 +25,6 @@ const MainLayout = loadable(
   }
 );
 
-// const AuthLayout = loadable(
-// 	() => pMinDelay(import('@layouts/AuthLayout'), 200),
-// 	{
-// 		fallback: <PagePreloader />,
-// 	}
-// )
-
-// )
-// const Profile = loadable(
-// 	() => pMinDelay(import('@pages/profile/Profile'), 200),
-// 	{
-// 		fallback: <PagePreloader />,
-// 	}
-// )
-// const Registration = loadable(
-// 	() => pMinDelay(import('@pages/registration/Registration'), 200),
-// 	{
-// 		fallback: <PagePreloader />,
-// 	}
-// )
-// const ChangePassword = loadable(
-// 	() =>
-// 		pMinDelay(import('@pages/settings/change-password/ChangePassword'), 200),
-// 	{
-// 		fallback: <PagePreloader />,
-// 	}
-// )
-// const EditProfile = loadable(
-// 	() => pMinDelay(import('@pages/settings/edit-profile/EditProfile'), 200),
-// 	{
-// 		fallback: <PagePreloader />,
-// 	}
-// )
 
 export const router = createBrowserRouter([
   {

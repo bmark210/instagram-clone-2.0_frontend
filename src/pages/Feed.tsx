@@ -1,21 +1,21 @@
 import Timeline from "../components/Timeline";
 import RigthSideBar from "../components/rigthSideBar";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchAuth } from "../redux/slices/auth";
 import { useEffect } from "react";
 import { fetchPosts } from "../redux/slices/posts";
-import { RootState } from "../redux/store";
-import { Posts } from "../types/posts/post";
+import { useAppDispach, useAppSelector } from "../redux/hooks";
 
 const Feed = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispach();
 
-  const user = useSelector((state: RootState) => state.auth);
-  const posts: Posts = useSelector((state: RootState) => state.posts);
+  const user = useAppSelector((state) => state.auth);
+  const posts = useAppSelector((state) => state.posts);
+  console.log("posts", posts);
+  console.log("user", user);
 
   useEffect(() => {
-    dispatch(fetchAuth() as any);
-    dispatch(fetchPosts() as any);
+    dispatch(fetchPosts());
+    dispatch(fetchAuth());
   }, []);
 
   return (

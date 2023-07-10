@@ -3,8 +3,8 @@ import Image from "./image";
 import Comments from "./comments";
 import Actions from "./actions";
 import Footer from "./Footer";
-import { Post } from "../../types/posts/post";
-import { User } from "../../types/user";
+import { Post } from "../../types/post/post";
+import { User } from "../../types/user/user";
 
 interface Props {
   post: Post;

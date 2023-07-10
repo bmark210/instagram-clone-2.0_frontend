@@ -1,11 +1,11 @@
-import { SyntheticEvent, memo } from "react";
+import { SyntheticEvent } from "react";
 import defaultAvatar from "../../assets/avatars/default_avatar.jpg";
 import { Link } from "react-router-dom";
-import PagePreloader from "../loaders/PagePreloader";
 import ContentLoader from "react-content-loader";
+import { User } from "../../types/user/user";
 
 interface Props {
-  user: any;
+  user: User;
 }
 
 const UserForm = ({ user }: Props) => {
@@ -13,8 +13,8 @@ const UserForm = ({ user }: Props) => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
   }
-
-  console.log("user", user);
+  console.log(user, "user");
+  
   const usersIsLoading = user.status === "loading";
 
   if (usersIsLoading) {

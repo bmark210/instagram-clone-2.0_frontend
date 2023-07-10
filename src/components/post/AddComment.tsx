@@ -1,6 +1,6 @@
-import { FC, RefObject, useState } from 'react';
-import { updateCommentsByPostId } from '../../db/firebase';
-import useUserStore from '../../store/userStore';
+import { FC, RefObject, useState } from "react";
+import { updateCommentsByPostId } from "../../db/firebase";
+import useUserStore from "../../store/userStore";
 
 interface Comment {
   comment: string;
@@ -22,7 +22,7 @@ const AddComment: FC<AddCommentProps> = ({
 }) => {
   const user = useUserStore((state) => state.user);
 
-  const [commentText, setCommentText] = useState<string>('');
+  const [commentText, setCommentText] = useState<string>("");
 
   const handleSubmitComment = async (
     event:
@@ -35,7 +35,7 @@ const AddComment: FC<AddCommentProps> = ({
         ...comments,
         { username: user.username, comment: commentText },
       ]);
-      setCommentText('');
+      setCommentText("");
       const username = user.username;
       await updateCommentsByPostId(docId, username, commentText);
     }
@@ -66,7 +66,7 @@ const AddComment: FC<AddCommentProps> = ({
         />
         <button
           className={`text-sm font-bold text-blue-primary ${
-            !commentText && 'opacity-25'
+            !commentText && "opacity-25"
           }`}
           type="button"
           disabled={commentText.length < 1}

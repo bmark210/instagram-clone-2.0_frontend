@@ -3,26 +3,22 @@ import HeartIcon from "../common/icons/PostIcons/HeartIcon";
 import HeartActiveIcon from "../common/icons/PostIcons/HeartActiveIcon";
 import { useEffect, useState } from "react";
 import { setPostLiked } from "../../api/serveses/likes/setLiked";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { useAppSelector } from "../../redux/hooks";
 
 interface Props {
   postId?: string;
-  likesArray: any;
+  likesArray: string[];
 }
 
 const Actions = ({ postId, likesArray }: Props) => {
-  const currentUser = useSelector((state: RootState) => state.auth.data);
+  const currentUser = useAppSelector((state) => state.auth.data);
 
   const [toggleLiked, setToggleLiked] = useState(false);
   const [likesLength, setLikesLength] = useState(likesArray.length);
 
   useEffect(() => {
-    for (const key in likesArray) {
-      const value = likesArray[key];
-      if (value._id === currentUser?._id) {
-        setToggleLiked(true);
-      }
+    if (currentUser && likesArray.includes(currentUser._id)) {
+      setToggleLiked(true);
     }
   }, [postId, likesArray, currentUser]);
 

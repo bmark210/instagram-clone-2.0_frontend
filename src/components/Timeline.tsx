@@ -1,15 +1,12 @@
-import { useState } from "react";
 import ContentLoader from "react-content-loader";
 import StoryMenu from "./stories/StoryMenu";
-import { Posts, OnePost } from "../types/posts/post";
+import { Posts, OnePost } from "../types/post/post";
 import PostItem from "./post";
 
 interface Props {
   posts: Posts;
 }
 const Timeline = ({ posts }: Props) => {
-
-
   const postsIsLoading = posts.status === "loading";
   // const usersIsLoading = users.status === "loading";
   console.log("timeline, posts", posts);
@@ -40,7 +37,7 @@ const Timeline = ({ posts }: Props) => {
             Here will be your feed
           </h2>
         ) : (
-          posts.items.map((post: OnePost) => (
+          posts.items.map((post) => (
             <PostItem key={post._id} post={post} user={post.user} />
           ))
         )}

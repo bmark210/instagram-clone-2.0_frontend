@@ -2,17 +2,13 @@ import { useEffect, useState } from "react";
 import InstagramLogoIcon from "../components/common/icons/InstagramLogoIcon";
 import { Navigate, useNavigate } from "react-router-dom";
 import { fetchRegister, selectIsAuth } from "../redux/slices/auth";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispach, useAppSelector } from "../redux/hooks";
 
-type Props = {
-  style?: any;
-};
-
-const Register = (props: Props) => {
-  const isAuth = useSelector(selectIsAuth);
+const Register = () => {
+  const isAuth = useAppSelector(selectIsAuth);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [error, setError] = useState("");
+  const dispatch = useAppDispach();
+  // const [error, setError] = useState("");
   useEffect(() => {
     if (isAuth) {
       navigate("/", { replace: true });
@@ -28,7 +24,7 @@ const Register = (props: Props) => {
 
   const onSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const userData = await dispatch(fetchRegister(data) as any);
+    const userData = await dispatch(fetchRegister(data));
     console.log(userData);
     if (!userData.payload) {
       alert("Не удалось авторизоваться");
