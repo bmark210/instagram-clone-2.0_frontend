@@ -13,10 +13,10 @@ const Timeline = ({ posts }: Props) => {
 
   return (
     <>
-      <div className="w-2/3 col-span-2 min-w-max">
-        <div className="min-w-max p-4 mt-8">
+      <div className="w-2/3 mt-8 col-span-2 min-w-max">
+        {/* <div className="min-w-max p-4">
           <StoryMenu />
-        </div>
+        </div> */}
         {postsIsLoading ? (
           [...Array(5)].map((_, index) => (
             <ContentLoader

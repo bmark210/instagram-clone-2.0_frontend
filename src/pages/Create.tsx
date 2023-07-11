@@ -6,6 +6,7 @@ import PlaceIcon from "../components/common/icons/PlaceIcon";
 import defaultAvatar from "../assets/avatars/default_avatar.jpg";
 import { User } from "../types/user/user";
 import { useAppSelector } from "../redux/hooks";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   isOpen: boolean;
@@ -25,9 +26,9 @@ type Fields = {
 const Create = ({ isOpen, setIsOpen }: Props) => {
   const currentUser: User | null = useAppSelector((state) => state.auth);
   const currentUserAvatarUrl =
-    currentUser.data?.avatar.downloadURL || defaultAvatar;
+    currentUser.data?.avatar?.downloadURL || defaultAvatar;
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const imageRef = useRef<HTMLInputElement>(null);
   const [nextStep, setNextStep] = React.useState(false);
   const [imageLoading, setImageLoading] = React.useState(false);
@@ -41,26 +42,25 @@ const Create = ({ isOpen, setIsOpen }: Props) => {
   useEffect(() => {
     if (isOpen === false && fields.image !== null) {
       const result = confirm("Post will be deleted");
-      return result ? handleClose() : handlePrevent();
+      return result ? handleClose() : setIsOpen(!isOpen);
     }
     if (isOpen === false) {
       setNextStep(false);
     }
   }, [isOpen]);
 
-  const handlePrevent = () => {
-    setIsOpen(!isOpen);
-  };
   const handleClose = () => {
     setIsOpen(false);
     axios
-      .post(`/image/remove/${fields.image}`)
+      .post(`/image/remove/${fields.image?.name}`)
       .then(() => {
         setFields({
           image: null,
           text: "",
           place: "",
         });
+        window.location.reload();
+        navigate("/feed");
       })
       .catch((error) => {
         console.log(error);
@@ -96,7 +96,13 @@ const Create = ({ isOpen, setIsOpen }: Props) => {
     e.preventDefault();
     try {
       await axios.post("/posts/create", fields);
-      window.location.reload();
+      setIsOpen(false);
+      setFields({
+        image: null,
+        text: "",
+        place: "",
+      });
+      navigate("/feed");
     } catch (error) {
       console.log(error);
       alert("Ошибка при добавлении поста");
@@ -148,7 +154,9 @@ const Create = ({ isOpen, setIsOpen }: Props) => {
                     alt="avatar"
                     className="w-10 h-10 mx-auto rounded-full"
                   />
-                  <p className="font-xl font-medium text-center">bmark210</p>
+                  <p className="font-xl font-medium text-center">
+                    {currentUser.data?.username}
+                  </p>
                 </div>
                 <textarea
                   cols={30}

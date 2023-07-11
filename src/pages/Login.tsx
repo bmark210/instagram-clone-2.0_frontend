@@ -3,7 +3,7 @@ import home_phones from "../assets/images/instLigin.jpg";
 import InstagramLogoIcon from "../components/common/icons/InstagramLogoIcon";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { fetchLogin, selectIsAuth } from "../redux/slices/auth";
-import { LoginParams } from "../types/authTypes";
+import { LoginParams } from "../types/auth";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 
 const Login = () => {

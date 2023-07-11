@@ -26,7 +26,7 @@ const EditProfile = () => {
       <h2 className="absolute m-7 top-0 text-2xl font-medium">Edit profile</h2>
       <div className="ml-32 mb-5 flex flex-row gap-7 items-center">
         <img
-          className="w-9 h-9 rounded-full"
+          className="w-9 h-9 rounded-full object-cover"
           src={
             user?.avatar?.downloadURL
               ? user?.avatar?.downloadURL

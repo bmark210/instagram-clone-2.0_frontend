@@ -2,6 +2,7 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchUserById } from "../../api/endpoints/users";
 import defaultAvatar from "../../assets/avatars/default_avatar.jpg";
+import { OneUser } from "../../types/user/user";
 
 interface Props {
   userId: string;
@@ -30,7 +31,7 @@ const SuggestedProfile = ({ userId }: Props) => {
       <Link to={`/${user?.username}/`}>
         <div className="flex items-center justify-between">
           <img
-            className="rounded-full w-8 h-8 flex mr-3"
+            className="rounded-full w-8 h-8 flex mr-3 object-cover"
             src={
               user?.avatar?.downloadURL !== null
                 ? `${user?.avatar?.downloadURL}`

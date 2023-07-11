@@ -93,7 +93,7 @@ const Profile = () => {
       setIsFollowing(true);
     }
   }, [user, currentUser]);
-  if (user === null || user?.followers === undefined) {
+  if (user === null || user?.followers === undefined || posts === undefined) {
     return (
       <div className="flex min-w-max flex-row w-3/4 mx-auto pb-10 mt-10 px-20 border-b border-gray-primary">
         <ContentLoader viewBox="0 0 900 180" height={180} width={900} speed={2}>
