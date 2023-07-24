@@ -1,69 +1,56 @@
-import { FC, RefObject } from "react";
-// import { formatDistance } from "date-fns";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import AddComment from "./AddComment";
-
-interface Comment {
-  comment: string;
-  username: string;
-}
+import { Link } from "react-router-dom";
+import { Comment, OnePost } from "../../types/post/post";
+import { OneUser } from "../../types/user/user";
 
 interface CommentsProps {
-  docId: string;
-  allComments?: Comment[];
-  posted: number;
-  commentInput: RefObject<HTMLInputElement>;
+  post: OnePost;
+  commentsLength: number;
+  posted: string;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  user: OneUser;
+  currentUser: OneUser | null;
 }
 
-const Comments: FC<CommentsProps> = ({
-  docId,
-  allComments,
-  posted,
-  commentInput,
-}) => {
-  const [comments, setComments] = useState<Comment[]>(allComments || []);
-  const [commentsSlice, setCommentsSlice] = useState(3);
-  const showNextComments = (): void => {
-    setCommentsSlice(commentsSlice + 3);
-  };
+const Comments = ({ post, commentsLength, setIsOpen, currentUser, user }: CommentsProps) => {
+  const [commentItem, setCommentItem] = useState<Comment>({
+    comment: "",
+    user: currentUser,
+  });
 
-  if (comments === null) {
-    return <p>Loading...</p>;
-  }
+  const [commentsValue, setCommentsValue] = useState(commentsLength);
   return (
     <>
-      <div className="p-4 pt-1 pb-4">
-        {comments.slice(0, commentsSlice).map((item) => (
-          <p key={`${item.comment}-${item.username}`} className="mb-1">
-            <Link to={`/p/${item.username}`}>
-              <span className="mr-1 font-bold">{item.username}</span>
+      <div className="pt-1">
+        {commentItem.comment !== "" && (
+          <p className="mb-1 ml-2">
+            <Link to={`/${currentUser?.username}`}>
+              <span className="mr-1 font-medium">{currentUser?.username}</span>
             </Link>
-            <span>{item.comment}</span>
+            <span className="w-[467px] break-words text-sm font-thin">{commentItem.comment}</span>
           </p>
-        ))}
-        {comments.length >= 3 && commentsSlice < comments.length && (
+        )}
+      </div>
+      <div className="pt-1">
+        {commentsValue >= 1 && (
           <button
-            className="text-sm text-gray-base mb-1 cursor-pointer focus:outline-none"
-            type="button"
-            onClick={showNextComments}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                showNextComments();
-              }
+            onClick={() => {
+              setIsOpen(true);
             }}
+            className="mb-1 ml-2 cursor-pointer text-sm text-gray-400 focus:outline-none"
+            type="button"
           >
-            View more comments
+            View all {commentsValue} comments
           </button>
         )}
-        <p className="text-gray-base uppercase text-xs m-2">
-          {formatDistance(posted, new Date())} ago
-        </p>
         <AddComment
-          docId={docId}
-          comments={comments}
-          setComments={setComments}
-          commentInput={commentInput}
+          username={user?.username}
+          postId={post._id}
+          commentItem={commentItem}
+          setCommentsValue={setCommentsValue}
+          setCommentItem={setCommentItem}
         />
       </div>
     </>

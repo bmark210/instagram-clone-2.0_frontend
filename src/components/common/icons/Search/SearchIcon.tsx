@@ -1,10 +1,4 @@
-type Props = {
-  style?: any;
-  width?: number;
-  height?: number;
-};
-
-const SearchIcon = (props: Props) => {
+const SearchIcon = () => {
   return (
     <svg
       aria-label="Поисковый запрос"

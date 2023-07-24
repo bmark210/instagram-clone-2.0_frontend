@@ -1,12 +1,12 @@
-import axios from "../../axios";
+import axios from "../../Axios";
 
 // export async function fetchUsers() {
 //   const { data } = await axios.get("/users");
 //   return data;
 // }
 
-export async function fetchPostsByUserId(userId: string) {
-  const { data } = await axios.get(`/posts/p/` + userId);
+export async function fetchPostsByUserUsername(username: string) {
+  const { data } = await axios.get(`/posts/p/` + username);
   return data;
 }
 

@@ -9,13 +9,15 @@ export type OneUser = {
   username: string;
   fullName: string;
   avatar: avatar;
+  postsLength: number;
   email: string;
   bio: string;
   following: string[];
   followers: string[];
 };
 
-export type User = {
+export type UserData = {
   data: OneUser | null;
   status: string;
+  error?: string;
 };

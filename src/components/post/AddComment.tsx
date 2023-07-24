@@ -1,75 +1,55 @@
-import { FC, RefObject, useState } from "react";
-import { updateCommentsByPostId } from "../../db/firebase";
-import useUserStore from "../../store/userStore";
+import { useState } from "react";
+import { addComment } from "../../api/serveses/comments/setComment";
+import { Comment } from "../../types/post/post";
 
-interface Comment {
-  comment: string;
-  username: string;
+interface Props {
+  postId: string;
+  commentItem: Comment;
+  setCommentItem: React.Dispatch<React.SetStateAction<Comment>>;
+  username?: string;
+  setCommentsValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
-interface AddCommentProps {
-  docId: string;
-  comments?: Comment[];
-  setComments?: React.Dispatch<React.SetStateAction<Comment[]>>;
-  commentInput: RefObject<HTMLInputElement>;
-}
-
-const AddComment: FC<AddCommentProps> = ({
-  docId,
-  comments,
-  setComments,
-  commentInput,
-}) => {
-  const user = useUserStore((state) => state.user);
-
-  const [commentText, setCommentText] = useState<string>("");
+const AddComment = ({ postId, commentItem, setCommentItem, username, setCommentsValue }: Props) => {
+  const [commentText, setCommentText] = useState("");
 
   const handleSubmitComment = async (
-    event:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.FormEvent<HTMLFormElement>
+    event: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-    if (user && comments && setComments) {
-      setComments([
-        ...comments,
-        { username: user.username, comment: commentText },
-      ]);
+    if (commentText.length === 0) return;
+
+    if (username && commentItem && setCommentItem) {
+      await addComment(postId, commentText);
+      setCommentItem({ ...commentItem, comment: commentText });
+
+      setCommentsValue(prev => prev + 1);
       setCommentText("");
-      const username = user.username;
-      await updateCommentsByPostId(docId, username, commentText);
     }
   };
 
   return (
-    <div className="border-t border-gray-primary">
+    <div className="border-b border-gray-primary">
       <form
-        className="flex justify-between pl-0 pr-5"
+        className="flex w-full justify-between"
         method="POST"
-        onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
-          commentText.length >= 1
-            ? handleSubmitComment(event)
-            : event.preventDefault()
-        }
+        onSubmit={(event: React.FormEvent<HTMLFormElement>) => handleSubmitComment(event)}
       >
         <input
           aria-label="Add a comment"
           autoComplete="off"
-          className="text-sm text-gray-base w-full mr-3 py-5 px-4"
+          className="mr-3 w-full px-2 py-3 text-sm outline-none"
           type="text"
           name="add-comment"
           placeholder="Add a comment..."
           value={commentText}
           onChange={({ target }) => setCommentText(target.value)}
-          ref={commentInput}
-          maxLength={70}
+          maxLength={200}
         />
         <button
-          className={`text-sm font-bold text-blue-primary ${
-            !commentText && "opacity-25"
-          }`}
+          className={`text-sm font-bold text-blue-primary ${!commentText && "opacity-25"}`}
           type="button"
-          disabled={commentText.length < 1}
+          hidden={commentText.length < 1}
           onClick={handleSubmitComment}
         >
           Post

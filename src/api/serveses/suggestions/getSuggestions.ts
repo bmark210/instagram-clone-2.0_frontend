@@ -1,9 +1,4 @@
-import axios from "../../../axios";
-
-export async function getSuggestionsIfJustLoggedIn() {
-  const { data } = await axios.get("/users/suggestions");
-  return data;
-}
+import axios from "../../../Axios";
 
 export async function getAllSuggestions() {
   const { data } = await axios.get("/users/allsuggestions");

@@ -2,7 +2,7 @@ const PlaceIcon = () => {
   return (
     <svg
       aria-label="Добавить место"
-      className="relative left-72 bottom-7"
+      className="relative bottom-7 left-72"
       color="rgb(115, 115, 115)"
       fill="rgb(115, 115, 115)"
       height="16"

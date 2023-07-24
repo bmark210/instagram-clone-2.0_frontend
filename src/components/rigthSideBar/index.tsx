@@ -1,18 +1,17 @@
-import UserForm from "./user";
-import Suggestions from "./suggestions";
+import UserForm from "./User";
+import Suggestions from "./Suggestions";
 import Footer from "./Footer";
+import { User } from "../../types/user/user";
 
 interface Props {
-  user?: any;
+  user: User;
 }
 
 const RigthSideBar = ({ user }: Props) => {
-  console.log('user', user);
-  
   return (
-    <div className="w-96 min-w-max p-4 mt-8">
+    <div className="mt-8 w-[500px] min-w-max p-4">
       <UserForm user={user} />
-      <Suggestions user={user} />
+      <Suggestions />
       <Footer />
     </div>
   );

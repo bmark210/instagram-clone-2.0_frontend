@@ -5,27 +5,22 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Feed from "./pages/Feed.tsx";
 import Profile from "./pages/Profile.tsx";
-import Search from "./pages/Search.tsx";
 import pMinDelay from "p-min-delay";
-import InstagramLoader from "./components/common/InstagramLoader.tsx";
-import Saved from "./components/Saved.tsx";
-import Tagged from "./components/Tagged.tsx";
+import InstagramLoader from "./components/common/loaders/InstagramLoader.tsx";
+import Saved from "./pages/Saved.tsx";
+import Tagged from "./pages/Tagged.tsx";
 import Explore from "./pages/Explore.tsx";
 import AuthProtection from "./AuthSecurity.tsx";
 import Settings from "./pages/Settings.tsx";
-import EditProfile from "./components/Settings/EditProfile.tsx";
-import AppsAndWebsites from "./components/Settings/AppsAndWebsites.tsx";
-import Publications from "./components/Publications.tsx";
+import EditProfile from "./components/settings/EditProfile.tsx";
+import AppsAndWebsites from "./components/settings/AppsAndWebsites.tsx";
+import Publications from "./pages/Publications.tsx";
 import AllSuggestions from "./components/rigthSideBar/AllSuggestions.tsx";
+import NotFound from "./pages/NotFound.tsx";
 
-const MainLayout = loadable(
-  () => pMinDelay(import("./layouts/MainLayout.tsx"), 400),
-  {
-    fallback: <InstagramLoader />,
-  }
-);
-
-
+const MainLayout = loadable(() => pMinDelay(import("./layouts/MainLayout.tsx"), 400), {
+  fallback: <InstagramLoader />,
+});
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -44,10 +39,6 @@ export const router = createBrowserRouter([
             element: <Feed />,
           },
           {
-            path: "/search",
-            element: <Search />,
-          },
-          {
             path: "/explore/",
             element: <Explore />,
           },
@@ -61,7 +52,7 @@ export const router = createBrowserRouter([
             children: [
               {
                 path: "/:username/",
-                element: <Publications posts={[]} isCurrentUser />,
+                element: <Publications />,
               },
               {
                 path: "/:username/saved",
@@ -90,6 +81,14 @@ export const router = createBrowserRouter([
                 element: <AppsAndWebsites />,
               },
             ],
+          },
+          {
+            path: "*",
+            element: <Navigate to="/not-found" />,
+          },
+          {
+            path: "not-found",
+            element: <NotFound />,
           },
         ],
       },

@@ -1,10 +1,4 @@
-type Props = {
-  style?: any;
-  width?: number;
-  height?: number;
-};
-
-const HomeIconActive = (props: Props) => {
+const HomeIconActive = () => {
   return (
     <svg
       aria-label="Home"

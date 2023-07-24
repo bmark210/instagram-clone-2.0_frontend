@@ -1,4 +1,4 @@
-import axios from "../../../axios";
+import axios from "../../../Axios";
 
 export async function updateFollowersByUserId(userIdToUpdateFollowers: string) {
   const data = await axios.patch("/users/followers", {

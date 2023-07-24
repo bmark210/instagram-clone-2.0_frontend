@@ -15,6 +15,59 @@ export default {
       backdropBlur: {
         "3xl": "3rem",
       },
+      keyframes: {
+        wiggle: {
+          "0%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+          "100%": { transform: "rotate(-3deg)" },
+        },
+        showRight: {
+          "0%": {
+            // opacity: "0",
+            transform: "translateX(-70px)",
+          },
+          "100%": {
+            // opacity: "1",
+            transform: "translateX(0px)",
+          },
+        },
+        showLeft: {
+          "0%": {
+            // opacity: "0",
+            transform: "translateX(50px)",
+          },
+          "100%": {
+            // opacity: "1",
+            transform: "translateX(0px)",
+          },
+        },
+        changeWidthIn: {
+          "0%": {
+            width: "10%",
+          },
+          "100%": {
+            width: "5%",
+          },
+        },
+        changeWidthOut: {
+          "0%": {
+            width: "10%",
+          },
+          "100%": {
+            width: "12%",
+          },
+        },
+      },
+      boxShadow: {
+        right: "4px 0 6px -4px rgba(0, 0, 0, 0.3)",
+      },
+      animation: {
+        wiggle: "wiggle 1s ease-in-out infinite",
+        showRight: "showRight 0.2s ease-out",
+        showLeft: "showLeft 0.2s ease-out",
+        changeWidthIn: "changeWidthIn 0.2s ease-out",
+        changeWidthOut: "changeWidthOut 0.2s ease-out",
+      },
       backdropOpacity: {
         50: "0.5",
       },

@@ -4,7 +4,7 @@ import { fetchAuth } from "./redux/slices/auth";
 import { selectIsAuth } from "./redux/slices/auth";
 import { useAppDispach, useAppSelector } from "./redux/hooks";
 
-const AuthProtection = () => {
+const AuthSecurity = () => {
   const dispatch = useAppDispach();
   const navigate = useNavigate();
   const isAuth = useAppSelector(selectIsAuth);
@@ -19,4 +19,4 @@ const AuthProtection = () => {
   return <Outlet />;
 };
 
-export default AuthProtection;
+export default AuthSecurity;

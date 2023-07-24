@@ -8,39 +8,34 @@ const Settings = () => {
   return (
     <>
       <h1 className="absolute m-7 ml-72 text-2xl font-medium">Settings</h1>
-      <div className="relative min-w-max flex flex-row mx-auto w-3/5 my-20 border border-gray-base rounded-sm">
+      <div className="relative mx-auto my-20 flex w-3/5 min-w-max flex-row rounded-sm border border-gray-base">
         <div>
-          <div className="w-56 border-r border-gray-base pt-7 pl-6 pr-2 pb-5">
+          <div className="w-56 border-r border-gray-base pb-5 pl-6 pr-2 pt-7">
             <MetaIcon />
-            <h3 className="font-medium mt-3 mb-2">Accounts Center</h3>
-            <p className="text-xs mb-3">
-              Manage your connected experiences and account settings across Meta
-              technologies.
+            <h3 className="mb-2 mt-3 font-medium">Accounts Center</h3>
+            <p className="mb-3 text-xs">
+              Manage your connected experiences and account settings across Meta technologies.
             </p>
-            <div className="flex flex-row gap-2 mb-2">
+            <div className="mb-2 flex flex-row gap-2">
               <PersonIcon />
               <p className="text-xs">Personal details</p>
             </div>
-            <div className="flex flex-row gap-2 mb-2">
+            <div className="mb-2 flex flex-row gap-2">
               <SecurityIcon />
               <p className="text-xs">Password and security</p>
             </div>
-            <div className="flex flex-row gap-2 mb-2">
+            <div className="mb-2 flex flex-row gap-2">
               <AdIcon />
               <p className="text-xs">Ad preferences</p>
             </div>
-            <p className="text-blue-primary text-sm font-medium cursor-no-drop">
+            <p className="cursor-no-drop text-sm font-medium text-blue-primary">
               See more in Accounts Center
             </p>
           </div>
-          <div className="flex flex-col border-t border-r border-gray-base min-w-56 h-fit">
+          <div className="min-w-56 flex h-fit flex-col border-r border-t border-gray-base">
             <NavLink className="hover:bg-gray-100" to="/settings/edit">
               {({ isActive }: { isActive: boolean }) => (
-                <div
-                  className={`${
-                    isActive ? "font-medium border-l border-black-dark" : ""
-                  } py-3`}
-                >
+                <div className={`${isActive ? "border-l border-black-dark font-medium" : ""} py-3`}>
                   <p className="ml-3">Edit profile</p>
                 </div>
               )}
@@ -48,33 +43,31 @@ const Settings = () => {
             <NavLink className="hover:bg-gray-100" to="/settings/manage_access">
               {({ isActive }: { isActive: boolean }) => (
                 <div
-                  className={`${
-                    isActive ? "font-medium border-l border-black-dark " : ""
-                  } py-3`}
+                  className={`${isActive ? "border-l border-black-dark font-medium " : ""} py-3`}
                 >
                   <p className="ml-3">Apps and websites</p>
                 </div>
               )}
             </NavLink>
-            <div className="hover:bg-gray-100 cursor-no-drop">
+            <div className="cursor-no-drop hover:bg-gray-100">
               <p className="ml-3 py-3">Email notifications</p>
             </div>
-            <div className="hover:bg-gray-100 cursor-no-drop">
+            <div className="cursor-no-drop hover:bg-gray-100">
               <p className="ml-3 py-3">Push notifications</p>
             </div>
-            <div className="hover:bg-gray-100 cursor-no-drop">
+            <div className="cursor-no-drop hover:bg-gray-100">
               <p className="ml-3 py-3">What you see</p>
             </div>
-            <div className="hover:bg-gray-100 cursor-no-drop">
+            <div className="cursor-no-drop hover:bg-gray-100">
               <p className="ml-3 py-3">Who can see your content</p>
             </div>
-            <div className="hover:bg-gray-100 cursor-no-drop py-3 w-56">
+            <div className="w-56 cursor-no-drop py-3 hover:bg-gray-100">
               <p className="ml-3">How others can interact with you</p>
             </div>
-            <div className="hover:bg-gray-100 cursor-no-drop">
+            <div className="cursor-no-drop hover:bg-gray-100">
               <p className="ml-3 py-3">Supervision</p>
             </div>
-            <div className="hover:bg-gray-100 cursor-no-drop">
+            <div className="cursor-no-drop hover:bg-gray-100">
               <p className="ml-3 py-3">Help</p>
             </div>
           </div>

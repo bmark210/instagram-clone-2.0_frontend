@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import defaultAvatar from "../../assets/avatars/default_avatar.jpg";
 import React from "react";
-import { getTimeDifference } from "../../utils/getTimeDifference";
+import { getTimeDifferenceInShortWords } from "../../utils/getTimeDifference";
+
 interface Props {
   username: string;
   avatarUrl: string;
-  place: string;
-  createdAt: string;
+  place?: string;
+  createdAt?: string;
 }
 
 const Header = ({ username, avatarUrl, createdAt, place }: Props) => {
@@ -14,23 +15,24 @@ const Header = ({ username, avatarUrl, createdAt, place }: Props) => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
   }
-  const dateOfCreation = getTimeDifference(createdAt);
   return (
-    <div className="flex items-center pl-1 py-4">
+    <div className="flex items-center py-4 pl-2">
       <div className="flex items-center">
         <Link to={`/${username}/`} className="flex items-center">
           <img
-            className="rounded-full h-8 w-8 flex mr-3"
+            className="mr-3 flex h-8 w-8 rounded-full"
             src={avatarUrl !== undefined ? `${avatarUrl}` : `${defaultAvatar}`}
             alt={`${username} profile picture`}
             onError={handleImageError}
           />
-          <div className="flex flex-col col-span-3">
+          <div className="col-span-3 flex flex-col">
             <div className="flex flex-row items-center">
-              <p className="font-medium text-sm">{username}</p>
-              <span className="ml-2 text-sm text-gray-medium">
-                • {dateOfCreation}
-              </span>
+              <p className="text-sm font-medium">{username}</p>
+              {createdAt && (
+                <span className="ml-2 text-sm text-gray-medium">
+                  • {getTimeDifferenceInShortWords(createdAt)}
+                </span>
+              )}
             </div>
             {place && <p className="text-xs">{place}</p>}
           </div>

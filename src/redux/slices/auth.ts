@@ -1,16 +1,15 @@
-import axios from "../../axios";
+import axios from "../../Axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { LoginParams, RegisterParams } from "../../types/auth";
 import { RootState } from "../store";
-import { OneUser, User } from "../../types/user/user";
+import { OneUser, UserData } from "../../types/user/user";
 
-export const fetchLogin = createAsyncThunk(
-  "auth/fetchLogin",
-  async (params: LoginParams) => {
-    const { data } = await axios.post("/auth/login", params);
-    return data;
-  }
-);
+export const fetchLogin = createAsyncThunk("auth/fetchLogin", async (params: LoginParams) => {
+  const { data } = await axios.post("/auth/login", params);
+  console.log(data);
+
+  return data;
+});
 
 export const fetchRegister = createAsyncThunk(
   "auth/fetchRegister",
@@ -25,37 +24,36 @@ export const fetchAuth = createAsyncThunk("auth/fetchAuth", async () => {
   return data;
 });
 
-const initialState: User = {
+const initialState: UserData = {
   data: null,
   status: "loading",
+  error: undefined,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state) => {
+    logout: state => {
       state.data = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchLogin.pending, (state) => {
+      .addCase(fetchLogin.pending, state => {
         state.data = null;
         state.status = "loading";
       })
-      .addCase(
-        fetchLogin.fulfilled,
-        (state, action: PayloadAction<OneUser>) => {
-          state.data = action.payload;
-          state.status = "loaded";
-        }
-      )
-      .addCase(fetchLogin.rejected, (state) => {
+      .addCase(fetchLogin.fulfilled, (state, action: PayloadAction<OneUser>) => {
+        state.data = action.payload;
+        state.status = "loaded";
+      })
+      .addCase(fetchLogin.rejected, (state, action) => {
         state.data = null;
         state.status = "error";
+        state.error = action.error.message;
       })
-      .addCase(fetchAuth.pending, (state) => {
+      .addCase(fetchAuth.pending, state => {
         state.data = null;
         state.status = "loading";
       })
@@ -63,28 +61,28 @@ const authSlice = createSlice({
         state.data = action.payload;
         state.status = "loaded";
       })
-      .addCase(fetchAuth.rejected, (state) => {
+      .addCase(fetchAuth.rejected, state => {
         state.data = null;
         state.status = "error";
       })
-      .addCase(fetchRegister.pending, (state) => {
+      .addCase(fetchRegister.pending, state => {
         state.data = null;
         state.status = "loading";
       })
-      .addCase(
-        fetchRegister.fulfilled,
-        (state, action: PayloadAction<OneUser>) => {
-          state.data = action.payload;
-          state.status = "loaded";
-        }
-      )
-      .addCase(fetchRegister.rejected, (state) => {
+      .addCase(fetchRegister.fulfilled, (state, action: PayloadAction<OneUser>) => {
+        state.data = action.payload;
+        state.status = "loaded";
+      })
+      .addCase(fetchRegister.rejected, (state, action) => {
         state.data = null;
         state.status = "error";
+        state.error = action.error.message;
       });
   },
 });
 
-export const selectIsAuth = (state: RootState) => Boolean(state.auth.data); // может здесь трабл с типами <===
+export const selectIsAuth = (state: RootState) => Boolean(state.auth.data);
+export const selectAuthError = (state: RootState) => state.auth.error; // Selector to access the error from the state
+
 export const { logout } = authSlice.actions;
 export const authReducer = authSlice.reducer;

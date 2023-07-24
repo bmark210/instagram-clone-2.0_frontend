@@ -1,4 +1,4 @@
-import { NavLink, Route, Routes, useParams } from "react-router-dom";
+import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import PublicationIcon from "../components/common/icons/Publication/PublicationIcon";
 import SettingsIcon from "../components/common/icons/Settings/SettingsIcon";
 import PublicationActiveIcon from "../components/common/icons/Publication/PublicationActiveIcon";
@@ -11,29 +11,35 @@ import { fetchUserByUsername } from "../api/endpoints/users";
 import { OneUser, User } from "../types/user/user";
 import { RootState } from "../redux/store";
 import defaultAvatar from "../assets/avatars/default_avatar.jpg";
-import { fetchPostsByUserId } from "../api/endpoints/posts";
-import Publications from "../components/Publications";
-import Saved from "../components/Saved";
-import Tagged from "../components/Tagged";
-import Modal from "../components/Modal";
-import CreateAvatar from "../components/CreateAvatar";
+import Modal from "../components/common/modals/Modal";
+import CreateAvatar from "../components/modals/createAvatar/CreateAvatar";
 import {
   updateFollowersByUserId,
   updateFollowingsByUserId,
 } from "../api/serveses/follows/setFollowing";
 import ContentLoader from "react-content-loader";
-import { useAppSelector } from "../redux/hooks";
-import { OnePost } from "../types/post/post";
+import { useAppDispach, useAppSelector } from "../redux/hooks";
+import { openModal } from "../redux/slices/modal";
+import Footer from "../components/publications/Footer";
 
 const Profile = () => {
   const currentUser: User | null = useAppSelector(
-    (state: RootState) => state.auth
+    (state: RootState) => state.auth,
   );
-  const [isOpenCreateAvatarModal, setIsOpenCreateAvatarModal] = useState(false);
+  const navigate = useNavigate();
+
   const { username } = useParams<{ username: string }>();
   const [user, setUser] = useState<null | OneUser>(null);
-  const [posts, setPosts] = useState([] as OnePost[]);
-  console.log("posts", posts);
+
+  const avatarModalIsOpen = useAppSelector(
+    (state: RootState) => state.modals.avatarModal,
+  );
+  const dispatch = useAppDispach();
+
+  const handleOpenModal = (modalName: string) => {
+    dispatch(openModal(modalName));
+    console.log(modalName);
+  };
 
   const [followersLength, setFollowersLength] = useState<number | undefined>();
   const [isFollowing, setIsFollowing] = useState(false);
@@ -41,9 +47,17 @@ const Profile = () => {
   useEffect(() => {
     if (currentUser?.data && username) {
       if (username !== currentUser.data.username) {
-        fetchUserByUsername(username).then((res) => {
-          setUser(res.data);
-        });
+        fetchUserByUsername(username)
+          .then((res) => {
+            if (res.data === null) {
+              navigate("/not-found");
+            } else {
+              setUser(res.data);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       } else {
         setUser(currentUser.data);
       }
@@ -53,19 +67,7 @@ const Profile = () => {
   const isCurrentUser = currentUser && username === currentUser.data?.username;
 
   useEffect(() => {
-    const fetchData = async () => {
-      setFollowersLength(user?.followers.length);
-      try {
-        if (user) {
-          const data = await fetchPostsByUserId(user._id);
-          setPosts(data);
-          console.log(data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
+    setFollowersLength(user?.followers.length);
   }, [user]);
 
   function handleImageError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
@@ -75,7 +77,7 @@ const Profile = () => {
 
   function handleImageClick() {
     if (isCurrentUser) {
-      setIsOpenCreateAvatarModal(true);
+      handleOpenModal("avatarModal");
     }
   }
 
@@ -93,180 +95,189 @@ const Profile = () => {
       setIsFollowing(true);
     }
   }, [user, currentUser]);
-  if (user === null || user?.followers === undefined || posts === undefined) {
+  if (user === null || user.followers === undefined) {
     return (
-      <div className="flex min-w-max flex-row w-3/4 mx-auto pb-10 mt-10 px-20 border-b border-gray-primary">
-        <ContentLoader viewBox="0 0 900 180" height={180} width={900} speed={2}>
-          <circle cx="160" cy="80" r="75" />
-          <rect x="320" y="10" rx="3" ry="3" width="125.5" height="17" />
-          <rect x="320" y="45" rx="3" ry="3" width="296" height="17" />
-          <rect x="320" y="80" rx="3" ry="3" width="253.5" height="17" />
-          <rect x="320" y="120" rx="3" ry="3" width="212.5" height="17" />
-        </ContentLoader>
+      <div className="w-full">
+        <div className="mx-auto mt-10 flex w-3/4 min-w-max flex-row border-b border-gray-primary px-10 pb-3">
+          <ContentLoader
+            viewBox="0 0 900 180"
+            height={180}
+            width={900}
+            speed={2}
+          >
+            <circle cx="125" cy="80" r="75" />
+            <rect x="270" y="10" rx="3" ry="3" width="125.5" height="17" />
+            <rect x="270" y="45" rx="3" ry="3" width="296" height="17" />
+            <rect x="270" y="80" rx="3" ry="3" width="253.5" height="17" />
+            <rect x="270" y="120" rx="3" ry="3" width="212.5" height="17" />
+          </ContentLoader>
+        </div>
       </div>
     );
   }
-  console.log(followersLength);
 
   return (
-    <div className="w-full">
-      <div className="flex min-w-max flex-row w-3/4 mx-auto pb-10 mt-10 px-20 border-b border-gray-primary">
-        <img
-          className={`${
-            isCurrentUser && "cursor-pointer"
-          } rounded-full w-36 h-36 mr-20 object-cover`}
-          src={
-            user?.avatar?.downloadURL
-              ? user?.avatar?.downloadURL
-              : defaultAvatar
-          }
-          alt="avatar"
-          onError={handleImageError}
-          onClick={handleImageClick}
-        />
-        <div className="flex flex-col">
-          <div className="flex flex-row items-center mb-5">
-            <p className="text-xl font-normal mr-6">{user?.username}</p>
-            {isCurrentUser ? (
-              <>
-                <NavLink
-                  to={"/settings/edit"}
-                  className="font-xl mr-5 hover:bg-gray-primary bg-gray-200 px-4 py-1 rounded-lg"
-                >
-                  Edit profile
-                </NavLink>
-                <button className="cursor-no-drop">
-                  <SettingsIcon />
-                </button>
-              </>
-            ) : (
-              <div className="flex flex-row gap-2">
-                {isFollowing ? (
-                  <button
-                    onClick={setFollow}
-                    className="px-5 py-1 rounded-lg bg-gray-200 font-medium text-black-dark"
+    <div className="flex w-full flex-col items-center">
+      <div className="w-full overflow-y-auto">
+        <div className="mx-auto mt-10 flex w-3/4 min-w-max flex-row border-b border-gray-primary px-20 pb-10">
+          <img
+            className={`${
+              isCurrentUser && "cursor-pointer"
+            } mr-20 h-36 w-36 rounded-full object-cover`}
+            src={
+              user?.avatar?.downloadURL
+                ? user?.avatar?.downloadURL
+                : defaultAvatar
+            }
+            alt="avatar"
+            onError={handleImageError}
+            onClick={handleImageClick}
+          />
+          <div className="flex flex-col">
+            <div className="mb-5 flex flex-row items-center">
+              <p className="mr-6 text-xl font-normal">{user?.username}</p>
+              {isCurrentUser ? (
+                <>
+                  <NavLink
+                    to={"/settings/edit"}
+                    className="font-xl mr-5 rounded-lg bg-gray-200 px-4 py-1 hover:bg-gray-primary"
                   >
-                    Following
+                    Edit profile
+                  </NavLink>
+                  <button className="cursor-no-drop">
+                    <SettingsIcon />
                   </button>
-                ) : (
-                  <button
-                    onClick={setFollow}
-                    className="px-5 py-1 rounded-lg bg-blue-primary font-medium text-white"
-                  >
-                    Follow
+                </>
+              ) : (
+                <div className="flex flex-row gap-2">
+                  {isFollowing ? (
+                    <button
+                      onClick={setFollow}
+                      className="rounded-lg bg-gray-200 px-5 py-1 font-medium text-black-dark"
+                    >
+                      Following
+                    </button>
+                  ) : (
+                    <button
+                      onClick={setFollow}
+                      className="rounded-lg bg-blue-primary px-5 py-1 font-medium text-white"
+                    >
+                      Follow
+                    </button>
+                  )}
+                  <button className="cursor-no-drop rounded-lg bg-gray-200 px-5 py-1 font-medium text-black-dark">
+                    Message
                   </button>
-                )}
-                <button className="px-5 py-1 rounded-lg bg-gray-200 font-medium cursor-no-drop text-black-dark">
-                  Message
-                </button>
+                </div>
+              )}
+            </div>
+            <div className="mb-4 flex w-3/4 flex-row items-center gap-6">
+              <div className="flex flex-row">
+                <span className="mr-1 font-medium">{user.postsLength}</span>
+                <p className="text-base font-normal ">
+                  {user.postsLength > 1 ? "posts" : "post"}
+                </p>
               </div>
-            )}
-          </div>
-          <div className="flex flex-row w-3/4 items-center mb-4 gap-6">
-            <div className="flex flex-row">
-              <span className="font-medium mr-1">{posts?.length}</span>
-              <p className="text-base font-normal ">posts</p>
+              <div className="flex flex-row">
+                <span className="mr-1 font-medium">{followersLength}</span>
+                <p className="text-base font-normal">
+                  {followersLength === 1 ? "follower" : "followers"}
+                </p>
+              </div>
+              <div className="flex flex-row">
+                <span className="mr-1 font-medium">
+                  {user?.following.length}
+                </span>
+                <p className="text-base font-normal">following</p>
+              </div>
             </div>
-            <div className="flex flex-row">
-              <span className="font-medium mr-1">{followersLength}</span>
-              <p className="text-base font-normal">followers</p>
+            <div>
+              <p className="text-base font-medium">{user?.fullName}</p>
             </div>
-            <div className="flex flex-row">
-              <span className="font-medium mr-1">{user?.following.length}</span>
-              <p className="text-base font-normal">following</p>
+            <div>
+              {user?.bio && <p className="w-96 text-sm">{user?.bio}</p>}
             </div>
           </div>
-          <div>
-            <p className="text-base font-medium">{user?.fullName}</p>
-          </div>
-          <div>{user?.bio && <p className="text-sm w-96">{user?.bio}</p>}</div>
         </div>
-      </div>
-      <div className="w-1/3 mx-auto mb-5 flex flex-row items-center justify-center">
-        <NavLink
-          to={`/${user?.username}/`}
-          className={({ isActive }) =>
-            `${
-              isActive ? "border-t border-black-dark pt-1" : ""
-            } flex flex-row items-center pt-5 mx-5`
-          }
-        >
-          {({ isActive }: { isActive: boolean }) => (
-            <>
-              {isActive ? <PublicationActiveIcon /> : <PublicationIcon />}
-              <p
-                className={`${
-                  isActive ? "text-black-dark" : ""
-                }text-gray-500 text-xs font-medium ml-2`}
-              >
-                POSTS
-              </p>
-            </>
-          )}
-        </NavLink>
-        {isCurrentUser && (
+        <div className="mx-auto mb-5 flex w-1/3 flex-row items-center justify-center">
           <NavLink
-            to={`/${user?.username}/saved/`}
+            to={`/${user?.username}/`}
             className={({ isActive }) =>
               `${
-                isActive ? "border-t border-black-dark" : ""
-              } flex flex-row items-center pt-5 mx-5`
+                isActive ? "border-t border-black-dark pt-1" : ""
+              } mx-5 flex flex-row items-center pt-5`
             }
           >
             {({ isActive }: { isActive: boolean }) => (
               <>
-                {isActive ? <SavedActiveIcon /> : <SavedIcon />}
+                {isActive ? <PublicationActiveIcon /> : <PublicationIcon />}
                 <p
                   className={`${
                     isActive ? "text-black-dark" : ""
-                  }text-gray-500 text-xs font-medium ml-2`}
+                  }text-gray-500 ml-2 text-xs font-medium`}
                 >
-                  SAVED
+                  POSTS
                 </p>
               </>
             )}
           </NavLink>
-        )}
-        <NavLink
-          to={`/${user?.username}/tagged/`}
-          className={({ isActive }) =>
-            `${
-              isActive ? "border-t border-black-dark" : ""
-            } flex flex-row items-center pt-5 mx-5`
-          }
-        >
-          {({ isActive }: { isActive: boolean }) => (
-            <>
-              {isActive ? <TaggedActiveIcon /> : <TaggedIcon />}
-              <p
-                className={`${
-                  isActive ? "text-black-dark" : ""
-                }text-gray-500 text-xs font-medium ml-2`}
-              >
-                TAGGED
-              </p>
-            </>
+          {isCurrentUser && (
+            <NavLink
+              to={`/${user?.username}/saved/`}
+              className={({ isActive }) =>
+                `${
+                  isActive ? "border-t border-black-dark" : ""
+                } mx-5 flex flex-row items-center pt-5`
+              }
+            >
+              {({ isActive }: { isActive: boolean }) => (
+                <>
+                  {isActive ? <SavedActiveIcon /> : <SavedIcon />}
+                  <p
+                    className={`${
+                      isActive ? "text-black-dark" : ""
+                    }text-gray-500 ml-2 text-xs font-medium`}
+                  >
+                    SAVED
+                  </p>
+                </>
+              )}
+            </NavLink>
           )}
-        </NavLink>
-      </div>
-      <div className="w-3/4 mx-auto">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Publications posts={posts} isCurrentUser={isCurrentUser} />
+          <NavLink
+            to={`/${user?.username}/tagged/`}
+            className={({ isActive }) =>
+              `${
+                isActive ? "border-t border-black-dark" : ""
+              } mx-5 flex flex-row items-center pt-5`
             }
-          />
-          <Route path="/saved" element={<Saved />} />
-          <Route path="/tagged" element={<Tagged />} />
-        </Routes>
+          >
+            {({ isActive }: { isActive: boolean }) => (
+              <>
+                {isActive ? <TaggedActiveIcon /> : <TaggedIcon />}
+                <p
+                  className={`${
+                    isActive ? "text-black-dark" : ""
+                  }text-gray-500 ml-2 text-xs font-medium`}
+                >
+                  TAGGED
+                </p>
+              </>
+            )}
+          </NavLink>
+        </div>
+        <div className="mx-auto w-3/4">
+          <Outlet />
+        </div>
       </div>
-      <Modal
-        isOpen={isOpenCreateAvatarModal}
-        setIsOpen={setIsOpenCreateAvatarModal}
-      >
-        <CreateAvatar />
-      </Modal>
+      {avatarModalIsOpen && (
+        <Modal isOpen={avatarModalIsOpen}>
+          <CreateAvatar />
+        </Modal>
+      )}
+      <div className="my-10">
+        <Footer />
+      </div>
     </div>
   );
 };

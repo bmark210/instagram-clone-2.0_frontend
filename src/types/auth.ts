@@ -1,6 +1,7 @@
 export type LoginParams = {
   email: string;
   password: string;
+  error?: string[];
 };
 export type RegisterParams = {
   fullName: string;

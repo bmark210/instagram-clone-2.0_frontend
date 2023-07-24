@@ -1,4 +1,4 @@
-import axios from "../../axios";
+import axios from "../../Axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Posts } from "../../types/post/post";
 
@@ -16,9 +16,9 @@ const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchPosts.pending, (state) => {
+      .addCase(fetchPosts.pending, state => {
         state.items = [];
         state.status = "loading";
       })
@@ -26,7 +26,7 @@ const postsSlice = createSlice({
         state.items = action.payload;
         state.status = "loaded";
       })
-      .addCase(fetchPosts.rejected, (state) => {
+      .addCase(fetchPosts.rejected, state => {
         state.items = [];
         state.status = "error";
       });

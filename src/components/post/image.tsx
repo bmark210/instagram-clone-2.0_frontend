@@ -1,12 +1,10 @@
-import { FC } from "react";
-
-interface ImageProps {
+interface Props {
   photoUrl: string;
   caption?: string;
 }
 
-const Image: FC<ImageProps> = ({ photoUrl, caption }) => {
-  return <img className="w-full max-h-[611px] rounded" src={photoUrl} alt={caption} />;
+const Image = ({ photoUrl, caption }: Props) => {
+  return <img className="max-h-[611px] w-full rounded" src={photoUrl} alt={caption} />;
 };
 
 export default Image;

@@ -19,25 +19,11 @@ const MetaIcon = () => {
           <stop offset=".21" stopColor="#0278F1"></stop>
           <stop offset=".533" stopColor="#0180FA"></stop>
         </linearGradient>
-        <linearGradient
-          gradientUnits="userSpaceOnUse"
-          id="c"
-          x1="44"
-          x2="0"
-          y1="5"
-          y2="64"
-        >
+        <linearGradient gradientUnits="userSpaceOnUse" id="c" x1="44" x2="0" y1="5" y2="64">
           <stop offset=".427" stopColor="#0165E0"></stop>
           <stop offset=".917" stopColor="#0180FA"></stop>
         </linearGradient>
-        <linearGradient
-          gradientUnits="userSpaceOnUse"
-          id="d"
-          x1="28.5"
-          x2="135"
-          y1="29"
-          y2="72"
-        >
+        <linearGradient gradientUnits="userSpaceOnUse" id="d" x1="28.5" x2="135" y1="29" y2="72">
           <stop stopColor="#0064E0"></stop>
           <stop offset=".656" stopColor="#0066E2"></stop>
           <stop offset="1" stopColor="#0278F1"></stop>

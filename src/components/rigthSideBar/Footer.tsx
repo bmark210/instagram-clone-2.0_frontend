@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Footer = () => {
-  const [footerParams, setFooterParams] = useState([
+  const [footerParams] = useState([
     {
       id: 1,
       caption: "About",
@@ -56,20 +56,18 @@ const Footer = () => {
 
   return (
     <>
-      <div className="w-80 mt-8 text-xs flex flex-wrap">
-        {footerParams.map((item) => {
+      <div className="mt-8 flex w-80 flex-wrap text-xs">
+        {footerParams.map(item => {
           return (
             <div key={item.id} className="text-gray-400 ">
-              <a className="hover:underline mx-1" href={item.link}>
+              <a className="mx-1 hover:underline" href={item.link}>
                 {item.caption}
               </a>
               ·
             </div>
           );
         })}
-        <span className="mx-1 text-gray-400 mt-5">
-          Verified © 2023 INSTAGRAM FROM META
-        </span>
+        <span className="mx-1 mt-5 text-gray-400">Verified © 2023 INSTAGRAM FROM META</span>
       </div>
     </>
   );

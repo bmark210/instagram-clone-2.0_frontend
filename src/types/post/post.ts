@@ -1,8 +1,9 @@
-import { User } from "../user/user";
+import { OneUser } from "../user/user";
 
-type Comment = {
+export type Comment = {
+  _id: string;
   comment: string;
-  userId: string;
+  user: OneUser;
 };
 
 export type OnePost = {
@@ -12,11 +13,12 @@ export type OnePost = {
     downloadURL: string;
     type: string;
   };
-  text: string;
+  caption: string;
   place: string;
   comments: Comment[];
+  commentsLength: number;
   likes: string[];
-  user: User;
+  user: OneUser;
   createdAt: string;
   updatedAt: string;
 };

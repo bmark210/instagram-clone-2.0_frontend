@@ -13,13 +13,11 @@ const UserForm = ({ user }: Props) => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
   }
-  console.log(user, "user");
-  
   const usersIsLoading = user.status === "loading";
 
   if (usersIsLoading) {
     return (
-      <ContentLoader className="w-80 h-14 flex mr-3">
+      <ContentLoader className="mr-3 flex h-14 w-80">
         <circle cx="30" cy="28" r="28" />
         <rect x="80" y="3" rx="3" ry="3" width="70" height="10" />
         <rect x="80" y="25" rx="3" ry="3" width="140" height="10" />
@@ -29,24 +27,17 @@ const UserForm = ({ user }: Props) => {
   }
 
   return (
-    <Link
-      to={`/${user.data?.username}/`}
-      className="flex flex-row items-center"
-    >
-      <div className="flex items-center justify-between col-span-1">
+    <Link to={`/${user.data?.username}/`} className="flex flex-row items-center">
+      <div className="col-span-1 flex items-center justify-between">
         <img
-          className="rounded-full w-14 h-14 object-cover"
+          className="h-14 w-14 rounded-full object-cover"
           onError={handleImageError}
-          src={
-            user.data?.avatar?.downloadURL
-              ? user.data?.avatar?.downloadURL
-              : defaultAvatar
-          }
+          src={user.data?.avatar?.downloadURL ? user.data?.avatar?.downloadURL : defaultAvatar}
           alt="avatar"
         />
       </div>
-      <div className="ml-4 col-span-2">
-        <p className="font-bold text-sm">{user.data?.username}</p>
+      <div className="col-span-2 ml-4">
+        <p className="text-sm font-bold">{user.data?.username}</p>
         <p className="text-sm text-gray-500">{user.data?.fullName}</p>
       </div>
     </Link>
