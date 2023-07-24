@@ -1,4 +1,4 @@
-import axios from "../../../Axios";
+import axios from "../../../axios";
 
 export async function setPostLiked(postId: string) {
   const data = await axios.patch(`/posts`, { postId });

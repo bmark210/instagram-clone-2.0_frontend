@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import axios from "../../../Axios";
+import axios from "../../../axios";
 import PagePreloader from "../../common/loaders/PagePreloader";
 import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/slices/modal";

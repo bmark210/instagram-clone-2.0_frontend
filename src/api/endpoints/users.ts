@@ -1,4 +1,4 @@
-import axios from "../../Axios";
+import axios from "../../axios";
 export async function fetchUserByUsername(username: string) {
   const data = await axios.get("/users/username/" + username);
   console.log("data", data);
