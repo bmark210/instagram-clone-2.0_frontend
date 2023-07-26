@@ -5,6 +5,7 @@ import { useAppDispach, useAppSelector } from "../../redux/hooks";
 import { openModal } from "../../redux/slices/modal";
 
 const EditProfile = () => {
+  
   const user = useAppSelector(state => state.auth.data);
   const dispatch = useAppDispach();
   function handleImageError(e: React.SyntheticEvent<HTMLImageElement, Event>) {

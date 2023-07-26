@@ -11,7 +11,7 @@ interface CommentsProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   user: OneUser;
-  currentUser: OneUser;
+  currentUser: OneUser | null;
 }
 
 const Comments = ({ post, commentsLength, setIsOpen, currentUser, user }: CommentsProps) => {

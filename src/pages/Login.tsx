@@ -18,7 +18,7 @@ const Login = () => {
     if (isAuth) {
       navigate("/", { replace: true });
     }
-  }, []);
+  }, [isAuth]);
 
   const [data, setData] = useState<LoginParams>({
     email: "baltenco@yandex.ru",

@@ -1,8 +1,8 @@
-import Header from "./header";
-import Image from "./image";
-import Comments from "./comments";
+import Header from "./Header";
+import Image from "./Image";
+import Comments from "./Comments";
 import { useState } from "react";
-import Actions from "./actions";
+import Actions from "./Actions";
 import Footer from "./Footer";
 import { OneUser } from "../../types/user";
 import { OnePost } from "../../types/post";

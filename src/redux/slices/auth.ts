@@ -2,6 +2,7 @@ import axios from "../../axios";
 import { createSlice, createAsyncThunk, AnyAction } from "@reduxjs/toolkit";
 import { LoginParams, RegisterParams } from "../../types/auth";
 import { RootState } from "../store";
+import { UserData } from "../../types/user";
 
 export const fetchLogin = createAsyncThunk("auth/fetchLogin", async (params: LoginParams) => {
   const { data } = await axios.post("/auth/login", params);
@@ -21,7 +22,7 @@ export const fetchAuth = createAsyncThunk("auth/fetchAuth", async () => {
   return data;
 });
 
-const initialState = {
+const initialState: UserData = {
   data: null,
   status: "loading",
   error: undefined,

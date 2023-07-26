@@ -1,7 +1,7 @@
 import { Comment, OnePost } from "../../types/post";
 import { OneUser } from "../../types/user";
 import { getTimeDifferenceInFullWords } from "../../utils/getTimeDifference";
-import Header from "../post/header";
+import Header from "../post/Header";
 import PostModalCommentItem from "./PostModalCommentItem";
 import { useEffect, useState, useRef } from "react";
 import { getComments } from "../../api/serveses/comments/setComment";
@@ -15,7 +15,7 @@ interface Props {
   setLikesLength: React.Dispatch<React.SetStateAction<number>>;
   toggleLiked: boolean;
   setToggleLiked: React.Dispatch<React.SetStateAction<boolean>>;
-  currentUser: OneUser;
+  currentUser: OneUser | null;
 }
 
 const PostModal = ({
@@ -81,8 +81,8 @@ const PostModal = ({
             comments.map((item, index) => (
               <PostModalCommentItem
                 key={index}
-                avatar={item.user.avatar?.downloadURL}
-                username={item.user.username}
+                avatar={item.user?.avatar?.downloadURL}
+                username={item.user?.username}
                 text={item.comment}
               />
             ))
@@ -91,7 +91,7 @@ const PostModal = ({
             <PostModalCommentItem
               text={commentItem.comment}
               avatar={commentItem.user?.avatar?.downloadURL}
-              username={commentItem.user.username}
+              username={commentItem.user?.username}
             />
           )}
         </div>

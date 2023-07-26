@@ -2,7 +2,7 @@ import { OneUser } from "./user";
 
 export interface Comment {
   comment: string;
-  user: OneUser;
+  user: OneUser | null;
 }
 
 export interface OnePost {

@@ -77,11 +77,11 @@ export const router = createBrowserRouter([
                 element: <Navigate to="/settings/edit" />,
               },
               {
-                path: "edit",
+                path: "/edit",
                 element: <EditProfile />,
               },
               {
-                path: "manage_access",
+                path: "/manage_access",
                 element: <AppsAndWebsites />,
               },
             ],

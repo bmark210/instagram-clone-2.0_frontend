@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import defaultAvatar from "../../assets/avatars/default_avatar.jpg";
 
 type Props = {
-  avatar: string;
-  username: string;
+  avatar?: string;
+  username?: string;
   text: string;
 };
 
