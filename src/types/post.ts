@@ -1,12 +1,11 @@
-import { OneUser } from "../user/user";
+import { OneUser } from "./user";
 
-export type Comment = {
-  _id: string;
+export interface Comment {
   comment: string;
   user: OneUser;
-};
+}
 
-export type OnePost = {
+export interface OnePost {
   _id: string;
   image: {
     name: string;
@@ -21,9 +20,9 @@ export type OnePost = {
   user: OneUser;
   createdAt: string;
   updatedAt: string;
-};
+}
 
-export type Posts = {
+export interface Posts {
   items: OnePost[];
   status: string;
-};
+}

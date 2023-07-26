@@ -1,7 +1,7 @@
-import { Comment, OnePost } from "../../types/post/post";
-import { OneUser } from "../../types/user/user";
+import { Comment, OnePost } from "../../types/post";
+import { OneUser } from "../../types/user";
 import { getTimeDifferenceInFullWords } from "../../utils/getTimeDifference";
-import Header from "../post/Header";
+import Header from "../post/header";
 import PostModalCommentItem from "./PostModalCommentItem";
 import { useEffect, useState, useRef } from "react";
 import { getComments } from "../../api/serveses/comments/setComment";
@@ -15,7 +15,7 @@ interface Props {
   setLikesLength: React.Dispatch<React.SetStateAction<number>>;
   toggleLiked: boolean;
   setToggleLiked: React.Dispatch<React.SetStateAction<boolean>>;
-  currentUser: OneUser | null;
+  currentUser: OneUser;
 }
 
 const PostModal = ({

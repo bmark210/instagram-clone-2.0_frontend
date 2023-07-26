@@ -1,13 +1,10 @@
 import axios from "../../axios";
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, AnyAction } from "@reduxjs/toolkit";
 import { LoginParams, RegisterParams } from "../../types/auth";
 import { RootState } from "../store";
-import { OneUser, UserData } from "../../types/user/user";
 
 export const fetchLogin = createAsyncThunk("auth/fetchLogin", async (params: LoginParams) => {
   const { data } = await axios.post("/auth/login", params);
-  console.log(data);
-
   return data;
 });
 
@@ -24,7 +21,7 @@ export const fetchAuth = createAsyncThunk("auth/fetchAuth", async () => {
   return data;
 });
 
-const initialState: UserData = {
+const initialState = {
   data: null,
   status: "loading",
   error: undefined,
@@ -44,11 +41,11 @@ const authSlice = createSlice({
         state.data = null;
         state.status = "loading";
       })
-      .addCase(fetchLogin.fulfilled, (state, action: PayloadAction<OneUser>) => {
+      .addCase(fetchLogin.fulfilled, (state, action: AnyAction) => {
         state.data = action.payload;
         state.status = "loaded";
       })
-      .addCase(fetchLogin.rejected, (state, action) => {
+      .addCase(fetchLogin.rejected, (state, action: AnyAction) => {
         state.data = null;
         state.status = "error";
         state.error = action.error.message;
@@ -57,7 +54,7 @@ const authSlice = createSlice({
         state.data = null;
         state.status = "loading";
       })
-      .addCase(fetchAuth.fulfilled, (state, action: PayloadAction<OneUser>) => {
+      .addCase(fetchAuth.fulfilled, (state, action: AnyAction) => {
         state.data = action.payload;
         state.status = "loaded";
       })
@@ -69,11 +66,11 @@ const authSlice = createSlice({
         state.data = null;
         state.status = "loading";
       })
-      .addCase(fetchRegister.fulfilled, (state, action: PayloadAction<OneUser>) => {
+      .addCase(fetchRegister.fulfilled, (state, action: AnyAction) => {
         state.data = action.payload;
         state.status = "loaded";
       })
-      .addCase(fetchRegister.rejected, (state, action) => {
+      .addCase(fetchRegister.rejected, (state, action: AnyAction) => {
         state.data = null;
         state.status = "error";
         state.error = action.error.message;
@@ -82,7 +79,7 @@ const authSlice = createSlice({
 });
 
 export const selectIsAuth = (state: RootState) => Boolean(state.auth.data);
-export const selectAuthError = (state: RootState) => state.auth.error; // Selector to access the error from the state
+export const selectAuthError = (state: RootState) => state.auth.error;
 
 export const { logout } = authSlice.actions;
 export const authReducer = authSlice.reducer;

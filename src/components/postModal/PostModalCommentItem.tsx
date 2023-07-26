@@ -3,7 +3,7 @@ import defaultAvatar from "../../assets/avatars/default_avatar.jpg";
 
 type Props = {
   avatar: string;
-  username?: string;
+  username: string;
   text: string;
 };
 

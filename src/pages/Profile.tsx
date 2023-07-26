@@ -8,7 +8,7 @@ import TaggedActiveIcon from "../components/common/icons/Tagged/TaggedActiveIcon
 import TaggedIcon from "../components/common/icons/Tagged/TaggedIcon";
 import { useEffect, useState } from "react";
 import { fetchUserByUsername } from "../api/endpoints/users";
-import { OneUser, User } from "../types/user/user";
+import { OneUser, UserData } from "../types/user";
 import { RootState } from "../redux/store";
 import defaultAvatar from "../assets/avatars/default_avatar.jpg";
 import Modal from "../components/common/modals/Modal";
@@ -23,7 +23,7 @@ import { openModal } from "../redux/slices/modal";
 import Footer from "../components/publications/Footer";
 
 const Profile = () => {
-  const currentUser: User | null = useAppSelector(
+  const currentUser: UserData = useAppSelector(
     (state: RootState) => state.auth,
   );
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ const Profile = () => {
   const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
-    if (currentUser?.data && username) {
+    if (currentUser.data && username) {
       if (username !== currentUser.data.username) {
         fetchUserByUsername(username)
           .then((res) => {

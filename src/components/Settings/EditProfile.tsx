@@ -7,11 +7,13 @@ import { openModal } from "../../redux/slices/modal";
 const EditProfile = () => {
   const user = useAppSelector(state => state.auth.data);
   const dispatch = useAppDispach();
-
   function handleImageError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
   }
+  const handleOpenModal = (modalName: string) => {
+    dispatch(openModal(modalName));
+  };
 
   const [bio, setBio] = useState("");
   const isValid = bio !== "";
@@ -20,10 +22,6 @@ const EditProfile = () => {
     await addCaption(bio);
     setBio("");
     window.location.reload();
-  };
-
-  const handleOpenModal = () => {
-    dispatch(openModal("avatarModal"));
   };
 
   return (
@@ -38,7 +36,10 @@ const EditProfile = () => {
         />
         <div className="flex flex-col">
           <p>{user?.username}</p>
-          <button onClick={handleOpenModal} className="text-sm font-medium text-blue-primary">
+          <button
+            onClick={() => handleOpenModal("create")}
+            className="text-sm font-medium text-blue-primary"
+          >
             Change profile photo
           </button>
         </div>

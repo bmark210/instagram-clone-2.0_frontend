@@ -1,10 +1,10 @@
-import UserForm from "./User";
+import UserForm from "./UserForm";
 import Suggestions from "./Suggestions";
 import Footer from "./Footer";
-import { User } from "../../types/user/user";
+import { UserData } from "../../types/user";
 
 interface Props {
-  user: User;
+  user: UserData;
 }
 
 const RigthSideBar = ({ user }: Props) => {

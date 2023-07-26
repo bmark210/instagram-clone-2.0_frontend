@@ -1,11 +1,11 @@
-import Header from "./Header";
-import Image from "./Image";
-import Comments from "./Comments";
+import Header from "./header";
+import Image from "./image";
+import Comments from "./comments";
 import { useState } from "react";
-import Actions from "./Actions";
+import Actions from "./actions";
 import Footer from "./Footer";
-import { OneUser } from "../../types/user/user";
-import { OnePost } from "../../types/post/post";
+import { OneUser } from "../../types/user";
+import { OnePost } from "../../types/post";
 import { useAppSelector } from "../../redux/hooks";
 import Modal from "../common/modals/Modal";
 import PostModal from "../postModal";

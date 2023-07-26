@@ -10,7 +10,7 @@ import InstagramLoader from "./components/common/loaders/InstagramLoader.tsx";
 import Saved from "./pages/Saved.tsx";
 import Tagged from "./pages/Tagged.tsx";
 import Explore from "./pages/Explore.tsx";
-import AuthProtection from "./AuthSecurity.tsx";
+import AuthProtection from "./security/AuthSecurity.tsx";
 import Settings from "./pages/Settings.tsx";
 import EditProfile from "./components/settings/EditProfile.tsx";
 import AppsAndWebsites from "./components/settings/AppsAndWebsites.tsx";
@@ -21,6 +21,7 @@ import NotFound from "./pages/NotFound.tsx";
 const MainLayout = loadable(() => pMinDelay(import("./layouts/MainLayout.tsx"), 400), {
   fallback: <InstagramLoader />,
 });
+
 export const router = createBrowserRouter([
   {
     path: "/",

@@ -3,7 +3,7 @@ import SuggestedProfile from "./SuggestedProfile";
 import { getAllSuggestions } from "../../api/serveses/suggestions/getSuggestions";
 import ContentLoader from "react-content-loader";
 import Footer from "./Footer";
-import { OneUser } from "../../types/user/user";
+import { OneUser } from "../../types/user";
 
 const AllSuggestions = () => {
   const [profiles, setProfiles] = useState([]);

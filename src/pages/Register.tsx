@@ -27,7 +27,7 @@ const Register = () => {
     event.preventDefault();
     const userData = await dispatch(fetchRegister(data));
     if (!userData.payload) {
-      alert("Не удалось авторизоваться");
+      console.log("Не удалось авторизоваться");
     } else if ("token" in userData.payload) {
       window.localStorage.setItem("token", userData.payload.token);
     }

@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { getAllSuggestions } from "../../api/serveses/suggestions/getSuggestions";
 import ContentLoader from "react-content-loader";
 import { Link } from "react-router-dom";
-import { OneUser } from "../../types/user/user";
-import SuggestedProfile from "../rigthSideBar/SuggestedProfile";
+import { OneUser } from "../../types/user";
+import SuggestedProfile from "./SuggestedProfile";
+ 
 
 const Suggestions = () => {
   const [profiles, setProfiles] = useState([]);

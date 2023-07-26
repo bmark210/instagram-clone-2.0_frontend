@@ -6,7 +6,7 @@ import MoreIcon from "./common/icons/More/MoreIcon";
 import SearchIcon from "./common/icons/Search/SearchIcon";
 import SearchActivIcon from "./common/icons/Search/SearchActivIcon";
 import defaultAvatar from "../assets/avatars/default_avatar.jpg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "./common/modals/Modal";
 import Create from "./modals/createPost/CreatePost";
 import HomeIconActive from "./common/icons/Home/HomeIconActive";
@@ -19,10 +19,14 @@ import { useAppDispach, useAppSelector } from "../redux/hooks";
 import { openModal } from "../redux/slices/modal";
 import BlackInstagramLogo from "./common/icons/Instagram/BlackInstagramLogo";
 import SearchModal from "./modals/search/SearchModal";
+import CreateAvatar from "./modals/createAvatar/CreateAvatar";
+import { RootState } from "../redux/store";
 
 const SideBar = () => {
   const isCreateModalOpen = useAppSelector(state => state.modals.createModal);
   const dispatch = useAppDispach();
+
+  const avatarModalIsOpen = useAppSelector((state: RootState) => state.modals.avatarModal);
 
   const handleOpenModal = (modalName: string) => {
     dispatch(openModal(modalName));
@@ -30,9 +34,7 @@ const SideBar = () => {
 
   const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<null | boolean>(null);
-  useEffect(() => {
-    console.log(isSearchModalOpen);
-  }, [isSearchModalOpen]);
+
   function handleImageError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
@@ -180,6 +182,11 @@ const SideBar = () => {
           isSearchModalOpen={isSearchModalOpen}
           setIsSearchModalOpen={setIsSearchModalOpen}
         />
+      )}
+      {avatarModalIsOpen && (
+        <Modal isOpen={avatarModalIsOpen}>
+          <CreateAvatar />
+        </Modal>
       )}
     </>
   );

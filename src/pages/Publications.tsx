@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CameraImage from "../assets/camera.png";
-import { OnePost } from "../types/post/post";
+import { OnePost } from "../types/post";
 import PostImage from "../components/publications/PostImage";
 import { fetchPostsByUserUsername } from "../api/endpoints/posts";
 import { useAppDispach, useAppSelector } from "../redux/hooks";

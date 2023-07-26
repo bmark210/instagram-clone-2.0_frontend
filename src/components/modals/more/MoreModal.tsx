@@ -6,7 +6,7 @@ import { useAppDispach } from "../../../redux/hooks";
 
 interface Props {
   setIsMoreModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  username?: string;
+  username: string;
 }
 
 const MoreModal = ({ setIsMoreModalOpen, username }: Props) => {

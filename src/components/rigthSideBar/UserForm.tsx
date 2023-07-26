@@ -2,10 +2,10 @@ import { SyntheticEvent } from "react";
 import defaultAvatar from "../../assets/avatars/default_avatar.jpg";
 import { Link } from "react-router-dom";
 import ContentLoader from "react-content-loader";
-import { User } from "../../types/user/user";
+import { UserData } from "../../types/user";
 
 interface Props {
-  user: User;
+  user: UserData;
 }
 
 const UserForm = ({ user }: Props) => {

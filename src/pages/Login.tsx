@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import home_phones from "../assets/images/instLigin.jpg";
 import InstagramLogoIcon from "../components/common/icons/Instagram/InstagramLogoIcon";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchLogin, selectIsAuth } from "../redux/slices/auth";
 import { LoginParams } from "../types/auth";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
@@ -30,13 +30,12 @@ const Login = () => {
     const userData = await dispatch(fetchLogin(data));
 
     if (!userData.payload) {
-      alert("Не удалось авторизоваться");
+      console.log("Не удалось авторизоваться");
     } else if ("token" in userData.payload) {
       window.localStorage.setItem("token", userData.payload.token);
     }
   };
 
-  if (isAuth) return <Navigate to="/feed" {...{ push: true }} />;
   return (
     <>
       <div className="w-1/4 min-w-max">

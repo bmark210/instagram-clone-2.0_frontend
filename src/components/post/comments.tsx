@@ -1,8 +1,8 @@
 import { useState } from "react";
 import AddComment from "./AddComment";
 import { Link } from "react-router-dom";
-import { Comment, OnePost } from "../../types/post/post";
-import { OneUser } from "../../types/user/user";
+import { Comment, OnePost } from "../../types/post";
+import { OneUser } from "../../types/user";
 
 interface CommentsProps {
   post: OnePost;
@@ -11,7 +11,7 @@ interface CommentsProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   user: OneUser;
-  currentUser: OneUser | null;
+  currentUser: OneUser;
 }
 
 const Comments = ({ post, commentsLength, setIsOpen, currentUser, user }: CommentsProps) => {

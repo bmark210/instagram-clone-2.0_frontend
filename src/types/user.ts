@@ -1,10 +1,10 @@
-type avatar = {
+interface avatar {
   downloadURL: string;
   name: string;
   type: string;
-};
+}
 
-export type OneUser = {
+export interface OneUser {
   _id: string;
   username: string;
   fullName: string;
@@ -14,10 +14,10 @@ export type OneUser = {
   bio: string;
   following: string[];
   followers: string[];
-};
+}
 
-export type UserData = {
+export interface UserData {
   data: OneUser | null;
   status: string;
   error?: string;
-};
+}

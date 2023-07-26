@@ -1,15 +1,15 @@
 import MediaIcon from "../../common/icons/MediaIcon";
 import React, { useRef, useState, useEffect } from "react";
 import axios from "../../../axios";
-import ContentLoader from "react-content-loader";
 import PlaceIcon from "../../common/icons/PlaceIcon";
 import defaultAvatar from "../../../assets/avatars/default_avatar.jpg";
-import { User } from "../../../types/user/user";
+import { UserData } from "../../../types/user";
 import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import { closeModal, openModal } from "../../../redux/slices/modal";
+import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
 
-type Fields = {
+interface Fields {
   image: {
     name: string;
     downloadURL: string;
@@ -17,7 +17,7 @@ type Fields = {
   } | null;
   text: string;
   place: string;
-};
+}
 
 const Create = () => {
   const dispatch = useAppDispach();
@@ -26,8 +26,8 @@ const Create = () => {
     dispatch(openModal(modalName));
   };
 
-  const currentUser: User | null = useAppSelector(state => state.auth);
-  const currentUserAvatarUrl = currentUser.data?.avatar?.downloadURL || defaultAvatar;
+  const currentUser: UserData = useAppSelector(state => state.auth);
+  const currentUserAvatarUrl = currentUser.data?.avatar.downloadURL || defaultAvatar;
 
   const navigate = useNavigate();
   const imageRef = useRef<HTMLInputElement>(null);
@@ -48,7 +48,6 @@ const Create = () => {
     if (isOpen === false) {
       setNextStep(false);
     }
-    console.log(isOpen);
   }, [isOpen]);
 
   const handleClose = () => {
@@ -76,6 +75,8 @@ const Create = () => {
         const file = e.target.files[0];
         formData.append("image", file);
         const { data } = await axios.post("/image", formData);
+        console.log(data);
+        
         setFields({ ...fields, image: data });
       }
     } catch (error) {
@@ -132,7 +133,7 @@ const Create = () => {
             <div className="mx-auto bg-gray-200">
               <img
                 className="h-[550px] w-full object-cover"
-                src={fields.image?.downloadURL}
+                src={fields.image.downloadURL}
                 alt="uploaded image"
               />
             </div>
@@ -167,18 +168,8 @@ const Create = () => {
           </div>
         </>
       ) : imageLoading ? (
-        <div className="py-20">
-          <ContentLoader
-            viewBox="0 0 400 160"
-            height={160}
-            width={400}
-            backgroundColor="transparent"
-            className="mx-auto"
-          >
-            <circle cx="150" cy="86" r="8" />
-            <circle cx="194" cy="86" r="8" />
-            <circle cx="238" cy="86" r="8" />
-          </ContentLoader>
+        <div className="flex items-center justify-center py-20">
+          <CircleLoader />
         </div>
       ) : (
         <>

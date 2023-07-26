@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { getPopularPosts } from "../api/endpoints/posts";
 import ContentLoader from "react-content-loader";
-import { OnePost } from "../types/post/post";
+import { OnePost } from "../types/post";
 import PostImage from "../components/publications/PostImage";
+import { useAppSelector } from "../redux/hooks";
+import { RootState } from "../redux/store";
 
 const Explore = () => {
+
+  const currentUser = useAppSelector((state: RootState) => state.auth.data);
   const [posts, setPosts] = useState<OnePost[]>([]);
 
   useEffect(() => {
@@ -28,7 +32,7 @@ const Explore = () => {
                 <rect width="100%" height="100%" />
               </ContentLoader>
             ))
-          : posts.map((post: OnePost) => <PostImage key={post._id} post={post} />)}
+          : posts.map((post: OnePost) => <PostImage currentUser={currentUser} key={post._id} post={post} />)}
       </div>
     </div>
   );
