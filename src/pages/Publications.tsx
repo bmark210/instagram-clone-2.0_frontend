@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CameraImage from "../assets/camera.png";
-import { OnePost } from "../types/post";
+import { OnePost } from "../interfaces/post";
 import PostImage from "../components/publications/PostImage";
 import { fetchPostsByUserUsername } from "../api/endpoints/posts";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
@@ -30,11 +30,9 @@ const Publications = () => {
     };
     fetchData();
   }, [username]);
-  console.log(posts);
 
   const currentUser = useAppSelector(state => state.auth.data);
   const isCurrentUser = currentUser?.username === username;
-  console.log(isCurrentUser);
 
   return (
     <>

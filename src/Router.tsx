@@ -6,8 +6,8 @@ import pMinDelay from "p-min-delay";
 
 import AuthProtection from "./security/AuthSecurity.tsx";
 import AllSuggestions from "./components/rigthSideBar/AllSuggestions.tsx";
-import EditProfile from "./components/settings/EditProfile.tsx";
-import AppsAndWebsites from "./components/settings/AppsAndWebsites.tsx";
+import EditProfile from "./components/Settings/EditProfile.tsx";
+import AppsAndWebsites from "./components/Settings/AppsAndWebsites.tsx";
 import InstagramLoader from "./components/common/loaders/InstagramLoader.tsx";
 
 import NotFound from "./pages/NotFound.tsx";
@@ -77,11 +77,11 @@ export const router = createBrowserRouter([
                 element: <Navigate to="/settings/edit" />,
               },
               {
-                path: "/edit",
+                path: "edit",
                 element: <EditProfile />,
               },
               {
-                path: "/manage_access",
+                path: "manage_access",
                 element: <AppsAndWebsites />,
               },
             ],

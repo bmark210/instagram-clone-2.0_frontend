@@ -76,7 +76,7 @@ const CreateAvatar = () => {
   return (
     <div
       onClick={e => e.stopPropagation()}
-      className="flex h-60 w-96 items-center justify-between rounded-2xl bg-white"
+      className="flex animate-showCreateAvatar h-60 w-96 items-center justify-between rounded-2xl bg-white"
     >
       <div className="grid h-full w-full">
         <h2 className="border-b border-gray-base pt-5 text-center text-xl">Change Profile Photo</h2>

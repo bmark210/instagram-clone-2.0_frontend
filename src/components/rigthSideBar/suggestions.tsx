@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllSuggestions } from "../../api/serveses/suggestions/getSuggestions";
 import ContentLoader from "react-content-loader";
 import { Link } from "react-router-dom";
-import { OneUser } from "../../types/user";
+import { OneUser } from "../../interfaces/user";
 import SuggestedProfile from "./SuggestedProfile";
  
 

@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import axios from "../../../axios";
 import PlaceIcon from "../../common/icons/PlaceIcon";
 import defaultAvatar from "../../../assets/avatars/default_avatar.jpg";
-import { UserData } from "../../../types/user";
+import { UserData } from "../../../interfaces/user";
 import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import { closeModal, openModal } from "../../../redux/slices/modal";
@@ -27,7 +27,7 @@ const Create = () => {
   };
 
   const currentUser: UserData = useAppSelector(state => state.auth);
-  const currentUserAvatarUrl = currentUser.data?.avatar.downloadURL || defaultAvatar;
+  const currentUserAvatarUrl = currentUser.data?.avatar?.downloadURL || defaultAvatar;
 
   const navigate = useNavigate();
   const imageRef = useRef<HTMLInputElement>(null);

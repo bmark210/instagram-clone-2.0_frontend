@@ -23,21 +23,21 @@ export default {
         },
         showRight: {
           "0%": {
-            // opacity: "0",
+            opacity: "0",
             transform: "translateX(-70px)",
           },
           "100%": {
-            // opacity: "1",
+            opacity: "1",
             transform: "translateX(0px)",
           },
         },
         showLeft: {
           "0%": {
-            // opacity: "0",
+            opacity: "0",
             transform: "translateX(50px)",
           },
           "100%": {
-            // opacity: "1",
+            opacity: "1",
             transform: "translateX(0px)",
           },
         },
@@ -57,6 +57,26 @@ export default {
             width: "12%",
           },
         },
+        showModal: {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+        showCreateAvatar: {
+          "0%": {
+            height: "40%",
+            width: "30%",
+            opacity: "0",
+          },
+          "100%": {
+            heigth: "25%",
+            width: "25%",
+            opacity: "1",
+          },
+        }
       },
       boxShadow: {
         right: "4px 0 6px -4px rgba(0, 0, 0, 0.3)",
@@ -67,6 +87,9 @@ export default {
         showLeft: "showLeft 0.2s ease-out",
         changeWidthIn: "changeWidthIn 0.2s ease-out",
         changeWidthOut: "changeWidthOut 0.2s ease-out",
+        showModal: "showModal 0.1s ease-out",
+        hideModal: "hideModal 0.1s ease-out",
+        showCreateAvatar: "showCreateAvatar 0.1s ease-out"
       },
       backdropOpacity: {
         50: "0.5",

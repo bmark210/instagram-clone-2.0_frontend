@@ -1,7 +1,7 @@
 import UserForm from "./UserForm";
 import Suggestions from "./Suggestions";
 import Footer from "./Footer";
-import { UserData } from "../../types/user";
+import { UserData } from "../../interfaces/user";
 
 interface Props {
   user: UserData;

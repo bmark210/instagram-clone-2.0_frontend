@@ -1,8 +1,8 @@
 import { useState } from "react";
 import AddComment from "./AddComment";
 import { Link } from "react-router-dom";
-import { Comment, OnePost } from "../../types/post";
-import { OneUser } from "../../types/user";
+import { Comment, OnePost } from "../../interfaces/post";
+import { OneUser } from "../../interfaces/user";
 
 interface CommentsProps {
   post: OnePost;

@@ -38,7 +38,7 @@ const EditProfile = () => {
         <div className="flex flex-col">
           <p>{user?.username}</p>
           <button
-            onClick={() => handleOpenModal("create")}
+            onClick={() => handleOpenModal("avatarModal")}
             className="text-sm font-medium text-blue-primary"
           >
             Change profile photo

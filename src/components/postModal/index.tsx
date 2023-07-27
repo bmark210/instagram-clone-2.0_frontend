@@ -1,5 +1,5 @@
-import { Comment, OnePost } from "../../types/post";
-import { OneUser } from "../../types/user";
+import { Comment, OnePost } from "../../interfaces/post";
+import { OneUser } from "../../interfaces/user";
 import { getTimeDifferenceInFullWords } from "../../utils/getTimeDifference";
 import Header from "../post/Header";
 import PostModalCommentItem from "./PostModalCommentItem";

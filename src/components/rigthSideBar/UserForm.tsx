@@ -2,7 +2,7 @@ import { SyntheticEvent } from "react";
 import defaultAvatar from "../../assets/avatars/default_avatar.jpg";
 import { Link } from "react-router-dom";
 import ContentLoader from "react-content-loader";
-import { UserData } from "../../types/user";
+import { UserData } from "../../interfaces/user";
 
 interface Props {
   user: UserData;

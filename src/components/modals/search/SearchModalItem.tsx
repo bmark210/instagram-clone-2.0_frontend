@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { OneUser } from "../../../types/user";
+import { OneUser } from "../../../interfaces/user";
 import defaultAvatar from "../../../assets/avatars/default_avatar.jpg";
 
 type Props = {
