@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { OnePost } from "../../types/post";
+import { OnePost } from "../../interfaces/post";
 import HeartWhiteIcon from "../common/icons/PostIcons/HeartWhiteIcon";
 import CommentsWhiteIcon from "../common/icons/PostIcons/CommentsWhiteIcon";
 import Modal from "../common/modals/Modal";
 import PostModal from "../postModal";
-import { OneUser } from "../../types/user";
+import { OneUser } from "../../interfaces/user";
 
 type Props = {
   post: OnePost;
-  currentUser: OneUser;
+  currentUser: OneUser | null;
 };
 
 const PostImage = ({ post, currentUser }: Props) => {

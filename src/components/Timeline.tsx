@@ -1,5 +1,5 @@
 import ContentLoader from "react-content-loader";
-import { Posts } from "../types/post";
+import { Posts } from "../interfaces/post";
 import PostItem from "./post";
 
 interface Props {

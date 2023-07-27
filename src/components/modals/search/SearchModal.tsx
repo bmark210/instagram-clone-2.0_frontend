@@ -1,6 +1,6 @@
 import { getUsersByQuery } from "../../../api/serveses/search/search";
 import { useState } from "react";
-import { OneUser } from "../../../types/user";
+import { OneUser } from "../../../interfaces/user";
 import SearchModalItem from "./SearchModalItem";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
 

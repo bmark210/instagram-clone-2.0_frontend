@@ -8,11 +8,9 @@ import TaggedActiveIcon from "../components/common/icons/Tagged/TaggedActiveIcon
 import TaggedIcon from "../components/common/icons/Tagged/TaggedIcon";
 import { useEffect, useState } from "react";
 import { fetchUserByUsername } from "../api/endpoints/users";
-import { OneUser, UserData } from "../types/user";
+import { OneUser, UserData } from "../interfaces/user";
 import { RootState } from "../redux/store";
 import defaultAvatar from "../assets/avatars/default_avatar.jpg";
-import Modal from "../components/common/modals/Modal";
-import CreateAvatar from "../components/modals/createAvatar/CreateAvatar";
 import {
   updateFollowersByUserId,
   updateFollowingsByUserId,
@@ -23,23 +21,22 @@ import { openModal } from "../redux/slices/modal";
 import Footer from "../components/publications/Footer";
 
 const Profile = () => {
-  const currentUser: UserData = useAppSelector(
-    (state: RootState) => state.auth,
-  );
+  const currentUser: UserData = useAppSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
 
   const { username } = useParams<{ username: string }>();
   const [user, setUser] = useState<null | OneUser>(null);
 
-  const avatarModalIsOpen = useAppSelector(
-    (state: RootState) => state.modals.avatarModal,
-  );
   const dispatch = useAppDispach();
-
   const handleOpenModal = (modalName: string) => {
     dispatch(openModal(modalName));
-    console.log(modalName);
   };
+
+  function handleImageClick() {
+    if (isCurrentUser) {
+      handleOpenModal("avatarModal");
+    }
+  }
 
   const [followersLength, setFollowersLength] = useState<number | undefined>();
   const [isFollowing, setIsFollowing] = useState(false);
@@ -48,14 +45,14 @@ const Profile = () => {
     if (currentUser.data && username) {
       if (username !== currentUser.data.username) {
         fetchUserByUsername(username)
-          .then((res) => {
+          .then(res => {
             if (res.data === null) {
               navigate("/not-found");
             } else {
               setUser(res.data);
             }
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
           });
       } else {
@@ -75,18 +72,12 @@ const Profile = () => {
     target.src = defaultAvatar;
   }
 
-  function handleImageClick() {
-    if (isCurrentUser) {
-      handleOpenModal("avatarModal");
-    }
-  }
-
   const setFollow = async () => {
-    setIsFollowing((isFollowing) => !isFollowing);
+    setIsFollowing(isFollowing => !isFollowing);
     if (user && currentUser) {
       await updateFollowersByUserId(user?._id);
       await updateFollowingsByUserId(user?._id);
-      setFollowersLength((prev) => (isFollowing ? prev! - 1 : prev! + 1));
+      setFollowersLength(prev => (isFollowing ? prev! - 1 : prev! + 1));
     }
   };
 
@@ -95,16 +86,12 @@ const Profile = () => {
       setIsFollowing(true);
     }
   }, [user, currentUser]);
+
   if (user === null || user.followers === undefined) {
     return (
       <div className="w-full">
         <div className="mx-auto mt-10 flex w-3/4 min-w-max flex-row border-b border-gray-primary px-10 pb-3">
-          <ContentLoader
-            viewBox="0 0 900 180"
-            height={180}
-            width={900}
-            speed={2}
-          >
+          <ContentLoader viewBox="0 0 900 180" height={180} width={900} speed={2}>
             <circle cx="125" cy="80" r="75" />
             <rect x="270" y="10" rx="3" ry="3" width="125.5" height="17" />
             <rect x="270" y="45" rx="3" ry="3" width="296" height="17" />
@@ -124,11 +111,7 @@ const Profile = () => {
             className={`${
               isCurrentUser && "cursor-pointer"
             } mr-20 h-36 w-36 rounded-full object-cover`}
-            src={
-              user?.avatar?.downloadURL
-                ? user?.avatar?.downloadURL
-                : defaultAvatar
-            }
+            src={user?.avatar?.downloadURL ? user?.avatar?.downloadURL : defaultAvatar}
             alt="avatar"
             onError={handleImageError}
             onClick={handleImageClick}
@@ -174,9 +157,7 @@ const Profile = () => {
             <div className="mb-4 flex w-3/4 flex-row items-center gap-6">
               <div className="flex flex-row">
                 <span className="mr-1 font-medium">{user.postsLength}</span>
-                <p className="text-base font-normal ">
-                  {user.postsLength > 1 ? "posts" : "post"}
-                </p>
+                <p className="text-base font-normal ">{user.postsLength > 1 ? "posts" : "post"}</p>
               </div>
               <div className="flex flex-row">
                 <span className="mr-1 font-medium">{followersLength}</span>
@@ -185,18 +166,14 @@ const Profile = () => {
                 </p>
               </div>
               <div className="flex flex-row">
-                <span className="mr-1 font-medium">
-                  {user?.following.length}
-                </span>
+                <span className="mr-1 font-medium">{user?.following.length}</span>
                 <p className="text-base font-normal">following</p>
               </div>
             </div>
             <div>
               <p className="text-base font-medium">{user?.fullName}</p>
             </div>
-            <div>
-              {user?.bio && <p className="w-96 text-sm">{user?.bio}</p>}
-            </div>
+            <div>{user?.bio && <p className="w-96 text-sm">{user?.bio}</p>}</div>
           </div>
         </div>
         <div className="mx-auto mb-5 flex w-1/3 flex-row items-center justify-center">
@@ -247,9 +224,7 @@ const Profile = () => {
           <NavLink
             to={`/${user?.username}/tagged/`}
             className={({ isActive }) =>
-              `${
-                isActive ? "border-t border-black-dark" : ""
-              } mx-5 flex flex-row items-center pt-5`
+              `${isActive ? "border-t border-black-dark" : ""} mx-5 flex flex-row items-center pt-5`
             }
           >
             {({ isActive }: { isActive: boolean }) => (
@@ -270,11 +245,6 @@ const Profile = () => {
           <Outlet />
         </div>
       </div>
-      {avatarModalIsOpen && (
-        <Modal isOpen={avatarModalIsOpen}>
-          <CreateAvatar />
-        </Modal>
-      )}
       <div className="my-10">
         <Footer />
       </div>
