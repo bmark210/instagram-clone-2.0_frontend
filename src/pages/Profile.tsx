@@ -111,7 +111,7 @@ const Profile = () => {
             className={`${
               isCurrentUser && "cursor-pointer"
             } mr-20 h-36 w-36 rounded-full object-cover`}
-            src={user.avatar.downloadURL || defaultAvatar}
+            src={user.avatar?.downloadURL || defaultAvatar}
             alt="avatar"
             onError={handleImageError}
             onClick={handleImageClick}
