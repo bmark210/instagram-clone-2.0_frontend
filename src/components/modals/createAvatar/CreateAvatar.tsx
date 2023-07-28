@@ -60,8 +60,8 @@ const CreateAvatar = () => {
         await axios.patch("/avatar", { name: currentAvatar.name }).then(res => {
           return res;
         });
-        window.location.reload();
         await axios.patch("/users/avatar", { avatar: {} });
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);
