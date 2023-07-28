@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import InstagramLogoIcon from "../components/common/icons/Instagram/InstagramLogoIcon";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { fetchRegister, selectIsAuth } from "../redux/slices/auth";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import GoogleIcon from "../components/common/icons/Google/GoogleIcon";
@@ -115,6 +115,12 @@ const Register = () => {
             </button>
           </div>
         </form>
+        <div className="flex w-80 flex-row items-center gap-2 rounded border border-gray-primary bg-white px-7 py-5">
+          <p className="text-xs">Have an account?</p>
+          <Link to="/auth/login" className="text-xs font-bold text-blue-primary">
+            Log in
+          </Link>
+        </div>
       </div>
     </>
   );
