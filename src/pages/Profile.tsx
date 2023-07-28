@@ -106,12 +106,12 @@ const Profile = () => {
   return (
     <div className="flex w-full flex-col items-center">
       <div className="w-full overflow-y-auto overflow-x-hidden">
-        <div className="mx-auto mt-10 flex w-3/4 min-w-max flex-row border-b border-gray-primary px-20 pb-10 pl-28">
+        <div className="mx-auto pl-28 mt-10 flex w-3/4 min-w-max flex-row border-b border-gray-primary px-20 pb-10">
           <img
             className={`${
               isCurrentUser && "cursor-pointer"
             } mr-20 h-36 w-36 rounded-full object-cover`}
-            src={user.avatar.downloadURL || defaultAvatar}
+            src={user.avatar.downloadURL ? user.avatar.downloadURL : defaultAvatar}
             alt="avatar"
             onError={handleImageError}
             onClick={handleImageClick}

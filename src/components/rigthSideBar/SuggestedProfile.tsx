@@ -7,11 +7,16 @@ import {
   updateFollowersByUserId,
   updateFollowingsByUserId,
 } from "../../api/serveses/follows/setFollowing";
+import { useAppDispach } from "../../redux/hooks";
+import { fetchPosts } from "../../redux/slices/posts";
 
 interface Props {
   userId: string;
 }
 const SuggestedProfile = ({ userId }: Props) => {
+
+  const dispatch = useAppDispach();
+
   const [followed, setFollowed] = useState(false);
   const [user, setUser] = useState<OneUser | null>(null);
 
@@ -21,6 +26,7 @@ const SuggestedProfile = ({ userId }: Props) => {
       await updateFollowersByUserId(user?._id);
       await updateFollowingsByUserId(user?._id);
     }
+    dispatch(fetchPosts());
   };
 
   function handleImageError(e: SyntheticEvent<HTMLImageElement, Event>) {
