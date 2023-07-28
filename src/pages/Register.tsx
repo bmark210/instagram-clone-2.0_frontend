@@ -38,7 +38,7 @@ const Register = () => {
   }
   return (
     <>
-      <div className="flex h-screen w-full items-center justify-center">
+      <div className="flex flex-col h-screen w-full items-center justify-center">
         <form
           onSubmit={onSubmit}
           className="mb-2 flex w-3/12 min-w-min flex-col items-center rounded border border-gray-primary bg-white px-8"
@@ -115,7 +115,7 @@ const Register = () => {
             </button>
           </div>
         </form>
-        <div className="flex w-80 flex-row items-center gap-2 rounded border border-gray-primary bg-white px-7 py-5">
+        <div className="flex w-3/12 justify-center gap-2 rounded border border-gray-primary bg-white px-7 py-5">
           <p className="text-xs">Have an account?</p>
           <Link to="/auth/login" className="text-xs font-bold text-blue-primary">
             Log in
