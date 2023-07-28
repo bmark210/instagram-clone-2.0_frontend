@@ -54,7 +54,7 @@ const Login = () => {
               className="text-gray-700 my-2 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
               id="email"
               type="text"
-              placeholder="Телефон, имя пользователя или эл. адрес"
+              placeholder="Phone number, username, or email"
               value={data.email}
               onChange={e => setData({ ...data, email: e.target.value })}
             />
@@ -62,7 +62,7 @@ const Login = () => {
               className="text-gray-700 mb-3 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
               id="password"
               type="password"
-              placeholder="Пароль"
+              placeholder="Password"
               value={data.password}
               onChange={e => setData({ ...data, password: e.target.value })}
             />
@@ -72,7 +72,7 @@ const Login = () => {
               type="submit"
               disabled={!data.email || !data.password}
             >
-              Войти
+              Log in
             </button>
           </div>
           <div className="mb-4 flex flex-row items-center">
@@ -85,19 +85,19 @@ const Login = () => {
             className="my-3 flex cursor-no-drop flex-row items-center gap-3 rounded-xl bg-gray-base px-2 py-1 transition-opacity duration-300 hover:opacity-75"
           >
             <GoogleIcon />
-            <p className="text-sm">Войти через Google</p>
+            <p className="text-sm">Log in with Google</p>
           </button>
           {authError && (
             <span className="my-6 text-center text-sm text-red-primary">{authError}</span>
           )}
           <button disabled={true} className="my-4 text-xs text-gray-medium">
-            Забыли пароль?
+            Forgot password?
           </button>
         </form>
         <div className="flex w-80 flex-row items-center gap-2 rounded border border-gray-primary bg-white px-7 py-5">
-          <p className="text-xs">У вас ещё нет аккаунта?</p>
+          <p className="text-xs">Don't have an account?</p>
           <Link to="/auth/register" className="text-xs font-bold text-blue-primary">
-            Зарегистрироваться
+            Sign up
           </Link>
         </div>
       </div>

@@ -47,18 +47,18 @@ const Register = () => {
             <InstagramLogoIcon />
           </div>
           <p className="my-2 text-center text-base font-bold text-gray-medium">
-            Зарегистрируйтесь, чтобы смотреть фото и видео ваших друзей.
+            Sign up to see photos and videos from your friends.
           </p>
           <button
             disabled
             className="my-3 flex cursor-no-drop flex-row items-center gap-3 rounded-xl bg-gray-base px-2 py-1 transition-opacity duration-300 hover:opacity-75"
           >
             <GoogleIcon />
-            <p className="text-sm">Войти через Google</p>
+            <p className="text-sm">Log in with Google</p>
           </button>
           <div className="mb-4 flex flex-row items-center">
             <hr className="w-24 border border-gray-primary" />
-            <p className="mx-3 text-gray-medium">или</p>
+            <p className="mx-3 text-gray-medium">or</p>
             <hr className="w-24 border border-gray-primary" />
           </div>
 
@@ -67,7 +67,7 @@ const Register = () => {
               className="text-gray-700 my-2 mb-3 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
               id="username"
               type="text"
-              placeholder="Имя пользователя"
+              placeholder="Username"
               value={data.username}
               onChange={e => setData({ ...data, username: e.target.value })}
             />
@@ -75,15 +75,14 @@ const Register = () => {
               className="text-gray-700 mb-3 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
               id="fullName"
               type="fullName"
-              placeholder="Имя и фамилия"
+              placeholder="Full name"
               value={data.fullName}
               onChange={e => setData({ ...data, fullName: e.target.value })}
             />
             <input
               className="text-gray-700 mb-3 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
               id="email"
-              type=""
-              placeholder="Моб. телефон или эл. адрес"
+              placeholder="Phone number, or email"
               value={data.email}
               onChange={e => setData({ ...data, email: e.target.value })}
             />
@@ -91,18 +90,17 @@ const Register = () => {
               className="text-gray-700 mb-3 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
               id="password"
               type="password"
-              placeholder="Пароль"
+              placeholder="Password"
               value={data.password}
               onChange={e => setData({ ...data, password: e.target.value })}
             />
             <div />
             <p className="my-3 text-center text-xs text-gray-medium">
-              Люди, которые пользуются нашим сервисом, могли загрузить вашу контактную информацию в
-              Instagram. Подробнее
+              People who use our service may have uploaded your contact information to Instagram.
+              Learn More
             </p>
             <p className="my-3 text-center text-xs text-gray-medium">
-              Регистрируясь, вы принимаете наши Условия, Политику конфиденциальности и Политику в
-              отношении файлов cookie.
+              By signing up, you agree to our Terms , Privacy Policy and Cookies Policy .
             </p>
             <button
               className="focus:shadow-outline mb-4 w-full rounded bg-blue-400 px-4 py-1 text-white hover:bg-blue-primary focus:outline-none disabled:bg-blue-200"
@@ -113,7 +111,7 @@ const Register = () => {
                 data.fullName === ""
               }
             >
-              Зарегистрироваться
+              Sign Up
             </button>
           </div>
         </form>
