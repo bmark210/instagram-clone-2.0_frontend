@@ -14,7 +14,6 @@ const Publications = () => {
   const dispatch = useAppDispach();
   const handleOpenModal = (modalName: string) => {
     dispatch(openModal(modalName));
-    console.log(modalName);
   };
 
   useEffect(() => {

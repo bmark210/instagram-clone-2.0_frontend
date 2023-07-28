@@ -75,8 +75,6 @@ const Create = () => {
         const file = e.target.files[0];
         formData.append("image", file);
         const { data } = await axios.post("/image", formData);
-        console.log(data);
-        
         setFields({ ...fields, image: data });
       }
     } catch (error) {

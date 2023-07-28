@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "../../../axios";
-import PagePreloader from "../../common/loaders/PagePreloader";
 import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/slices/modal";
+import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
 const CreateAvatar = () => {
   const dispatch = useAppDispach();
   const handleCloseModal = (value: string) => {
@@ -67,16 +67,16 @@ const CreateAvatar = () => {
     return (
       <div
         onClick={e => e.stopPropagation()}
-        className="flex h-60 w-96 items-center justify-between rounded-2xl bg-white"
+        className="flex h-60 w-96 items-center justify-center rounded-2xl bg-white"
       >
-        <PagePreloader />
+        <CircleLoader />
       </div>
     );
   }
   return (
     <div
       onClick={e => e.stopPropagation()}
-      className="flex animate-showCreateAvatar h-60 w-96 items-center justify-between rounded-2xl bg-white"
+      className="flex h-60 w-96 animate-showCreateAvatar items-center justify-between rounded-2xl bg-white"
     >
       <div className="grid h-full w-full">
         <h2 className="border-b border-gray-base pt-5 text-center text-xl">Change Profile Photo</h2>

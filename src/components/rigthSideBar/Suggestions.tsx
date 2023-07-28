@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllSuggestions } from "../../api/serveses/suggestions/getSuggestions";
+import { getFiveSuggestions } from "../../api/serveses/suggestions/getSuggestions";
 import ContentLoader from "react-content-loader";
 import { Link } from "react-router-dom";
 import { OneUser } from "../../interfaces/user";
@@ -11,7 +11,7 @@ const Suggestions = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    getAllSuggestions().then(res => {
+    getFiveSuggestions().then(res => {
       setProfiles(res);
     });
   }, []);

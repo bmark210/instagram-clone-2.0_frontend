@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import PublicationIcon from "../components/common/icons/Publication/PublicationIcon";
 import SettingsIcon from "../components/common/icons/Settings/SettingsIcon";
@@ -6,7 +7,6 @@ import SavedActiveIcon from "../components/common/icons/Saved/SavedActiveIcon";
 import SavedIcon from "../components/common/icons/Saved/SavedIcon";
 import TaggedActiveIcon from "../components/common/icons/Tagged/TaggedActiveIcon";
 import TaggedIcon from "../components/common/icons/Tagged/TaggedIcon";
-import { useEffect, useState } from "react";
 import { fetchUserByUsername } from "../api/endpoints/users";
 import { OneUser, UserData } from "../interfaces/user";
 import { RootState } from "../redux/store";
@@ -105,7 +105,7 @@ const Profile = () => {
 
   return (
     <div className="flex w-full flex-col items-center">
-      <div className="w-full overflow-y-auto">
+      <div className="w-full overflow-y-auto overflow-x-hidden">
         <div className="mx-auto pl-28 mt-10 flex w-3/4 min-w-max flex-row border-b border-gray-primary px-20 pb-10">
           <img
             className={`${
