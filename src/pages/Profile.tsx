@@ -106,7 +106,7 @@ const Profile = () => {
   return (
     <div className="flex w-full flex-col items-center">
       <div className="w-full overflow-y-auto">
-        <div className="mx-auto mt-10 flex w-3/4 min-w-max flex-row border-b border-gray-primary px-20 pb-10">
+        <div className="mx-auto pl-28 mt-10 flex w-3/4 min-w-max flex-row border-b border-gray-primary px-20 pb-10">
           <img
             className={`${
               isCurrentUser && "cursor-pointer"
