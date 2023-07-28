@@ -3,6 +3,7 @@ import axios from "../../../axios";
 import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/slices/modal";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
+import { fetchAuth } from "../../../redux/slices/auth";
 const CreateAvatar = () => {
   const dispatch = useAppDispach();
   const handleCloseModal = (value: string) => {
@@ -18,19 +19,23 @@ const CreateAvatar = () => {
   });
 
   useEffect(() => {
-    try {
-      if (avatar.name !== "") {
-        axios.patch("/users/avatar", { avatar }).then(data => {
-          return data;
-        });
-        window.location.reload();
+    const createAvatar = async () => {
+      try {
+        if (avatar.name !== "") {
+          await axios.patch("/users/avatar", { avatar }).then(data => {
+            return data;
+          });
+          handleCloseModal("avatarModal");
+          window.location.reload();
+        }
+      } catch (error) {
+        console.log(error);
+        alert("Ошибка при добавлении аватара");
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.log(error);
-      alert("Ошибка при добавлении аватара");
-    } finally {
-      setLoading(false);
-    }
+    };
+    createAvatar();
   }, [avatar]);
 
   const handleChangeFileAndSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
