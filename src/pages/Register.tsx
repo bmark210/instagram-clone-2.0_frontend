@@ -102,7 +102,7 @@ const Register = () => {
               value={data.password}
               onChange={e => setData({ ...data, password: e.target.value })}
             />
-            {error && (
+            {errorMessage && (
               <span className="my-5 block text-center text-sm text-red-primary">
                 {errorMessage}
               </span>

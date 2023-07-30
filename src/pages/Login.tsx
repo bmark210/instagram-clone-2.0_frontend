@@ -95,7 +95,7 @@ const Login = () => {
             <GoogleIcon />
             <p className="text-sm">Log in with Google</p>
           </button>
-          {error && (
+          {errorMessage && (
             <span className="my-4 text-center text-xs text-red-primary">{errorMessage}</span>
           )}
           <button disabled={true} className="my-4 text-xs text-gray-medium">

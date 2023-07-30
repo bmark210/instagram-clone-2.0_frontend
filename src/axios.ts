@@ -2,7 +2,7 @@ import axios from "axios";
 import { InternalAxiosRequestConfig } from "axios";
 
 const instance = axios.create({
-  baseURL: "https://easy-gray-snail-wig.cyclic.app/",
+  baseURL: "instagram-server-production.up.railway.app/",
 });
 
 instance.interceptors.request.use((config): InternalAxiosRequestConfig => {
