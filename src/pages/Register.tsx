@@ -18,7 +18,7 @@ const Register = () => {
     if (isAuth) {
       navigate("/", { replace: true });
     }
-  }, []);
+  }, [isAuth]);
 
   const [data, setData] = useState({
     username: "",
