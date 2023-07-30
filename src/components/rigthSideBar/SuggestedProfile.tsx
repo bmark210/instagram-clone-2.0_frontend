@@ -39,6 +39,7 @@ const SuggestedProfile = ({ userId }: Props) => {
     };
     fetchUser();
   }, [userId]);
+  if (!user) return null;
   return !followed ? (
     <div className="align-items flex flex-row items-center justify-between">
       <Link to={`/${user?.username}/`}>
