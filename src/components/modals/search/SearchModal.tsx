@@ -54,7 +54,7 @@ const SearchModal = ({ setIsSearchModalOpen, isSearchModalOpen }: Props) => {
                 onChange={e => setQuery(e.target.value)}
                 className="w-full rounded-lg border-gray-base bg-gray-100 px-3 py-2 outline-none placeholder:font-thin"
                 type="text"
-                placeholder="Search"
+                placeholder="Search and press Enter"
                 onSubmit={handleSearch}
               />
             </form>
@@ -66,7 +66,7 @@ const SearchModal = ({ setIsSearchModalOpen, isSearchModalOpen }: Props) => {
             <p></p>
           ) : isLoading && users.length === 0 ? (
             <div className="mt-32 flex h-full justify-center">
-              <CircleLoader />
+              <CircleLoader color="gray-400" />
             </div>
           ) : users.length === 0 ? (
             <p className="mt-36 flex h-full justify-center text-sm text-gray-500">

@@ -4,7 +4,6 @@ import ContentLoader from "react-content-loader";
 import { Link } from "react-router-dom";
 import { OneUser } from "../../interfaces/user";
 import SuggestedProfile from "./SuggestedProfile";
- 
 
 const Suggestions = () => {
   const [profiles, setProfiles] = useState([]);

@@ -20,7 +20,7 @@ const SearchModalItem = ({ user, handleHideSearchModal }: Props) => {
     >
       <img
         className="h-11 w-11 rounded-full object-cover"
-        src={user.avatar?.downloadURL ? user.avatar.downloadURL : defaultAvatar}
+        src={user.avatar?.downloadURL || defaultAvatar}
         alt={`${user.username}'s avatar`}
         onError={handleImageError}
       />

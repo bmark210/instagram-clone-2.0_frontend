@@ -14,7 +14,6 @@ interface Props {
   userId: string;
 }
 const SuggestedProfile = ({ userId }: Props) => {
-
   const dispatch = useAppDispach();
 
   const [followed, setFollowed] = useState(false);
@@ -40,16 +39,13 @@ const SuggestedProfile = ({ userId }: Props) => {
     };
     fetchUser();
   }, [userId]);
-
   return !followed ? (
     <div className="align-items flex flex-row items-center justify-between">
       <Link to={`/${user?.username}/`}>
         <div className="flex items-center justify-between">
           <img
             className="mr-3 flex h-8 w-8 rounded-full object-cover"
-            src={
-              user?.avatar?.downloadURL !== null ? `${user?.avatar?.downloadURL}` : defaultAvatar
-            }
+            src={user?.avatar?.downloadURL || defaultAvatar}
             alt={`${user?.username}'s avatar`}
             onError={handleImageError}
           />

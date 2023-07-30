@@ -70,7 +70,7 @@ const PostModal = ({
           )}
           {comments === null ? (
             <div className="mt-5 flex justify-center">
-              <CircleLoader />
+              <CircleLoader color="gray-400" />
             </div>
           ) : comments.length === 0 && post.caption === "" ? (
             <div className="flex h-full w-full flex-col items-center justify-center">

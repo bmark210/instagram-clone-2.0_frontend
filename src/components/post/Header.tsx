@@ -21,7 +21,7 @@ const Header = ({ username, avatarUrl, createdAt, place }: Props) => {
         <Link to={`/${username}/`} className="flex items-center">
           <img
             className="mr-3 flex h-8 w-8 rounded-full"
-            src={avatarUrl !== undefined ? `${avatarUrl}` : `${defaultAvatar}`}
+            src={avatarUrl || defaultAvatar}
             alt={`${username} profile picture`}
             onError={handleImageError}
           />

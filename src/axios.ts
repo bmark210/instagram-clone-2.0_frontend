@@ -2,7 +2,7 @@ import axios from "axios";
 import { InternalAxiosRequestConfig } from "axios";
 
 const instance = axios.create({
-  baseURL: "https://difficult-outfit-wasp.cyclic.app/",
+  baseURL: "https://ill-leotard-fox.cyclic.app/",
 });
 
 instance.interceptors.request.use((config): InternalAxiosRequestConfig => {

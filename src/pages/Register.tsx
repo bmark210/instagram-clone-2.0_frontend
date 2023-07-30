@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import InstagramLogoIcon from "../components/common/icons/Instagram/InstagramLogoIcon";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchRegister, selectIsAuth } from "../redux/slices/auth";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import GoogleIcon from "../components/common/icons/Google/GoogleIcon";
+import AuthLoader from "../components/common/loaders/AuthLoader";
 
 const Register = () => {
   const isAuth = useAppSelector(selectIsAuth);
+  const { error } = useAppSelector(state => state.auth);
+  const errorMessage = Array.isArray(error) ? error[0]?.msg : error?.msg;
   const navigate = useNavigate();
   const dispatch = useAppDispach();
-  // const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     if (isAuth) {
       navigate("/", { replace: true });
@@ -17,31 +21,35 @@ const Register = () => {
   }, []);
 
   const [data, setData] = useState({
-    username: "vasia16",
-    fullName: "Pupkin Vasia",
-    email: "pupkin@mail.ru",
-    password: "1234",
+    username: "",
+    fullName: "",
+    email: "",
+    password: "",
   });
 
   const onSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const userData = await dispatch(fetchRegister(data));
-    if (!userData.payload) {
-      console.log("Не удалось авторизоваться");
-    } else if ("token" in userData.payload) {
-      window.localStorage.setItem("token", userData.payload.token);
+    try {
+      setIsLoading(true);
+      const userData = await dispatch(fetchRegister(data));
+      if (!userData.payload) {
+        console.log("Не удалось авторизоваться");
+      } else if ("token" in userData.payload) {
+        window.localStorage.setItem("token", userData.payload.token);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  if (isAuth) {
-    return <Navigate to="/feed" {...{ push: true }} />;
-  }
   return (
     <>
-      <div className="flex flex-col h-screen w-full items-center justify-center">
+      <div className="flex h-screen w-3/12 flex-col items-center justify-center">
         <form
           onSubmit={onSubmit}
-          className="mb-2 flex w-3/12 min-w-min flex-col items-center rounded border border-gray-primary bg-white px-8"
+          className="mb-2 flex min-w-min flex-col items-center rounded border border-gray-primary bg-white px-8"
         >
           <div className="mt-10">
             <InstagramLogoIcon />
@@ -87,14 +95,18 @@ const Register = () => {
               onChange={e => setData({ ...data, email: e.target.value })}
             />
             <input
-              className="text-gray-700 mb-3 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
+              className="text-gray-700 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
               id="password"
               type="password"
               placeholder="Password"
               value={data.password}
               onChange={e => setData({ ...data, password: e.target.value })}
             />
-            <div />
+            {error && (
+              <span className="my-5 block text-center text-sm text-red-primary">
+                {errorMessage}
+              </span>
+            )}
             <p className="my-3 text-center text-xs text-gray-medium">
               People who use our service may have uploaded your contact information to Instagram.
               Learn More
@@ -103,7 +115,7 @@ const Register = () => {
               By signing up, you agree to our Terms , Privacy Policy and Cookies Policy .
             </p>
             <button
-              className="focus:shadow-outline mb-4 w-full rounded bg-blue-400 px-4 py-1 text-white hover:bg-blue-primary focus:outline-none disabled:bg-blue-200"
+              className="focus:shadow-outline mb-4 h-8 w-full rounded bg-blue-400 px-4 py-1 text-white hover:bg-blue-primary focus:outline-none disabled:bg-blue-200"
               disabled={
                 data.email === "" ||
                 data.password === "" ||
@@ -111,11 +123,11 @@ const Register = () => {
                 data.fullName === ""
               }
             >
-              Sign Up
+              {isLoading ? <AuthLoader /> : <h3>Sign Up</h3>}
             </button>
           </div>
         </form>
-        <div className="flex w-3/12 justify-center gap-2 rounded border border-gray-primary bg-white px-7 py-5">
+        <div className="flex w-full justify-center gap-2 rounded border border-gray-primary bg-white px-7 py-5">
           <p className="text-xs">Have an account?</p>
           <Link to="/auth/login" className="text-xs font-bold text-blue-primary">
             Log in

@@ -6,33 +6,41 @@ import { fetchLogin, selectIsAuth } from "../redux/slices/auth";
 import { LoginParams } from "../interfaces/auth";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import GoogleIcon from "../components/common/icons/Google/GoogleIcon";
+import AuthLoader from "../components/common/loaders/AuthLoader";
 
 const Login = () => {
   const isAuth = useAppSelector(selectIsAuth);
-  const authError = useAppSelector(state => state.auth.error);
+  const { error } = useAppSelector(state => state.auth);
+  const errorMessage = Array.isArray(error) ? error[0]?.msg : error?.msg;
   const dispatch = useAppDispach();
   const navigate = useNavigate();
-  console.log(authError);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isAuth) {
-      navigate("/", { replace: true });
+      navigate("/feed", { replace: true });
     }
   }, [isAuth]);
 
   const [data, setData] = useState<LoginParams>({
-    email: "baltenco@yandex.ru",
-    password: "12345",
+    email: "",
+    password: "",
   });
 
   const onSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const userData = await dispatch(fetchLogin(data));
-
-    if (!userData.payload) {
-      console.log("Не удалось авторизоваться");
-    } else if ("token" in userData.payload) {
-      window.localStorage.setItem("token", userData.payload.token);
+    try {
+      setIsLoading(true);
+      const userData = await dispatch(fetchLogin(data));
+      if (!userData.payload) {
+        console.log("Не удалось авторизоваться");
+      } else if ("token" in userData.payload) {
+        window.localStorage.setItem("token", userData.payload.token);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -68,16 +76,16 @@ const Login = () => {
             />
             <div />
             <button
-              className="focus:shadow-outline w-full rounded bg-blue-400 px-4 py-1 text-white hover:bg-blue-primary focus:outline-none disabled:bg-blue-200"
+              className="focus:shadow-outline h-8 w-full rounded bg-blue-400 px-4 py-1 text-white hover:bg-blue-primary focus:outline-none disabled:bg-blue-200"
               type="submit"
               disabled={!data.email || !data.password}
             >
-              Log in
+              {isLoading ? <AuthLoader /> : <h3>Log in</h3>}
             </button>
           </div>
           <div className="mb-4 flex flex-row items-center">
             <hr className="w-24 border border-gray-primary" />
-            <p className="mx-3 text-gray-medium">или</p>
+            <p className="mx-3 text-gray-medium">or</p>
             <hr className="w-24 border border-gray-primary" />
           </div>
           <button
@@ -87,14 +95,14 @@ const Login = () => {
             <GoogleIcon />
             <p className="text-sm">Log in with Google</p>
           </button>
-          {authError && (
-            <span className="my-6 text-center text-sm text-red-primary">{authError}</span>
+          {error && (
+            <span className="my-4 text-center text-xs text-red-primary">{errorMessage}</span>
           )}
           <button disabled={true} className="my-4 text-xs text-gray-medium">
             Forgot password?
           </button>
         </form>
-        <div className="flex w-80 flex-row items-center gap-2 rounded border border-gray-primary bg-white px-7 py-5">
+        <div className="flex w-80 flex-row items-center justify-center gap-2 rounded border border-gray-primary bg-white px-7 py-5">
           <p className="text-xs">Don't have an account?</p>
           <Link to="/auth/register" className="text-xs font-bold text-blue-primary">
             Sign up

@@ -167,7 +167,7 @@ const Create = () => {
         </>
       ) : imageLoading ? (
         <div className="flex items-center justify-center py-20">
-          <CircleLoader />
+          <CircleLoader color="gray-400" />
         </div>
       ) : (
         <>

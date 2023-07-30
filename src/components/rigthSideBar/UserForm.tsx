@@ -32,7 +32,7 @@ const UserForm = ({ user }: Props) => {
         <img
           className="h-14 w-14 rounded-full object-cover"
           onError={handleImageError}
-          src={user.data?.avatar?.downloadURL ? user.data?.avatar?.downloadURL : defaultAvatar}
+          src={user.data?.avatar?.downloadURL || defaultAvatar}
           alt="avatar"
         />
       </div>

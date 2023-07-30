@@ -4,16 +4,27 @@ import { LoginParams, RegisterParams } from "../../interfaces/auth";
 import { RootState } from "../store";
 import { UserData } from "../../interfaces/user";
 
-export const fetchLogin = createAsyncThunk("auth/fetchLogin", async (params: LoginParams) => {
-  const { data } = await axios.post("/auth/login", params);
-  return data;
-});
+export const fetchLogin = createAsyncThunk(
+  "auth/fetchLogin",
+  async (params: LoginParams, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post("/auth/login", params);
+      return data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
 export const fetchRegister = createAsyncThunk(
   "auth/fetchRegister",
-  async (params: RegisterParams) => {
-    const { data } = await axios.post("/auth/register", params);
-    return data;
+  async (params: RegisterParams, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post("/auth/register", params);
+      return data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
   }
 );
 
@@ -49,7 +60,11 @@ const authSlice = createSlice({
       .addCase(fetchLogin.rejected, (state, action: AnyAction) => {
         state.data = null;
         state.status = "error";
-        state.error = action.error.message;
+        if (action.payload) {
+          state.error = action.payload;
+        } else {
+          state.error = action.error.message;
+        }
       })
       .addCase(fetchAuth.pending, state => {
         state.data = null;
@@ -74,7 +89,11 @@ const authSlice = createSlice({
       .addCase(fetchRegister.rejected, (state, action: AnyAction) => {
         state.data = null;
         state.status = "error";
-        state.error = action.error.message;
+        if (action.payload) {
+          state.error = action.payload;
+        } else {
+          state.error = action.error.message;
+        }
       });
   },
 });

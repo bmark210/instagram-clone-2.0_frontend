@@ -5,7 +5,6 @@ import { useAppDispach, useAppSelector } from "../../redux/hooks";
 import { openModal } from "../../redux/slices/modal";
 
 const EditProfile = () => {
-  
   const user = useAppSelector(state => state.auth.data);
   const dispatch = useAppDispach();
   function handleImageError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
@@ -31,7 +30,7 @@ const EditProfile = () => {
       <div className="mb-5 ml-32 flex flex-row items-center gap-7">
         <img
           className="h-9 w-9 rounded-full object-cover"
-          src={user?.avatar?.downloadURL ? user?.avatar?.downloadURL : defaultAvatar}
+          src={user?.avatar?.downloadURL || defaultAvatar}
           alt="avatar"
           onError={handleImageError}
         />

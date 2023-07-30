@@ -3,7 +3,7 @@ import axios from "../../../axios";
 import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/slices/modal";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
-import { fetchAuth } from "../../../redux/slices/auth";
+
 const CreateAvatar = () => {
   const dispatch = useAppDispach();
   const handleCloseModal = (value: string) => {
@@ -74,7 +74,7 @@ const CreateAvatar = () => {
         onClick={e => e.stopPropagation()}
         className="flex h-60 w-96 items-center justify-center rounded-2xl bg-white"
       >
-        <CircleLoader />
+        <CircleLoader color="gray-400" />
       </div>
     );
   }

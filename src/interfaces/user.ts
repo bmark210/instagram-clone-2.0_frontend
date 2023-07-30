@@ -15,9 +15,14 @@ export interface OneUser {
   following: string[];
   followers: string[];
 }
+interface error {
+  type?: string;
+  msg: string;
+  path?: string;
+}
 
 export interface UserData {
   data: OneUser | null;
   status: string;
-  error?: string;
+  error?: error | error[];
 }
