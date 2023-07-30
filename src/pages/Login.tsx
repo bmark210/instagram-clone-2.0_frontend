@@ -78,7 +78,7 @@ const Login = () => {
             <button
               className="focus:shadow-outline h-8 w-full rounded bg-blue-400 px-4 py-1 text-white hover:bg-blue-primary focus:outline-none disabled:bg-blue-200"
               type="submit"
-              disabled={!data.email || !data.password}
+              disabled={!data.email || !data.password || isLoading}
             >
               {isLoading ? <AuthLoader /> : <h3>Log in</h3>}
             </button>

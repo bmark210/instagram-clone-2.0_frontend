@@ -120,7 +120,8 @@ const Register = () => {
                 data.email === "" ||
                 data.password === "" ||
                 data.username === "" ||
-                data.fullName === ""
+                data.fullName === "" ||
+                isLoading
               }
             >
               {isLoading ? <AuthLoader /> : <h3>Sign Up</h3>}
