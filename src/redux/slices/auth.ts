@@ -11,8 +11,6 @@ export const fetchLogin = createAsyncThunk(
       const { data } = await axios.post("/auth/login", params);
       return data;
     } catch (err: any) {
-      console.log('err', err);
-      
       return rejectWithValue(err.response.data);
     }
   }
@@ -25,7 +23,6 @@ export const fetchRegister = createAsyncThunk(
       const { data } = await axios.post("/auth/register", params);
       return data;
     } catch (err: any) {
-      console.log('err', err);
       return rejectWithValue(err.response.data);
     }
   }
