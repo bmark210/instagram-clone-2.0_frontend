@@ -110,20 +110,20 @@ const Create = () => {
       {fields.image ? (
         <>
           <div className="flex border-b border-gray-base py-2">
-            <p className="flex-1 text-center font-medium">Создание публикации</p>
+            <p className="flex-1 text-center font-medium">Create new post</p>
             {nextStep ? (
               <button
                 onClick={onSubmit}
                 className="pr-4 text-end font-medium text-blue-primary hover:text-black-light"
               >
-                Поделиться
+                Share
               </button>
             ) : (
               <button
                 onClick={() => setNextStep(true)}
                 className="pr-4 text-end font-medium text-blue-primary hover:text-black-light"
               >
-                Далее
+                Next
               </button>
             )}
           </div>
@@ -171,21 +171,18 @@ const Create = () => {
         </div>
       ) : (
         <>
-          <p className="border-b border-gray-base py-2 text-center font-medium">
-            Создание публикации
-          </p>
-
+          <p className="border-b border-gray-base py-2 text-center font-medium">Create new post</p>
           <div className="flex flex-col py-32">
             <div className="mx-auto pb-2">
               <MediaIcon />
             </div>
-            <h2 className="pb-2 text-center text-xl">Перетащите сюда фото и видео</h2>
+            <h2 className="pb-2 text-center text-xl">Drag photos and videos here</h2>
             <input ref={imageRef} type="file" onChange={handleChangeFile} hidden />
             <button
               onClick={() => imageRef.current?.click()}
               className="mx-auto mt-2 rounded-lg bg-blue-primary px-3 py-1.5 text-sm text-white hover:bg-blue-medium"
             >
-              Выбрать на компьютере
+              Choose file
             </button>
           </div>
         </>
