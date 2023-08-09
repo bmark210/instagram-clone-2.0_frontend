@@ -3,7 +3,7 @@ import axios from "../../../axios";
 import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/slices/modal";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
-import { deleteAvatar } from "../../../api/serveses/avatar/setAvatar";
+import { avatarFieldToEmpty, deleteAvatar } from "../../../api/serveses/avatar/setAvatar";
 
 const CreateAvatar = () => {
   const dispatch = useAppDispach();
@@ -58,9 +58,8 @@ const CreateAvatar = () => {
     try {
       setLoading(true);
       if (currentAvatar?.name) {
-        
-        deleteAvatar(currentAvatar.name)
-        await axios.patch("/users/avatar", { avatar: {} });
+        deleteAvatar(currentAvatar.name);
+        avatarFieldToEmpty();
         window.location.reload();
       }
     } catch (error) {
