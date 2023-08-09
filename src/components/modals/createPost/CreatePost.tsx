@@ -45,7 +45,7 @@ const Create = () => {
       const result = confirm("Post will be deleted");
       return result ? handleClose() : handleOpen("createModal");
     }
-    if (isOpen === false) {
+    if (!isOpen) {
       setNextStep(false);
     }
   }, [isOpen]);

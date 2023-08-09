@@ -3,6 +3,7 @@ import axios from "../../../axios";
 import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/slices/modal";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
+import { deleteAvatar } from "../../../api/serveses/avatar/setAvatar";
 
 const CreateAvatar = () => {
   const dispatch = useAppDispach();
@@ -26,7 +27,7 @@ const CreateAvatar = () => {
             return data;
           });
           handleCloseModal("avatarModal");
-          window.location.reload();
+          window.location.reload(); // todo how to remove
         }
       } catch (error) {
         console.log(error);
@@ -57,9 +58,8 @@ const CreateAvatar = () => {
     try {
       setLoading(true);
       if (currentAvatar?.name) {
-        await axios.patch("/avatar", { name: currentAvatar.name }).then(res => {
-          return res;
-        });
+        
+        deleteAvatar(currentAvatar.name)
         await axios.patch("/users/avatar", { avatar: {} });
         window.location.reload();
       }
