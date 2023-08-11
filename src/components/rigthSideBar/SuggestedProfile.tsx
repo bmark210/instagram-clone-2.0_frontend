@@ -28,10 +28,11 @@ const SuggestedProfile = ({ userId }: Props) => {
     dispatch(fetchPosts());
   };
 
-  function handleImageError(e: SyntheticEvent<HTMLImageElement, Event>) {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
-  }
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       const user = await fetchUserById(userId);

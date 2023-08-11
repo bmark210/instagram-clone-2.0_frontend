@@ -1,4 +1,4 @@
-import { SyntheticEvent } from "react";
+
 import defaultAvatar from "../../assets/avatars/default_avatar.jpg";
 import { Link } from "react-router-dom";
 import ContentLoader from "react-content-loader";
@@ -9,10 +9,11 @@ interface Props {
 }
 
 const UserForm = ({ user }: Props) => {
-  function handleImageError(e: SyntheticEvent<HTMLImageElement, Event>) {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
-  }
+  };
+
   const usersIsLoading = user.status === "loading";
 
   if (usersIsLoading) {

@@ -35,10 +35,10 @@ const SideBar = () => {
   const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<null | boolean>(null);
 
-  function handleImageError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
-  }
+  };
 
   const currentUsername = useAppSelector(state => state.auth.data?.username);
   const currentUserAvatarUrl = useAppSelector(state => state.auth.data?.avatar?.downloadURL);

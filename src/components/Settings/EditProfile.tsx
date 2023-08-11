@@ -7,10 +7,11 @@ import { openModal } from "../../redux/slices/modal";
 const EditProfile = () => {
   const user = useAppSelector(state => state.auth.data);
   const dispatch = useAppDispach();
-  function handleImageError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
-  }
+  };
+
   const handleOpenModal = (modalName: string) => {
     dispatch(openModal(modalName));
   };

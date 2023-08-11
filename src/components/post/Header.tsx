@@ -11,10 +11,11 @@ interface Props {
 }
 
 const Header = ({ username, avatarUrl, createdAt, place }: Props) => {
-  function handleImageError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
-  }
+  };
+
   return (
     <div className="flex items-center py-4 pl-2">
       <div className="flex items-center">

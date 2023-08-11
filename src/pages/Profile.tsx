@@ -75,6 +75,7 @@ const Profile = () => {
     target.src = defaultAvatar;
   };
 
+
   const setFollow = async () => {
     if (user && currentUser) {
       await updateFollowersByUserId(user?._id);

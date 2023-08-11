@@ -12,6 +12,7 @@ const PostModalCommentItem = ({ avatar, username, text }: Props) => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
   };
+
   return (
     <div className="py-3 pl-2">
       <div className="flex px-3">
