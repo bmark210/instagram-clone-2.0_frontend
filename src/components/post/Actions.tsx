@@ -1,7 +1,7 @@
 import CommentsIcon from "../common/icons/PostIcons/CommentsIcon";
 import HeartIcon from "../common/icons/PostIcons/HeartIcon";
 import HeartActiveIcon from "../common/icons/PostIcons/HeartActiveIcon";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setPostLiked } from "../../api/serveses/likes/setLiked";
 import { useAppSelector } from "../../redux/hooks";
 
@@ -24,6 +24,7 @@ const Actions = ({
   likesLength,
   setLikesLength,
 }: Props) => {
+  const [isDisableLike, setIsDisableLike] = useState(false);
   const currentUser = useAppSelector(state => state.auth.data);
 
   useEffect(() => {
@@ -32,15 +33,19 @@ const Actions = ({
     }
   }, [postId, likesArray, currentUser]);
 
-  async function handleToggleLiked(postId: string | undefined) {
-    setToggleLiked(toggleLiked => !toggleLiked);
-    if (postId && currentUser) {
-      try {
-        await setPostLiked(postId);
-      } catch (error) {
-        console.log(error);
+  async function handleToggleLiked(postId: string) {
+    if (postId.length > 0 && !isDisableLike) {
+      if (postId && currentUser) {
+        try {
+          setIsDisableLike(true);
+          await setPostLiked(postId);
+          setIsDisableLike(false);
+          setToggleLiked(toggleLiked => !toggleLiked);
+          setLikesLength(toggleLiked ? likesLength - 1 : likesLength + 1);
+        } catch (error) {
+          console.log(error);
+        }
       }
-      setLikesLength(toggleLiked ? likesLength - 1 : likesLength + 1);
     }
   }
 
@@ -49,7 +54,7 @@ const Actions = ({
       <div className="flex justify-between py-4 pl-1">
         <div className="flex flex-row items-center">
           {
-            <button onClick={() => handleToggleLiked(postId)} className="mr-1">
+            <button onClick={() => handleToggleLiked(!postId ? "" : postId)} className="mr-1">
               {toggleLiked ? <HeartActiveIcon /> : <HeartIcon />}
             </button>
           }

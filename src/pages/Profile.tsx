@@ -38,7 +38,7 @@ const Profile = () => {
     }
   }
 
-  const [followersLength, setFollowersLength] = useState<number | undefined>();
+  const [followersLength, setFollowersLength] = useState<number>();
   const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
@@ -49,23 +49,26 @@ const Profile = () => {
             if (res.data === null) {
               navigate("/not-found");
             } else {
-              setUser(res.data);
+              setUserHandler(res.data, res.data?.followers ? res.data?.followers.length : 0);
             }
           })
           .catch(err => {
             console.log(err);
           });
       } else {
-        setUser(currentUser.data);
+        setUserHandler(currentUser.data, currentUser.data?.followers.length);
       }
     }
   }, [username, currentUser]);
 
   const isCurrentUser = currentUser && username === currentUser.data?.username;
-
-  useEffect(() => {
-    setFollowersLength(user?.followers.length);
-  }, [user]);
+  const setUserHandler = (user: OneUser, countFolowers: number) => {
+    setUser(user);
+    setFollowersLength(countFolowers);
+    if (user.followers.includes(currentUser.data?._id as string)) {
+      setIsFollowing(true);
+    }
+  };
 
   function handleImageError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
     const target = e.target as HTMLImageElement;
@@ -73,21 +76,15 @@ const Profile = () => {
   }
 
   const setFollow = async () => {
-    setIsFollowing(isFollowing => !isFollowing);
     if (user && currentUser) {
       await updateFollowersByUserId(user?._id);
       await updateFollowingsByUserId(user?._id);
+      setIsFollowing(isFollowing => !isFollowing);
       setFollowersLength(prev => (isFollowing ? prev! - 1 : prev! + 1));
     }
   };
 
-  useEffect(() => {
-    if (user?.followers.includes(currentUser.data?._id as string)) {
-      setIsFollowing(true);
-    }
-  }, [user, currentUser]);
-
-  if (user === null || user.followers === undefined) {
+  if (user === null || user?.followers === undefined) {
     return (
       <div className="w-full">
         <div className="mx-auto mt-10 flex w-3/4 min-w-max flex-row border-b border-gray-primary px-10 pb-3">

@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import axios from "../../../axios";
 import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/slices/modal";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
-import { avatarFieldToEmpty, deleteAvatar } from "../../../api/serveses/avatar/setAvatar";
+import {
+  addAvatar,
+  addAvatarFieldToUser,
+  avatarFieldToEmpty,
+  deleteAvatar,
+} from "../../../api/serveses/avatar/setAvatar";
 
 const CreateAvatar = () => {
   const dispatch = useAppDispach();
@@ -21,19 +25,18 @@ const CreateAvatar = () => {
 
   useEffect(() => {
     const createAvatar = async () => {
-      try {
-        if (avatar.name !== "") {
-          await axios.patch("/users/avatar", { avatar }).then(data => {
-            return data;
-          });
-          handleCloseModal("avatarModal");
+      console.log(avatar);
+      if (avatar.name !== "") {
+        try {
+          await addAvatarFieldToUser(avatar);
           window.location.reload(); // todo how to remove
+          handleCloseModal("avatarModal");
+        } catch (error) {
+          console.log(error);
+          alert("Ошибка при добавлении аватара");
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.log(error);
-        alert("Ошибка при добавлении аватара");
-      } finally {
-        setLoading(false);
       }
     };
     createAvatar();
@@ -46,8 +49,7 @@ const CreateAvatar = () => {
       if (e.target.files) {
         const file = e.target.files[0];
         formData.append("avatar", file);
-        const { data } = await axios.post("/avatar", formData);
-        setAvatar(data);
+        setAvatar(await addAvatar(formData));
       }
     } catch (error) {
       alert("Ошибка при загрузке файла");
@@ -58,8 +60,8 @@ const CreateAvatar = () => {
     try {
       setLoading(true);
       if (currentAvatar?.name) {
-        deleteAvatar(currentAvatar.name);
-        avatarFieldToEmpty();
+        await deleteAvatar(currentAvatar.name);
+        await avatarFieldToEmpty();
         window.location.reload();
       }
     } catch (error) {

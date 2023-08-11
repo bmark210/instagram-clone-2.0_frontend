@@ -1,7 +1,7 @@
 import CommentsIcon from "../common/icons/PostIcons/CommentsIcon";
 import HeartIcon from "../common/icons/PostIcons/HeartIcon";
 import HeartActiveIcon from "../common/icons/PostIcons/HeartActiveIcon";
-import { useEffect, RefObject, useCallback } from "react";
+import { useEffect, RefObject, useState } from "react";
 import { setPostLiked } from "../../api/serveses/likes/setLiked";
 import { useAppSelector } from "../../redux/hooks";
 
@@ -24,22 +24,14 @@ const Actions = ({
   toggleLiked,
   likesArray,
 }: Props) => {
+  const [isDisableLike, setIsDisableLike] = useState(false);
   const currentUser = useAppSelector(state => state.auth.data);
 
-  const handleToggleLiked = useCallback(
-    async (postId: string | undefined) => {
-      setToggleLiked(toggleLiked => !toggleLiked);
-      if (postId && currentUser) {
-        try {
-          await setPostLiked(postId);
-        } catch (error) {
-          console.log(error);
-        }
-        setLikesLength(likesLength => (toggleLiked ? likesLength - 1 : likesLength + 1));
-      }
-    },
-    [currentUser, setToggleLiked]
-  );
+  useEffect(() => {
+    if (currentUser && likesArray.includes(currentUser._id)) {
+      setToggleLiked(true);
+    }
+  }, [postId, likesArray, currentUser]);
 
   useEffect(() => {
     if (currentUser && likesArray.includes(currentUser._id)) {
@@ -47,24 +39,28 @@ const Actions = ({
     }
   }, [postId, likesArray, currentUser, setToggleLiked]);
 
-  // async function handleToggleLiked(postId: string | undefined) {
-  //   setToggleLiked(toggleLiked => !toggleLiked);
-  //   if (postId && currentUser) {
-  //     try {
-  //       await setPostLiked(postId);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //     setLikesLength(toggleLiked ? likesLength - 1 : likesLength + 1);
-  //   }
-  // }
+  async function handleToggleLiked(postId: string) {
+    if (postId.length > 0 && !isDisableLike) {
+      if (postId && currentUser) {
+        try {
+          setIsDisableLike(true);
+          await setPostLiked(postId);
+          setIsDisableLike(false);
+          setToggleLiked(toggleLiked => !toggleLiked);
+          setLikesLength(toggleLiked ? likesLength - 1 : likesLength + 1);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+  }
 
   return (
     <>
       <div className="flex justify-between pb-2 pl-1 pt-3">
         <div className="flex flex-row items-center gap-2">
           {
-            <button onClick={() => handleToggleLiked(postId)} className="mr-1">
+            <button onClick={() => handleToggleLiked(!postId ? "" : postId)} className="mr-1">
               {toggleLiked ? <HeartActiveIcon /> : <HeartIcon />}
             </button>
           }
