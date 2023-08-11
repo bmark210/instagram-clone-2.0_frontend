@@ -14,7 +14,7 @@ const Feed = () => {
   useEffect(() => {
     dispatch(fetchPosts());
     dispatch(fetchAuth());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="flex w-full flex-row">

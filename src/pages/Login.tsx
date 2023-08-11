@@ -20,7 +20,7 @@ const Login = () => {
     if (isAuth) {
       navigate("/feed", { replace: true });
     }
-  }, [isAuth]);
+  }, [isAuth, navigate]);
 
   const [data, setData] = useState<LoginParams>({
     email: "",

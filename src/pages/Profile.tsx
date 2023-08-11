@@ -21,11 +21,14 @@ import { openModal } from "../redux/slices/modal";
 import Footer from "../components/publications/Footer";
 
 const Profile = () => {
+  const [user, setUser] = useState<null | OneUser>(null);
+  const [followersLength, setFollowersLength] = useState<number>();
+  const [isFollowing, setIsFollowing] = useState(false);
+
   const currentUser: UserData = useAppSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
 
   const { username } = useParams<{ username: string }>();
-  const [user, setUser] = useState<null | OneUser>(null);
 
   const dispatch = useAppDispach();
   const handleOpenModal = (modalName: string) => {
@@ -38,10 +41,14 @@ const Profile = () => {
     }
   }
 
-  const [followersLength, setFollowersLength] = useState<number>();
-  const [isFollowing, setIsFollowing] = useState(false);
-
   useEffect(() => {
+    const setUserHandler = (user: OneUser, countFolowers: number) => {
+      setUser(user);
+      setFollowersLength(countFolowers);
+      if (user.followers.includes(currentUser.data?._id as string)) {
+        setIsFollowing(true);
+      }
+    };
     if (currentUser.data && username) {
       if (username !== currentUser.data.username) {
         fetchUserByUsername(username)
@@ -59,21 +66,14 @@ const Profile = () => {
         setUserHandler(currentUser.data, currentUser.data?.followers.length);
       }
     }
-  }, [username, currentUser]);
+  }, [username, currentUser, navigate]);
 
   const isCurrentUser = currentUser && username === currentUser.data?.username;
-  const setUserHandler = (user: OneUser, countFolowers: number) => {
-    setUser(user);
-    setFollowersLength(countFolowers);
-    if (user.followers.includes(currentUser.data?._id as string)) {
-      setIsFollowing(true);
-    }
-  };
 
-  function handleImageError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
-  }
+  };
 
   const setFollow = async () => {
     if (user && currentUser) {

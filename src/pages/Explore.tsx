@@ -11,9 +11,11 @@ const Explore = () => {
   const [posts, setPosts] = useState<OnePost[]>([]);
 
   useEffect(() => {
-    getPopularPosts().then(res => {
-      setPosts(res);
-    });
+    const popularPosts = async () =>{ 
+      const data = await getPopularPosts()
+      setPosts(data)
+    }
+    popularPosts()
   }, []);
 
   return (
