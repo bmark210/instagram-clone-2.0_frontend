@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchUserById } from "../../api/endpoints/users";
 import defaultAvatar from "../../assets/avatars/default_avatar.jpg";

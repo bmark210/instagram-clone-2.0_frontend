@@ -1,11 +1,11 @@
 import axios from "../../../axios";
 
 export async function getAllSuggestions() {
-  const { data } = await axios.get("/users/allsuggestions");
-  return data;
+  const res = await axios.get("/users/allsuggestions");
+  return res.data;
 }
 
 export async function getFiveSuggestions() {
-  const { data } = await axios.get("/users/suggestions");
-  return data;
+  const res = await axios.get("/users/suggestions");
+  return res.data;
 }
