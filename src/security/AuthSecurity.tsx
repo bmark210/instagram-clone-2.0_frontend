@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { fetchAuth } from "../redux/slices/auth";
-import { selectIsAuth } from "../redux/slices/auth";
+import { fetchAuth } from "../redux/slices/user";
+import { selectIsAuth } from "../redux/slices/user";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 
 const AuthSecurity = () => {

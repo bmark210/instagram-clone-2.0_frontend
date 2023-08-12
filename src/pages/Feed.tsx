@@ -1,6 +1,6 @@
 import Timeline from "../components/Timeline";
 import RigthSideBar from "../components/rigthSideBar";
-import { fetchAuth } from "../redux/slices/auth";
+import { fetchAuth } from "../redux/slices/user";
 import { useEffect } from "react";
 import { fetchPosts } from "../redux/slices/posts";
 import { useAppDispach, useAppSelector } from "../redux/hooks";

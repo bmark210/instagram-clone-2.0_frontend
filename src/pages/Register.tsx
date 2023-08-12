@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import InstagramLogoIcon from "../components/common/icons/Instagram/InstagramLogoIcon";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchRegister, selectIsAuth } from "../redux/slices/auth";
+import { fetchRegister, selectIsAuth } from "../redux/slices/user";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import GoogleIcon from "../components/common/icons/Google/GoogleIcon";
 import AuthLoader from "../components/common/loaders/AuthLoader";

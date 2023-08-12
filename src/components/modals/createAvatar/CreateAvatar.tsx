@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/slices/modal";
-import { clearAvatar, getAvatar } from "../../../redux/slices/auth";
+import { clearAvatar, getAvatar } from "../../../redux/slices/user";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
 import {
   addAvatar,

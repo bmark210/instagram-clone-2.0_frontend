@@ -1,5 +1,5 @@
 import SavedLittleIcon from "../../common/icons/Saved/SavedLittleIcon";
-import { logout } from "../../../redux/slices/auth";
+import { logout } from "../../../redux/slices/user";
 import SettingsLittleIcon from "../../common/icons/Settings/SettingsLittleIcon";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispach } from "../../../redux/hooks";

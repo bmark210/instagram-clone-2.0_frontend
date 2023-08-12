@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import home_phones from "../assets/images/instLigin.jpg";
 import InstagramLogoIcon from "../components/common/icons/Instagram/InstagramLogoIcon";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchLogin, selectIsAuth } from "../redux/slices/auth";
+import { fetchLogin, selectIsAuth } from "../redux/slices/user";
 import { LoginParams } from "../interfaces/auth";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import GoogleIcon from "../components/common/icons/Google/GoogleIcon";
