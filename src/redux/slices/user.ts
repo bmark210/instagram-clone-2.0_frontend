@@ -3,59 +3,21 @@ import { createSlice, createAsyncThunk, AnyAction } from "@reduxjs/toolkit";
 import { LoginParams, RegisterParams } from "../../interfaces/auth";
 import { RootState } from "../store";
 import { UserData } from "../../interfaces/user";
-
-export const fetchLogin = createAsyncThunk(
-  "auth/fetchLogin",
-  async (params: LoginParams, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.post("/auth/login", params);
-      return data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data);
-    }
-  }
-);
-
-export const fetchRegister = createAsyncThunk(
-  "auth/fetchRegister",
-  async (params: RegisterParams, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.post("/auth/register", params);
-      return data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data);
-    }
-  }
-);
-
-export const fetchAuth = createAsyncThunk("auth/fetchAuth", async () => {
-  const { data } = await axios.get("/auth/me");
-  return data;
-});
-
-const initialState: UserData = {
-  data: null,
-  status: "loading",
-  error: undefined,
-};
-
-const authSlice = createSlice({
-  name: "auth",
-  initialState,
+// Add avatar reducer
+const avatarSlice = createSlice({
+  name: "avatar",
+  initialState: {
+    data: null,
+    status: "loading",
+    error: undefined,
+  },
   reducers: {
-    logout: state => {
-      state.data = null;
-    },
-    getAvatar: (state, action) => {
-      if (state.data) {
-        state.data.avatar = action.payload;
-      }
+    setAvatar: (state, action) => {
+      state.data = action.payload;
       state.status = "loaded";
     },
     clearAvatar: state => {
-      if (state.data) {
-        state.data.avatar = null;
-      }
+      state.data = null;
       state.status = "loading";
     },
   },
@@ -65,11 +27,11 @@ const authSlice = createSlice({
         state.data = null;
         state.status = "loading";
       })
-      .addCase(fetchLogin.fulfilled, (state, action: AnyAction) => {
+      .addCase(fetchLogin.fulfilled, (state, action) => {
         state.data = action.payload;
         state.status = "loaded";
       })
-      .addCase(fetchLogin.rejected, (state, action: AnyAction) => {
+      .addCase(fetchLogin.rejected, (state, action) => {
         state.data = null;
         state.status = "error";
         if (action.payload) {
@@ -82,7 +44,7 @@ const authSlice = createSlice({
         state.data = null;
         state.status = "loading";
       })
-      .addCase(fetchAuth.fulfilled, (state, action: AnyAction) => {
+      .addCase(fetchAuth.fulfilled, (state, action) => {
         state.data = action.payload;
         state.status = "loaded";
       })
@@ -94,11 +56,11 @@ const authSlice = createSlice({
         state.data = null;
         state.status = "loading";
       })
-      .addCase(fetchRegister.fulfilled, (state, action: AnyAction) => {
+      .addCase(fetchRegister.fulfilled, (state, action) => {
         state.data = action.payload;
         state.status = "loaded";
       })
-      .addCase(fetchRegister.rejected, (state, action: AnyAction) => {
+      .addCase(fetchRegister.rejected, (state, action) => {
         state.data = null;
         state.status = "error";
         if (action.payload) {
@@ -109,10 +71,11 @@ const authSlice = createSlice({
       });
   },
 });
-
+// Selectors
 export const selectIsAuth = (state: RootState) => Boolean(state.auth.data);
 export const selectAuthError = (state: RootState) => state.auth.error;
-
-export const { logout } = authSlice.actions;
-export const { getAvatar, clearAvatar } = authSlice.actions;
-export const authReducer = authSlice.reducer;
+export const selectAvatar = (state: RootState) => state.avatar.data;
+export const selectAvatarError = (state: RootState) => state.avatar.error;
+// Actions
+export const logout = authSlice.actions.logout;
+export const fetchLogin = auth;

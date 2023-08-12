@@ -8,7 +8,7 @@ export interface OneUser {
   _id: string;
   username: string;
   fullName: string;
-  avatar: avatar;
+  avatar: avatar | null;
   postsLength: number;
   email: string;
   bio: string;

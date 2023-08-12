@@ -3,3 +3,9 @@ export interface Image {
   type: string;
   name: string;
 }
+
+export interface Avatar {
+  data: Image | null;
+  status: string;
+  error?: string;
+}

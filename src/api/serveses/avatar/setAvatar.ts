@@ -1,19 +1,18 @@
 import axios from "../../../axios";
 
-export const deleteAvatar = async (name: string) =>
-  await axios.patch("/avatar", { name }).then(res => {
-    return res;
-  });
-
-export const avatarFieldToEmpty = async () => {
-  await axios.patch("/users/avatar", { avatar: {} });
+export const deleteAvatar = async (name: string) => {
+  const res = await axios.patch("/avatar", { name });
+  return res;
 };
+// export const avatarFieldToEmpty = async () => {
+//   await axios.patch("/users/avatar", { avatar: {} });
+// };
 export const addAvatar = async (formData: FormData) => {
-  const data = await axios.post("/avatar", formData);
-  return data.data;
+  const res = await axios.post("/avatar", formData);
+  return res.data;
 };
 
-export const addAvatarFieldToUser = async (avatar: {
+export const changeAvatarFieldInUser = async (avatar?: {
   name: string;
   downloadURL: string;
   type: string;

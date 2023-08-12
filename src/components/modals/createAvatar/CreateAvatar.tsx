@@ -1,22 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/slices/modal";
+import { clearAvatar, getAvatar } from "../../../redux/slices/auth";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
 import {
   addAvatar,
-  addAvatarFieldToUser,
-  avatarFieldToEmpty,
+  changeAvatarFieldInUser,
   deleteAvatar,
 } from "../../../api/serveses/avatar/setAvatar";
 
 const CreateAvatar = () => {
+  const [loading, setLoading] = useState(false);
+  const currentAvatar = useAppSelector(state => state.auth.data?.avatar);
   const dispatch = useAppDispach();
+  const image = useRef<HTMLInputElement>(null);
+
   const handleCloseModal = (value: string) => {
     dispatch(closeModal(value));
   };
-  const currentAvatar = useAppSelector(state => state.auth.data?.avatar);
-  const [loading, setLoading] = useState(false);
-  const image = useRef<HTMLInputElement>(null);
   const [avatar, setAvatar] = useState({
     name: "",
     downloadURL: "",
@@ -28,8 +29,8 @@ const CreateAvatar = () => {
       console.log(avatar);
       if (avatar.name !== "") {
         try {
-          await addAvatarFieldToUser(avatar);
-          window.location.reload(); // todo how to remove
+          await changeAvatarFieldInUser(avatar);
+          dispatch(getAvatar(avatar));
           handleCloseModal("avatarModal");
         } catch (error) {
           console.log(error);
@@ -40,7 +41,7 @@ const CreateAvatar = () => {
       }
     };
     createAvatar();
-  }, [avatar]);
+  }, [avatar, dispatch]);
 
   const handleChangeFileAndSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
@@ -49,10 +50,11 @@ const CreateAvatar = () => {
       if (e.target.files) {
         const file = e.target.files[0];
         formData.append("avatar", file);
-        setAvatar(await addAvatar(formData));
+        const data = await addAvatar(formData);
+        setAvatar(data);
       }
     } catch (error) {
-      alert("Ошибка при загрузке файла");
+      alert("Ошибка при загрузке файла");
     }
   };
 
@@ -61,8 +63,9 @@ const CreateAvatar = () => {
       setLoading(true);
       if (currentAvatar?.name) {
         await deleteAvatar(currentAvatar.name);
-        await avatarFieldToEmpty();
-        window.location.reload();
+        await changeAvatarFieldInUser();
+        dispatch(clearAvatar());
+        handleCloseModal("avatarModal");
       }
     } catch (error) {
       console.log(error);
