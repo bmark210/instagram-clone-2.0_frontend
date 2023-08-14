@@ -4,7 +4,8 @@ import AuthLayout from "./layouts/AuthLayout.tsx";
 
 import pMinDelay from "p-min-delay";
 
-import AuthProtection from "./security/AuthSecurity.tsx";
+import * as ROUTES from "./constants/routes";
+
 import AllSuggestions from "./components/rigthSideBar/AllSuggestions.tsx";
 import EditProfile from "./components/Settings/EditProfile.tsx";
 import AppsAndWebsites from "./components/Settings/AppsAndWebsites.tsx";
@@ -20,6 +21,7 @@ import Profile from "./pages/Profile.tsx";
 import Feed from "./pages/Feed.tsx";
 import Settings from "./pages/Settings.tsx";
 import Publications from "./pages/Publications.tsx";
+import AuthSecurity from "./security/AuthSecurity.tsx";
 
 const MainLayout = loadable(() => pMinDelay(import("./layouts/MainLayout.tsx"), 400), {
   fallback: <InstagramLoader />,
@@ -27,85 +29,85 @@ const MainLayout = loadable(() => pMinDelay(import("./layouts/MainLayout.tsx"), 
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <AuthProtection />,
+    path: ROUTES.AUTH_SECURITY,
+    element: <AuthSecurity />,
     children: [
       {
-        path: "",
+        path: ROUTES.MAIN_LAYOUT,
         element: <MainLayout />,
         children: [
           {
             index: true,
-            element: <Navigate to="/feed" />,
+            element: <Navigate to={ROUTES.FEED} />,
           },
           {
-            path: "/feed",
+            path: ROUTES.FEED,
             element: <Feed />,
           },
           {
-            path: "/explore/",
+            path: ROUTES.EXPLORE,
             element: <Explore />,
           },
           {
-            path: "/explore/people",
+            path: ROUTES.SUGGESTIONS,
             element: <AllSuggestions />,
           },
           {
-            path: "/:username/",
+            path: ROUTES.PROFILE,
             element: <Profile />,
             children: [
               {
-                path: "/:username/",
+                path: ROUTES.PUBLICATION,
                 element: <Publications />,
               },
               {
-                path: "/:username/saved",
+                path: ROUTES.SAVED,
                 element: <Saved />,
               },
               {
-                path: "/:username/tagged",
+                path: ROUTES.TAGGED,
                 element: <Tagged />,
               },
             ],
           },
           {
-            path: "/settings/",
+            path: ROUTES.SETTINGS,
             element: <Settings />,
             children: [
               {
                 index: true,
-                element: <Navigate to="/settings/edit" />,
+                element: <Navigate to={ROUTES.SETTINGS + ROUTES.EDIT_PROFILE} />,
               },
               {
-                path: "edit",
+                path: ROUTES.EDIT_PROFILE,
                 element: <EditProfile />,
               },
               {
-                path: "manage_access",
+                path: ROUTES.MANAGE_ACCESS,
                 element: <AppsAndWebsites />,
               },
             ],
           },
           {
-            path: "*",
+            path: ROUTES.ALL,
             element: <Navigate to="/not-found" />,
           },
           {
-            path: "not-found",
+            path: ROUTES.NOT_FOUND,
             element: <NotFound />,
           },
         ],
       },
       {
-        path: "",
+        path: ROUTES.AUTH_LAYOUT,
         element: <AuthLayout />,
         children: [
           {
-            path: "/auth/login",
+            path: ROUTES.LOGIN,
             element: <Login />,
           },
           {
-            path: "/auth/register",
+            path: ROUTES.REGISTER,
             element: <Register />,
           },
         ],

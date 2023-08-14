@@ -1,0 +1,17 @@
+export const AUTH_SECURITY = "/";
+export const MAIN_LAYOUT = "";
+export const FEED = "/feed";
+export const EXPLORE = "/explore";
+export const SUGGESTIONS = "/explore/people";
+export const PROFILE = "/:username/";
+export const PUBLICATION = "/:username/";
+export const SAVED = "/:username/saved/";
+export const TAGGED = "/:username/tagged/";
+export const SETTINGS = "/settings";
+export const EDIT_PROFILE = "/edit";
+export const MANAGE_ACCESS = "/manage-access";
+export const NOT_FOUND = "not-found";
+export const AUTH_LAYOUT = "";
+export const LOGIN = "/auth/login";
+export const REGISTER = "/auth/register";
+export const ALL = "*";
