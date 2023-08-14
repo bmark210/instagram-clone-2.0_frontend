@@ -24,6 +24,25 @@ const CreateAvatar = () => {
     type: "",
   });
 
+  useEffect(() => {
+    const createAvatar = async () => {
+      console.log(avatar);
+      if (avatar.name !== "") {
+        try {
+          await changeAvatarFieldInUser(avatar);
+          dispatch(getAvatar(avatar));
+          handleCloseModal("avatarModal");
+        } catch (error) {
+          console.log(error);
+          alert("Ошибка при добавлении аватара");
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    createAvatar();
+  }, [avatar, dispatch]);
+
   const handleChangeFileAndSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       setLoading(true);
@@ -53,25 +72,6 @@ const CreateAvatar = () => {
       alert("Ошибка при удалении аватара");
     }
   };
-
-  useEffect(() => {
-    const createAvatar = async () => {
-      if (avatar.name !== "") {
-        try {
-          await changeAvatarFieldInUser(avatar);
-          dispatch(getAvatar(avatar));
-          dispatch(closeModal("avatarModal"));
-        } catch (error) {
-          console.log(error);
-          alert("Ошибка при добавлении аватара");
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-    createAvatar();
-  }, [avatar, dispatch]);
-
   if (loading) {
     return (
       <div
