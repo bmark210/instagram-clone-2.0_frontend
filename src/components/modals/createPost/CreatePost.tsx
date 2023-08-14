@@ -8,16 +8,9 @@ import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import { closeModal, openModal } from "../../../redux/slices/modal";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
-
-interface Fields {
-  image: {
-    name: string;
-    downloadURL: string;
-    type: string;
-  } | null;
-  text: string;
-  place: string;
-}
+import { addPostDataInFieldToUser } from "../../../api/endpoints/posts";
+import { Fields } from "../../../interfaces/fields";
+import { deleteImageFromDB, uploadImg } from "../../../api/serveses/image/setImage";
 
 const Create = () => {
   const dispatch = useAppDispach();
@@ -52,19 +45,17 @@ const Create = () => {
 
   const handleClose = () => {
     dispatch(closeModal("createModal"));
-    axios
-      .post(`/image/remove/${fields.image?.name}`)
-      .then(() => {
-        setFields({
-          image: null,
-          text: "",
-          place: "",
-        });
-        navigate("/feed");
-      })
-      .catch(error => {
-        console.log(error);
+    try {
+      deleteImageFromDB(fields.image?.name);
+      setFields({
+        image: null,
+        text: "",
+        place: "",
       });
+      navigate("/feed");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +65,7 @@ const Create = () => {
       if (e.target.files) {
         const file = e.target.files[0];
         formData.append("image", file);
-        const { data } = await axios.post("/image", formData);
+        const data = await uploadImg(formData, "image");
         setFields({ ...fields, image: data });
       }
     } catch (error) {
@@ -88,14 +79,14 @@ const Create = () => {
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      await axios.post("/posts/create", fields);
+      await addPostDataInFieldToUser(fields);
       setFields({
         image: null,
         text: "",
         place: "",
       });
+      dispatch(closeModal("createModal"));
       navigate("/feed");
-      window.location.reload();
     } catch (error) {
       console.log(error);
       alert("Ошибка при добавлении поста");

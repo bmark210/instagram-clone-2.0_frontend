@@ -4,10 +4,10 @@ import { closeModal } from "../../../redux/slices/modal";
 import { clearAvatar, getAvatar } from "../../../redux/slices/user";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
 import {
-  addAvatar,
   changeAvatarFieldInUser,
   deleteAvatar,
 } from "../../../api/serveses/avatar/setAvatar";
+import { uploadImg } from "../../../api/serveses/image/setImage";
 
 const CreateAvatar = () => {
   const [loading, setLoading] = useState(false);
@@ -24,25 +24,6 @@ const CreateAvatar = () => {
     type: "",
   });
 
-  useEffect(() => {
-    const createAvatar = async () => {
-      console.log(avatar);
-      if (avatar.name !== "") {
-        try {
-          await changeAvatarFieldInUser(avatar);
-          dispatch(getAvatar(avatar));
-          handleCloseModal("avatarModal");
-        } catch (error) {
-          console.log(error);
-          alert("Ошибка при добавлении аватара");
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-    createAvatar();
-  }, [avatar, dispatch]);
-
   const handleChangeFileAndSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       setLoading(true);
@@ -50,7 +31,7 @@ const CreateAvatar = () => {
       if (e.target.files) {
         const file = e.target.files[0];
         formData.append("avatar", file);
-        const data = await addAvatar(formData);
+        const data = await uploadImg(formData, "avatar");
         setAvatar(data);
       }
     } catch (error) {
@@ -72,6 +53,25 @@ const CreateAvatar = () => {
       alert("Ошибка при удалении аватара");
     }
   };
+
+  useEffect(() => {
+    const createAvatar = async () => {
+      if (avatar.name !== "") {
+        try {
+          await changeAvatarFieldInUser(avatar);
+          dispatch(getAvatar(avatar));
+          dispatch(closeModal("avatarModal"));
+        } catch (error) {
+          console.log(error);
+          alert("Ошибка при добавлении аватара");
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    createAvatar();
+  }, [avatar, dispatch]);
+
   if (loading) {
     return (
       <div
