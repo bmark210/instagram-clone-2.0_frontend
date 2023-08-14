@@ -3,6 +3,7 @@ import { logout } from "../../../redux/slices/user";
 import SettingsLittleIcon from "../../common/icons/Settings/SettingsLittleIcon";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispach } from "../../../redux/hooks";
+import * as ROUTES from "../../../constants/routes";
 
 interface Props {
   setIsMoreModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,7 +16,7 @@ const MoreModal = ({ setIsMoreModalOpen, username }: Props) => {
   const onClickLogout = () => {
     dispatch(logout());
     window.localStorage.removeItem("token");
-    navigate("/auth/login");
+    navigate(ROUTES.LOGIN, { replace: true });
   };
   return (
     <div
@@ -31,7 +32,7 @@ const MoreModal = ({ setIsMoreModalOpen, username }: Props) => {
           <button className="w-full text-left text-black-dark ">Saved</button>
         </Link>
         <Link
-          to="/settings"
+          to={ROUTES.SETTINGS}
           className="flex flex-row items-center gap-3 rounded-md px-2 py-3 hover:bg-gray-100"
         >
           <SettingsLittleIcon />

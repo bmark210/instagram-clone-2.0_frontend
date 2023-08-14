@@ -5,7 +5,7 @@ import { getTimeDifferenceInShortWords } from "../../utils/getTimeDifference";
 
 interface Props {
   username: string;
-  avatarUrl: string;
+  avatarUrl?: string;
   place?: string;
   createdAt?: string;
 }
@@ -19,7 +19,7 @@ const Header = ({ username, avatarUrl, createdAt, place }: Props) => {
   return (
     <div className="flex items-center py-4 pl-2">
       <div className="flex items-center">
-        <Link to={`/${username}/`} className="flex items-center">
+        <Link to={"/" + username} className="flex items-center">
           <img
             className="mr-3 flex h-8 w-8 rounded-full object-cover"
             src={avatarUrl || defaultAvatar}

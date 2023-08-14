@@ -21,6 +21,7 @@ import BlackInstagramLogo from "./common/icons/Instagram/BlackInstagramLogo";
 import SearchModal from "./modals/search/SearchModal";
 import CreateAvatar from "./modals/createAvatar/CreateAvatar";
 import { RootState } from "../redux/store";
+import * as ROUTES from "../constants/routes";
 
 const SideBar = () => {
   const isCreateModalOpen = useAppSelector(state => state.modals.createModal);
@@ -53,7 +54,7 @@ const SideBar = () => {
         >
           <NavLink
             onClick={() => setIsSearchModalOpen(false)}
-            to="/feed"
+            to={ROUTES.FEED}
             className={`${
               isSearchModalOpen ? "p-3 transition-opacity duration-300" : "p-2"
             }  mb-8 mt-6 h-10`}
@@ -64,7 +65,7 @@ const SideBar = () => {
             <NavLink
               onClick={() => setIsSearchModalOpen(false)}
               className="group flex flex-row items-center rounded-lg p-3 hover:bg-gray-100 active:opacity-75"
-              to="/feed"
+              to={ROUTES.FEED}
             >
               {({ isActive }: { isActive: boolean }) => (
                 <>
@@ -96,7 +97,7 @@ const SideBar = () => {
             <NavLink
               onClick={() => setIsSearchModalOpen(false)}
               className="group flex flex-row items-center rounded-lg p-3 hover:bg-gray-100 active:opacity-75"
-              to="/explore"
+              to={ROUTES.EXPLORE}
             >
               {({ isActive }: { isActive: boolean }) => (
                 <>
@@ -126,7 +127,7 @@ const SideBar = () => {
             <NavLink
               onClick={() => setIsSearchModalOpen(false)}
               className="group flex flex-row items-center rounded-lg p-3 transition-opacity duration-300 hover:bg-gray-100 active:opacity-75"
-              to={`/${currentUsername}/`}
+              to={"/" + currentUsername}
             >
               {({ isActive }: { isActive: boolean }) => (
                 <>

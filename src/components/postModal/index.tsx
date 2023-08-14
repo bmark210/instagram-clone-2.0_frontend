@@ -72,7 +72,7 @@ const PostModal = ({
             <div className="mt-5 flex justify-center">
               <CircleLoader color="gray-400" />
             </div>
-          ) : comments.length === 0 && post.caption === "" ? (
+          ) : comments.length === 0 && post.caption === "" && !commentItem.comment ? (
             <div className="flex h-full w-full flex-col items-center justify-center">
               <p className="mb-3 text-2xl font-bold">No comments yet.</p>
               <span className="text-sm">Start the conversation.</span>

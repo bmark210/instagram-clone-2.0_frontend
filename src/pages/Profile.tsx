@@ -19,6 +19,7 @@ import ContentLoader from "react-content-loader";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import { openModal } from "../redux/slices/modal";
 import Footer from "../components/publications/Footer";
+import { EDIT_PROFILE } from "../constants/routes";
 
 const Profile = () => {
   const [user, setUser] = useState<null | OneUser>(null);
@@ -120,7 +121,7 @@ const Profile = () => {
               {isCurrentUser ? (
                 <>
                   <NavLink
-                    to={"/settings/edit"}
+                    to={EDIT_PROFILE}
                     className="font-xl mr-5 rounded-lg bg-gray-200 px-4 py-1 hover:bg-gray-primary"
                   >
                     Edit profile

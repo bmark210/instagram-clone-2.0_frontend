@@ -5,6 +5,7 @@ import { fetchRegister, selectIsAuth } from "../redux/slices/user";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import GoogleIcon from "../components/common/icons/Google/GoogleIcon";
 import AuthLoader from "../components/common/loaders/AuthLoader";
+import { LOGIN } from "../constants/routes";
 
 const Register = () => {
   const isAuth = useAppSelector(selectIsAuth);
@@ -18,7 +19,7 @@ const Register = () => {
     if (isAuth) {
       navigate("/", { replace: true });
     }
-  }, [isAuth]);
+  }, [isAuth, navigate]);
 
   const [data, setData] = useState({
     username: "",
@@ -130,7 +131,7 @@ const Register = () => {
         </form>
         <div className="flex w-full justify-center gap-2 rounded border border-gray-primary bg-white px-7 py-5">
           <p className="text-xs">Have an account?</p>
-          <Link to="/auth/login" className="text-xs font-bold text-blue-primary">
+          <Link to={LOGIN} className="text-xs font-bold text-blue-primary">
             Log in
           </Link>
         </div>

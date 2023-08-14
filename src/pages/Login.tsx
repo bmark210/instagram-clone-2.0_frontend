@@ -7,6 +7,7 @@ import { LoginParams } from "../interfaces/auth";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import GoogleIcon from "../components/common/icons/Google/GoogleIcon";
 import AuthLoader from "../components/common/loaders/AuthLoader";
+import { REGISTER } from "../constants/routes";
 
 const Login = () => {
   const isAuth = useAppSelector(selectIsAuth);
@@ -104,7 +105,7 @@ const Login = () => {
         </form>
         <div className="flex w-80 flex-row items-center justify-center gap-2 rounded border border-gray-primary bg-white px-7 py-5">
           <p className="text-xs">Don't have an account?</p>
-          <Link to="/auth/register" className="text-xs font-bold text-blue-primary">
+          <Link to={REGISTER} className="text-xs font-bold text-blue-primary">
             Sign up
           </Link>
         </div>

@@ -76,7 +76,7 @@ export const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <Navigate to={ROUTES.SETTINGS + ROUTES.EDIT_PROFILE} />,
+                element: <Navigate to={ROUTES.EDIT_PROFILE} />,
               },
               {
                 path: ROUTES.EDIT_PROFILE,
@@ -90,7 +90,7 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.ALL,
-            element: <Navigate to="/not-found" />,
+            element: <Navigate to={ROUTES.NOT_FOUND} />,
           },
           {
             path: ROUTES.NOT_FOUND,

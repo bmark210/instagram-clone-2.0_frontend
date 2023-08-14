@@ -4,6 +4,7 @@ import ContentLoader from "react-content-loader";
 import { Link } from "react-router-dom";
 import { OneUser } from "../../interfaces/user";
 import SuggestedProfile from "./SuggestedProfile";
+import { EXPLORE, SUGGESTIONS } from "../../constants/routes";
 
 const Suggestions = () => {
   const [profiles, setProfiles] = useState([]);
@@ -25,7 +26,7 @@ const Suggestions = () => {
         <div className="flex w-full flex-row items-center justify-between">
           <p className="font-medium text-gray-500">Suggestions for you</p>
           <Link
-            to="/explore/people"
+            to={SUGGESTIONS}
             role="button"
             onClick={handleShowModal}
             className="text-xs font-medium text-black-dark"

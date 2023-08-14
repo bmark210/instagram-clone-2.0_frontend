@@ -3,6 +3,7 @@ import AdIcon from "../components/common/icons/AdIcon";
 import MetaIcon from "../components/common/icons/MetaIcon/MetaIcon";
 import PersonIcon from "../components/common/icons/PersonIcon";
 import SecurityIcon from "../components/common/icons/SecurityIcon";
+import * as ROUTES from "../constants/routes";
 
 const Settings = () => {
   return (
@@ -33,14 +34,14 @@ const Settings = () => {
             </p>
           </div>
           <div className="min-w-56 flex h-fit flex-col border-r border-t border-gray-base">
-            <NavLink className="hover:bg-gray-100" to="/settings/edit">
+            <NavLink to={ROUTES.EDIT_PROFILE} className="hover:bg-gray-100">
               {({ isActive }: { isActive: boolean }) => (
                 <div className={`${isActive ? "border-l border-black-dark font-medium" : ""} py-3`}>
                   <p className="ml-3">Edit profile</p>
                 </div>
               )}
             </NavLink>
-            <NavLink className="hover:bg-gray-100" to="/settings/manage_access">
+            <NavLink to={ROUTES.MANAGE_ACCESS} className="hover:bg-gray-100">
               {({ isActive }: { isActive: boolean }) => (
                 <div
                   className={`${isActive ? "border-l border-black-dark font-medium " : ""} py-3`}
