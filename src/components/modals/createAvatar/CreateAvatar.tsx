@@ -3,10 +3,7 @@ import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/slices/modal";
 import { clearAvatar, getAvatar } from "../../../redux/slices/user";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
-import {
-  changeAvatarFieldInUser,
-  deleteAvatar,
-} from "../../../api/serveses/avatar/setAvatar";
+import { changeAvatarFieldInUser, deleteAvatarFieldInUser } from "../../../api/serveses/avatar/setAvatar";
 import { uploadImg } from "../../../api/serveses/image/setImage";
 
 const CreateAvatar = () => {
@@ -31,7 +28,7 @@ const CreateAvatar = () => {
         try {
           await changeAvatarFieldInUser(avatar);
           dispatch(getAvatar(avatar));
-          handleCloseModal("avatarModal");
+          dispatch(closeModal("avatarModal"));
         } catch (error) {
           console.log(error);
           alert("Ошибка при добавлении аватара");
@@ -62,7 +59,7 @@ const CreateAvatar = () => {
     try {
       setLoading(true);
       if (currentAvatar?.name) {
-        await deleteAvatar(currentAvatar.name);
+        await deleteAvatarFieldInUser(currentAvatar.name);
         await changeAvatarFieldInUser();
         dispatch(clearAvatar());
         handleCloseModal("avatarModal");

@@ -1,6 +1,5 @@
 import MediaIcon from "../../common/icons/MediaIcon";
 import React, { useRef, useState, useEffect } from "react";
-import axios from "../../../axios";
 import PlaceIcon from "../../common/icons/PlaceIcon";
 import defaultAvatar from "../../../assets/avatars/default_avatar.jpg";
 import { UserData } from "../../../interfaces/user";
