@@ -27,7 +27,7 @@ const UserForm = ({ user }: Props) => {
   }
 
   return (
-    <Link to={"/" + user.data?.username} className="flex flex-row items-center">
+    <Link to={`/${user.data?.username}/`} className="flex flex-row items-center">
       <div className="col-span-1 flex items-center justify-between">
         <img
           className="h-14 w-14 rounded-full object-cover"

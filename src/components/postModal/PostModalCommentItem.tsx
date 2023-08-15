@@ -16,7 +16,7 @@ const PostModalCommentItem = ({ avatar, username, text }: Props) => {
   return (
     <div className="py-3 pl-2">
       <div className="flex px-3">
-        <Link className="" to={"/" + username}>
+        <Link className="" to={`/${username}/`}>
           <img
             className="my-1 mr-3 h-8 w-8 rounded-full"
             src={avatar !== undefined ? `${avatar}` : `${defaultAvatar}`}

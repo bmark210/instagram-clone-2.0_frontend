@@ -43,7 +43,7 @@ const SuggestedProfile = ({ userId }: Props) => {
   if (!user) return null;
   return !followed ? (
     <div className="align-items flex flex-row items-center justify-between">
-      <Link to={"/" + user?.username}>
+      <Link to={`/${user?.username}/`}>
         <div className="flex items-center justify-between">
           <img
             className="mr-3 flex h-8 w-8 rounded-full object-cover"

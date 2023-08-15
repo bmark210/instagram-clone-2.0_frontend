@@ -15,7 +15,7 @@ const SearchModalItem = ({ user, handleHideSearchModal }: Props) => {
   return (
     <Link
       onClick={handleHideSearchModal}
-      to={"/" + user.username}
+      to={`/${user.username}/`}
       className="my-4 flex flex-row items-center gap-4"
     >
       <img

@@ -127,7 +127,7 @@ const SideBar = () => {
             <NavLink
               onClick={() => setIsSearchModalOpen(false)}
               className="group flex flex-row items-center rounded-lg p-3 transition-opacity duration-300 hover:bg-gray-100 active:opacity-75"
-              to={"/" + currentUsername}
+              to={`/${currentUsername}/`}
             >
               {({ isActive }: { isActive: boolean }) => (
                 <>

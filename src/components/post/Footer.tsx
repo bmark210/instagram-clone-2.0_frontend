@@ -20,7 +20,7 @@ const Footer = ({ caption, username }: Props) => {
     <div className="pl-2 pt-2">
       {caption && (
         <>
-          <Link to={"/" + username}>
+          <Link to={`/${username}/`}>
             <span className="mr-1 font-medium">{username}</span>
           </Link>
           <span className="text-sm font-thin">
