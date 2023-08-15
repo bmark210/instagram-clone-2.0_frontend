@@ -12,9 +12,13 @@ const Feed = () => {
   const posts = useAppSelector(state => state.posts);
 
   useEffect(() => {
-    dispatch(fetchPosts());
-    dispatch(fetchAuth());
-  }, [dispatch]);
+    if (user) {
+      dispatch(fetchPosts());
+    } else {
+      dispatch(fetchPosts());
+      dispatch(fetchAuth());
+    }
+  }, [dispatch, user]);
 
   return (
     <div className="flex w-full flex-row">

@@ -31,7 +31,7 @@ const Actions = ({
     if (currentUser && likesArray.includes(currentUser._id)) {
       setToggleLiked(true);
     }
-  }, [postId, likesArray, currentUser]);
+  }, [postId, likesArray, currentUser, setToggleLiked]);
 
   async function handleToggleLiked(postId: string) {
     if (postId.length > 0 && !isDisableLike) {

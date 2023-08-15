@@ -118,7 +118,7 @@ export const router = createBrowserRouter([
 
 export const rootNavigate = router.navigate;
 
-// i need to add routes.ts
+// i need to add routes.ts ----
 // to refactor actions in posts
 // to fix avatar uploaded
 // to do avatar img in global state
