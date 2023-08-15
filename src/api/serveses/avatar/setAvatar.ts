@@ -10,7 +10,6 @@ export const addAvatarFieldInUser = async (formData: FormData) => {
   return res.data;
 };
 
-
 export const changeAvatarFieldInUser = async (avatar?: {
   name: string;
   downloadURL: string;

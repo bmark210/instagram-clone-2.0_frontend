@@ -19,10 +19,12 @@ const SearchModal = ({ setIsSearchModalOpen, isSearchModalOpen }: Props) => {
     if (!query) return;
     setIsLoading(true);
     try {
-      const data = await getUsersByQuery(query);
-      setUsers(data);
+      await getUsersByQuery(query).then(res => {
+        setUsers(res);
+      });
     } catch (error) {
       console.error(error);
+      alert("Ошибка сервера");
       setQuery("");
     } finally {
       setIsLoading(false);
@@ -47,17 +49,14 @@ const SearchModal = ({ setIsSearchModalOpen, isSearchModalOpen }: Props) => {
         <div className="flex-column h-32 w-full border-b border-gray-base px-5">
           <div className="my-2 w-full">
             <h2 className="mb-8 mt-6 text-2xl font-medium">Search</h2>
-
-            <form onSubmit={handleSearch}>
-              <input
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-                className="w-full rounded-lg border-gray-base bg-gray-100 px-3 py-2 outline-none placeholder:font-thin"
-                type="text"
-                placeholder="Search and press Enter"
-                onSubmit={handleSearch}
-              />
-            </form>
+            <input
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              className="w-full rounded-lg border-gray-base bg-gray-100 px-3 py-2 outline-none placeholder:font-thin"
+              type="text"
+              placeholder="Search"
+              onInput={handleSearch}
+            />
           </div>
         </div>
         <div className="my-2 w-full overflow-y-auto px-6">
