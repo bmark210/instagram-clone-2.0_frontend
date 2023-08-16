@@ -3,8 +3,9 @@ import { OnePost } from "../../interfaces/post";
 import HeartWhiteIcon from "../common/icons/PostIcons/HeartWhiteIcon";
 import CommentsWhiteIcon from "../common/icons/PostIcons/CommentsWhiteIcon";
 import Modal from "../common/modals/Modal";
-import PostModal from "../postModal";
+import PostModal from "../post/postModal";
 import { OneUser } from "../../interfaces/user";
+import { setPostLiked } from "../../api/serveses/likes/setLiked";
 
 type Props = {
   post: OnePost;
@@ -15,7 +16,24 @@ const PostImage = ({ post, currentUser }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [toggleLiked, setToggleLiked] = useState(false);
   const [likesLength, setLikesLength] = useState(post.likes?.length);
+  const [isDisableLike, setIsDisableLike] = useState(false);
 
+  async function handleToggleLiked(postId: string) {
+    if (postId.length > 0 && !isDisableLike) {
+      if (postId && currentUser) {
+        try {
+          setIsDisableLike(true);
+          await setPostLiked(postId);
+          setIsDisableLike(false);
+          setToggleLiked(toggleLiked => !toggleLiked);
+          setLikesLength(toggleLiked ? likesLength - 1 : likesLength + 1);
+        } catch (error) {
+          alert("Ошибка сервера");
+          console.log(error);
+        }
+      }
+    }
+  }
   return (
     <>
       <div
@@ -43,6 +61,7 @@ const PostImage = ({ post, currentUser }: Props) => {
       {isOpen && (
         <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
           <PostModal
+            handleToggleLiked={handleToggleLiked}
             currentUser={currentUser}
             toggleLiked={toggleLiked}
             likesLength={likesLength}

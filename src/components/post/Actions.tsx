@@ -1,54 +1,18 @@
 import CommentsIcon from "../common/icons/PostIcons/CommentsIcon";
 import HeartIcon from "../common/icons/PostIcons/HeartIcon";
 import HeartActiveIcon from "../common/icons/PostIcons/HeartActiveIcon";
-import { useEffect, useState } from "react";
-import { setPostLiked } from "../../api/serveses/likes/setLiked";
-import { useAppSelector } from "../../redux/hooks";
 
 interface Props {
   postId?: string;
   likesArray: string[];
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   likesLength: number;
-  setToggleLiked: React.Dispatch<React.SetStateAction<boolean>>;
   toggleLiked: boolean;
   setLikesLength: React.Dispatch<React.SetStateAction<number>>;
+  handleToggleLiked: (postId: string) => Promise<void>;
 }
 
-const Actions = ({
-  postId,
-  likesArray,
-  setIsOpen,
-  setToggleLiked,
-  toggleLiked,
-  likesLength,
-  setLikesLength,
-}: Props) => {
-  const [isDisableLike, setIsDisableLike] = useState(false);
-  const currentUser = useAppSelector(state => state.auth.data);
-
-  useEffect(() => {
-    if (currentUser && likesArray.includes(currentUser._id)) {
-      setToggleLiked(true);
-    }
-  }, [postId, likesArray, currentUser, setToggleLiked]);
-
-  async function handleToggleLiked(postId: string) {
-    if (postId.length > 0 && !isDisableLike) {
-      if (postId && currentUser) {
-        try {
-          setIsDisableLike(true);
-          await setPostLiked(postId);
-          setIsDisableLike(false);
-          setToggleLiked(toggleLiked => !toggleLiked);
-          setLikesLength(toggleLiked ? likesLength - 1 : likesLength + 1);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    }
-  }
-
+const Actions = ({ postId, setIsOpen, toggleLiked, likesLength, handleToggleLiked }: Props) => {
   return (
     <>
       <div className="flex justify-between py-4 pl-1">

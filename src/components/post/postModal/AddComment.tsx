@@ -1,6 +1,6 @@
 import { RefObject, useState } from "react";
-import { addComment } from "../../api/serveses/comments/setComment";
-import { Comment } from "../../interfaces/post";
+import { addComment } from "../../../api/serveses/comments/setComment";
+import { Comment } from "../../../interfaces/post";
 
 interface Props {
   postId: string;

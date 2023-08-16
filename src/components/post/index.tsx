@@ -1,14 +1,15 @@
 import Header from "./Header";
 import Image from "./Image";
 import Comments from "./Comments";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Actions from "./Actions";
 import Footer from "./Footer";
 import { OneUser } from "../../interfaces/user";
 import { OnePost } from "../../interfaces/post";
 import { useAppSelector } from "../../redux/hooks";
 import Modal from "../common/modals/Modal";
-import PostModal from "../postModal";
+import PostModal from "./postModal";
+import { setPostLiked } from "../../api/serveses/likes/setLiked";
 
 interface Props {
   post: OnePost;
@@ -20,8 +21,31 @@ const PostItem = ({ post, user }: Props) => {
 
   const [toggleLiked, setToggleLiked] = useState(false); /// I need to add this to modalPost- Actions also in just post Actions
   const [likesLength, setLikesLength] = useState(post.likes.length); // this one state I also need to add in those two components
-
+  const [isDisableLike, setIsDisableLike] = useState(false);
   const currentUser = useAppSelector(state => state.auth.data);
+
+  async function handleToggleLiked(postId: string) {
+    if (postId.length > 0 && !isDisableLike) {
+      if (postId && currentUser) {
+        try {
+          setIsDisableLike(true);
+          await setPostLiked(postId);
+          setIsDisableLike(false);
+          setToggleLiked(toggleLiked => !toggleLiked);
+          setLikesLength(toggleLiked ? likesLength - 1 : likesLength + 1);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (currentUser && post.likes.includes(currentUser._id)) {
+      setToggleLiked(true);
+    }
+  }, [currentUser, post.likes, setToggleLiked]);
+
   return (
     <div className="mx-auto mb-12 w-[468px] bg-white">
       <Header
@@ -34,11 +58,11 @@ const PostItem = ({ post, user }: Props) => {
         <Image photoUrl={post.image.downloadURL} caption={post.caption} />
       </div>
       <Actions
+        handleToggleLiked={handleToggleLiked}
         likesLength={likesLength}
         setLikesLength={setLikesLength}
         toggleLiked={toggleLiked}
         likesArray={post.likes}
-        setToggleLiked={setToggleLiked}
         setIsOpen={setIsOpen}
         postId={post._id}
       />
@@ -55,10 +79,11 @@ const PostItem = ({ post, user }: Props) => {
       {isOpen && (
         <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
           <PostModal
+            setToggleLiked={setToggleLiked}
             likesLength={likesLength}
             setLikesLength={setLikesLength}
             toggleLiked={toggleLiked}
-            setToggleLiked={setToggleLiked}
+            handleToggleLiked={handleToggleLiked}
             currentUser={currentUser}
             post={post}
           />

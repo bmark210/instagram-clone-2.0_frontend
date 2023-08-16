@@ -1,11 +1,11 @@
-import { Comment, OnePost } from "../../interfaces/post";
-import { OneUser } from "../../interfaces/user";
-import { getTimeDifferenceInFullWords } from "../../utils/getTimeDifference";
-import Header from "../post/Header";
+import { Comment, OnePost } from "../../../interfaces/post";
+import { OneUser } from "../../../interfaces/user";
+import { getTimeDifferenceInFullWords } from "../../../utils/getTimeDifference";
+import Header from "../Header";
 import PostModalCommentItem from "./PostModalCommentItem";
 import { useEffect, useState, useRef } from "react";
-import { getComments } from "../../api/serveses/comments/setComment";
-import CircleLoader from "../common/loaders/circleLoader/CircleLoader";
+import { getComments } from "../../../api/serveses/comments/setComment";
+import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
 import AddComment from "./AddComment";
 import Actions from "./Actions";
 
@@ -16,6 +16,7 @@ interface Props {
   toggleLiked: boolean;
   setToggleLiked: React.Dispatch<React.SetStateAction<boolean>>;
   currentUser: OneUser | null;
+  handleToggleLiked: (postId: string) => Promise<void>;
 }
 
 const PostModal = ({
@@ -25,6 +26,7 @@ const PostModal = ({
   setLikesLength,
   toggleLiked,
   setToggleLiked,
+  handleToggleLiked,
 }: Props) => {
   const [comments, setComments] = useState<Comment[] | null>(null);
   const commentInput = useRef<HTMLInputElement>(null);
@@ -97,6 +99,7 @@ const PostModal = ({
         </div>
         <div className="mx-3 w-full">
           <Actions
+            handleToggleLiked={handleToggleLiked}
             commentInput={commentInput}
             postId={post._id}
             likesArray={post.likes}
