@@ -4,16 +4,21 @@ import ContentLoader from "react-content-loader";
 import { Link } from "react-router-dom";
 import { OneUser } from "../../interfaces/user";
 import SuggestedProfile from "./SuggestedProfile";
-import { EXPLORE, SUGGESTIONS } from "../../constants/routes";
+import { SUGGESTIONS } from "../../constants/routes";
 
 const Suggestions = () => {
   const [profiles, setProfiles] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    getFiveSuggestions().then(res => {
-      setProfiles(res);
-    });
+    getFiveSuggestions()
+      .then(res => {
+        setProfiles(res);
+      })
+      .catch(err => {
+        alert("Ошибка сервера");
+        console.error(err);
+      });
   }, []);
 
   const handleShowModal = () => {

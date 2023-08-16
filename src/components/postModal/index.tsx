@@ -41,7 +41,7 @@ const PostModal = ({
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  }, [post._id]);
 
   return (
     <div

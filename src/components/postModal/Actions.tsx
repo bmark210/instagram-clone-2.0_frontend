@@ -31,7 +31,7 @@ const Actions = ({
     if (currentUser && likesArray.includes(currentUser._id)) {
       setToggleLiked(true);
     }
-  }, [postId, likesArray, currentUser]);
+  }, [postId, likesArray, currentUser, setToggleLiked]);
 
   useEffect(() => {
     if (currentUser && likesArray.includes(currentUser._id)) {
