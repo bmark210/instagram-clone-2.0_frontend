@@ -49,7 +49,7 @@ const PostImage = ({ post, currentUser }: Props) => {
         <div className="absolute bottom-0 left-0 z-10 hidden h-full w-full items-center justify-evenly bg-black-faded group-hover:flex">
           <p className="flex items-center gap-2 font-bold text-white">
             <HeartWhiteIcon />
-            {post.likes?.length}
+            {likesLength}
           </p>
 
           <p className="flex items-center gap-2 font-bold text-white">
