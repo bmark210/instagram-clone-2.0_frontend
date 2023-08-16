@@ -84,20 +84,3 @@ const Publications = () => {
 };
 
 export default Publications;
-
-// if (!posts)
-//   return (
-//     <div className="w-full flex justify-center mt-20">
-//       <ContentLoader
-//         viewBox="0 0 300 120"
-//         height={120}
-//         width={300}
-//         speed={2}
-//         backgroundColor="transparent"
-//       >
-//         <circle cx="75" cy="60" r="6" />
-//         <circle cx="117" cy="60" r="6" />
-//         <circle cx="159" cy="60" r="6" />
-//       </ContentLoader>
-//     </div>
-//   );
