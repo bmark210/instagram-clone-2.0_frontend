@@ -25,13 +25,12 @@ const Profile = () => {
   const [user, setUser] = useState<null | OneUser>(null);
   const [followersLength, setFollowersLength] = useState<number>();
   const [isFollowing, setIsFollowing] = useState(false);
-
   const currentUser: UserData = useAppSelector((state: RootState) => state.auth);
-  const navigate = useNavigate();
-
   const { username } = useParams<{ username: string }>();
-
+  const isCurrentUser = currentUser && username === currentUser.data?.username;
   const dispatch = useAppDispach();
+  const navigate = useNavigate();
+  
   const handleOpenModal = (modalName: string) => {
     dispatch(openModal(modalName));
   };
@@ -68,8 +67,6 @@ const Profile = () => {
       }
     }
   }, [username, currentUser, navigate]);
-
-  const isCurrentUser = currentUser && username === currentUser.data?.username;
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
