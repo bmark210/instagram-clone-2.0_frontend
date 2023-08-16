@@ -13,6 +13,7 @@ interface Props {
 const MoreModal = ({ setIsMoreModalOpen, username }: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispach();
+  
   const onClickLogout = () => {
     dispatch(logout());
     window.localStorage.removeItem("token");

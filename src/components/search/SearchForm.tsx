@@ -1,8 +1,8 @@
-import { getUsersByQuery } from "../../../api/serveses/search/search";
-import { useState } from "react";
-import { OneUser } from "../../../interfaces/user";
+import { getUsersByQuery } from "../../api/serveses/search/search";
+import { useEffect, useState } from "react";
+import { OneUser } from "../../interfaces/user";
 import SearchModalItem from "./SearchModalItem";
-import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
+import CircleLoader from "../common/loaders/circleLoader/CircleLoader";
 
 interface Props {
   setIsSearchModalOpen: React.Dispatch<React.SetStateAction<null | boolean>>;
@@ -14,26 +14,28 @@ const SearchModal = ({ setIsSearchModalOpen, isSearchModalOpen }: Props) => {
   const [users, setUsers] = useState<OneUser[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!query) return;
-    setIsLoading(true);
-    try {
-      await getUsersByQuery(query).then(res => {
-        setUsers(res);
-      });
-    } catch (error) {
-      console.error(error);
-      alert("Ошибка сервера");
-      setQuery("");
-    } finally {
-      setIsLoading(false);
-    }
-  };
   const handleHideSearchModal = () => {
     setIsSearchModalOpen(false);
     setUsers([]);
   };
+
+  useEffect(() => {
+    const fetchUsersForSearch = async () => {
+      if (!query) return;
+      try {
+        setIsLoading(true);
+        await getUsersByQuery(query).then(res => {
+          setUsers(res);
+        });
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+        alert("Ошибка сервера");
+        setQuery("");
+      }
+    };
+    fetchUsersForSearch();
+  }, [query]);
 
   return (
     <div
@@ -55,7 +57,6 @@ const SearchModal = ({ setIsSearchModalOpen, isSearchModalOpen }: Props) => {
               className="w-full rounded-lg border-gray-base bg-gray-100 px-3 py-2 outline-none placeholder:font-thin"
               type="text"
               placeholder="Search"
-              onInput={handleSearch}
             />
           </div>
         </div>

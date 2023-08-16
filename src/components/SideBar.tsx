@@ -18,7 +18,7 @@ import MoreModal from "./modals/more/MoreModal";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import { openModal } from "../redux/slices/modal";
 import BlackInstagramLogo from "./common/icons/Instagram/BlackInstagramLogo";
-import SearchModal from "./modals/search/SearchModal";
+import SearchModal from "./search/SearchForm";
 import CreateAvatar from "./modals/createAvatar/CreateAvatar";
 import { RootState } from "../redux/store";
 import * as ROUTES from "../constants/routes";

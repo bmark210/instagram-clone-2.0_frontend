@@ -7,10 +7,10 @@ interface Props {
 }
 
 const Footer = ({ caption, username }: Props) => {
+  const [showSecondPart, setShowSecondPart] = useState(false);
+
   const firstPart = caption?.substring(0, 150);
   const secondPart = caption.length > 150 ? caption?.substring(150) : "";
-
-  const [showSecondPart, setShowSecondPart] = useState(false);
 
   const handleClick = () => {
     setShowSecondPart(!showSecondPart);
