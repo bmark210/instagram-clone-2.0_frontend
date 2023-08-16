@@ -26,23 +26,20 @@ import * as ROUTES from "../constants/routes";
 const SideBar = () => {
   const isCreateModalOpen = useAppSelector(state => state.modals.createModal);
   const dispatch = useAppDispach();
-
   const avatarModalIsOpen = useAppSelector((state: RootState) => state.modals.avatarModal);
+  const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState<null | boolean>(null);
+  const currentUsername = useAppSelector(state => state.auth.data?.username);
+  const currentUserAvatarUrl = useAppSelector(state => state.auth.data?.avatar?.downloadURL);
 
   const handleOpenModal = (modalName: string) => {
     dispatch(openModal(modalName));
   };
 
-  const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState<null | boolean>(null);
-
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
   };
-
-  const currentUsername = useAppSelector(state => state.auth.data?.username);
-  const currentUserAvatarUrl = useAppSelector(state => state.auth.data?.avatar?.downloadURL);
 
   return (
     <>
