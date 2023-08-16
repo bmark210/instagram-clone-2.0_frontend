@@ -11,7 +11,10 @@ import ContentLoader from "react-content-loader";
 const Publications = () => {
   const { username } = useParams();
   const [posts, setPosts] = useState<OnePost[] | null>(null);
+  const currentUser = useAppSelector(state => state.auth.data);
+  const isCurrentUser = currentUser?.username === username;
   const dispatch = useAppDispach();
+
   const handleOpenModal = (modalName: string) => {
     dispatch(openModal(modalName));
   };
@@ -24,14 +27,12 @@ const Publications = () => {
           setPosts(data);
         }
       } catch (error) {
+        alert("Ошибка сервера");
         console.log(error);
       }
     };
     fetchData();
   }, [username]);
-
-  const currentUser = useAppSelector(state => state.auth.data);
-  const isCurrentUser = currentUser?.username === username;
 
   return (
     <>
