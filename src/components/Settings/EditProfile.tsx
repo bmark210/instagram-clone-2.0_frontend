@@ -3,6 +3,7 @@ import defaultAvatar from "../../assets/avatars/default_avatar.jpg";
 import { addCaption } from "../../api/serveses/caption/addCaption";
 import { useAppDispach, useAppSelector } from "../../redux/hooks";
 import { openModal } from "../../redux/slices/modal";
+import { changeBio } from "../../redux/slices/user";
 
 const EditProfile = () => {
   const user = useAppSelector(state => state.auth.data);
@@ -21,8 +22,8 @@ const EditProfile = () => {
 
   const onSubmit = async () => {
     await addCaption(bio);
+    dispatch(changeBio(bio));
     setBio("");
-    window.location.reload();
   };
 
   return (

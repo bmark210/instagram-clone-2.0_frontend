@@ -58,6 +58,11 @@ const authSlice = createSlice({
       }
       state.status = "loading";
     },
+    changeBio: (state, action) => {
+      if (state.data) {
+        state.data.bio = action.payload;
+      }
+    },
   },
   extraReducers: builder => {
     builder
@@ -115,4 +120,5 @@ export const selectAuthError = (state: RootState) => state.auth.error;
 
 export const { logout } = authSlice.actions;
 export const { getAvatar, clearAvatar } = authSlice.actions;
+export const { changeBio } = authSlice.actions;
 export const authReducer = authSlice.reducer;
