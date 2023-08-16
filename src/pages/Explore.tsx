@@ -11,11 +11,16 @@ const Explore = () => {
   const [posts, setPosts] = useState<OnePost[]>([]);
 
   useEffect(() => {
-    const popularPosts = async () =>{ 
-      const data = await getPopularPosts()
-      setPosts(data)
-    }
-    popularPosts()
+    const popularPosts = async () => {
+      try {
+        const data = await getPopularPosts();
+        setPosts(data);
+      } catch (error) {
+        alert("Ошибка сервера");
+        console.error(error);
+      }
+    };
+    popularPosts();
   }, []);
 
   return (
