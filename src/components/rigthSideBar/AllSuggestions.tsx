@@ -8,9 +8,14 @@ import { OneUser } from "../../interfaces/user";
 const AllSuggestions = () => {
   const [profiles, setProfiles] = useState([]);
   useEffect(() => {
-    getAllSuggestions().then(res => {
-      setProfiles(res);
-    });
+    getAllSuggestions()
+      .then(res => {
+        setProfiles(res);
+      })
+      .catch(e => {
+        alert("Ошибка сервера");
+        console.error(e);
+      });
   }, []);
 
   return (
