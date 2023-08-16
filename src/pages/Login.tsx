@@ -3,16 +3,18 @@ import home_phones from "../assets/images/instLigin.jpg";
 import InstagramLogoIcon from "../components/common/icons/Instagram/InstagramLogoIcon";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchLogin, selectIsAuth } from "../redux/slices/user";
-import { LoginParams } from "../interfaces/auth";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import GoogleIcon from "../components/common/icons/Google/GoogleIcon";
 import AuthLoader from "../components/common/loaders/AuthLoader";
 import { FEED, REGISTER } from "../constants/routes";
+import { validator } from "../utils/validator";
+import { ValidationConfig } from "../interfaces/validationConfig";
 
 const Login = () => {
   const isAuth = useAppSelector(selectIsAuth);
   const { error } = useAppSelector(state => state.auth);
   const errorMessage = Array.isArray(error) ? error[0]?.msg : error?.msg;
+
   const dispatch = useAppDispach();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -23,25 +25,69 @@ const Login = () => {
     }
   }, [isAuth, navigate]);
 
-  const [data, setData] = useState<LoginParams>({
+  const [frontErrors, setFrontErrors] = useState<string[]>([]);
+
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  useEffect(() => {
+    validate();
+  }, [formData]);
+
+  const validatorConfig: ValidationConfig = {
+    email: {
+      isRequired: {
+        message: "Email is required",
+      },
+      isEmail: {
+        message: "Email format is invalid",
+      },
+    },
+    password: {
+      isRequired: {
+        message: "Password is required",
+      },
+      min: {
+        message: "Password must be at least 5 characters",
+        value: 5,
+      },
+    },
+  };
+  const validate = () => {
+    const errors = validator(formData, validatorConfig);
+    setFrontErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   const onSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      setIsLoading(true);
-      const userData = await dispatch(fetchLogin(data));
-      if (!userData.payload) {
-        console.log("Не удалось авторизоваться");
-      } else if ("token" in userData.payload) {
-        window.localStorage.setItem("token", userData.payload.token);
+    const isValid = Object.keys(frontErrors).length === 0;
+    if (!isValid) {
+      alert(frontErrors[0]);
+    } else {
+      try {
+        setIsLoading(true);
+        const userData = await dispatch(fetchLogin(formData));
+        if (!userData.payload) {
+          console.log("Не удалось авторизоваться");
+        } else if ("token" in userData.payload) {
+          window.localStorage.setItem("token", userData.payload.token);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -61,25 +107,25 @@ const Login = () => {
           <div className="mb-4">
             <input
               className="text-gray-700 my-2 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
-              id="email"
+              name="email"
               type="text"
               placeholder="Phone number, username, or email"
-              value={data.email}
-              onChange={e => setData({ ...data, email: e.target.value })}
+              value={formData.email}
+              onChange={handleChange}
             />
             <input
               className="text-gray-700 mb-3 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
-              id="password"
+              name="password"
               type="password"
               placeholder="Password"
-              value={data.password}
-              onChange={e => setData({ ...data, password: e.target.value })}
+              value={formData.password}
+              onChange={handleChange}
             />
             <div />
             <button
               className="focus:shadow-outline h-8 w-full rounded bg-blue-400 px-4 py-1 text-white hover:bg-blue-primary focus:outline-none disabled:bg-blue-200"
               type="submit"
-              disabled={!data.email || !data.password || isLoading}
+              disabled={formData.email === "" || formData.password === "" || isLoading}
             >
               {isLoading ? <AuthLoader /> : <h3>Log in</h3>}
             </button>
