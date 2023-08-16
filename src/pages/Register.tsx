@@ -6,14 +6,23 @@ import { useAppDispach, useAppSelector } from "../redux/hooks";
 import GoogleIcon from "../components/common/icons/Google/GoogleIcon";
 import AuthLoader from "../components/common/loaders/AuthLoader";
 import { FEED, LOGIN } from "../constants/routes";
+import { ValidationConfig } from "../interfaces/validationConfig";
+import { validator } from "../utils/validator";
 
 const Register = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    fullName: "",
+    email: "",
+    password: "",
+  });
   const isAuth = useAppSelector(selectIsAuth);
   const { error } = useAppSelector(state => state.auth);
   const errorMessage = Array.isArray(error) ? error[0]?.msg : error?.msg;
   const navigate = useNavigate();
   const dispatch = useAppDispach();
   const [isLoading, setIsLoading] = useState(false);
+  const [frontErrors, setFrontErrors] = useState<string[]>([]);
 
   useEffect(() => {
     if (isAuth) {
@@ -21,27 +30,73 @@ const Register = () => {
     }
   }, [isAuth, navigate]);
 
-  const [data, setData] = useState({
-    username: "",
-    fullName: "",
-    email: "",
-    password: "",
-  });
+  useEffect(() => {
+    validate();
+  }, [formData]);
+
+  const validate = () => {
+    const errors = validator(formData, validatorConfig);
+    setFrontErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const validatorConfig: ValidationConfig = {
+    username: {
+      isRequired: {
+        message: "Username is required",
+      },
+    },
+    fullName: {
+      isRequired: {
+        message: "Full name is required",
+      },
+    },
+    email: {
+      isRequired: {
+        message: "Email is required",
+      },
+      isEmail: {
+        message: "Email format is invalid",
+      },
+    },
+    password: {
+      isRequired: {
+        message: "Password is required",
+      },
+      min: {
+        message: "Password must be at least 5 characters",
+        value: 5,
+      },
+    },
+  };
 
   const onSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      setIsLoading(true);
-      const userData = await dispatch(fetchRegister(data));
-      if (!userData.payload) {
-        console.log("Не удалось авторизоваться");
-      } else if ("token" in userData.payload) {
-        window.localStorage.setItem("token", userData.payload.token);
+    const isValid = Object.keys(frontErrors).length === 0;
+    if (!isValid) {
+      alert(frontErrors[0]);
+    } else {
+      try {
+        setIsLoading(true);
+        const userData = await dispatch(fetchRegister(formData));
+        if (!userData.payload) {
+          console.log("Не удалось авторизоваться");
+        } else if ("token" in userData.payload) {
+          window.localStorage.setItem("token", userData.payload.token);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -74,34 +129,34 @@ const Register = () => {
           <div className="mb-4">
             <input
               className="text-gray-700 my-2 mb-3 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
-              id="username"
+              name="username"
               type="text"
               placeholder="Username"
-              value={data.username}
-              onChange={e => setData({ ...data, username: e.target.value })}
+              value={formData.username}
+              onChange={e => setFormData({ ...formData, username: e.target.value })}
             />
             <input
               className="text-gray-700 mb-3 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
-              id="fullName"
+              name="fullName"
               type="fullName"
               placeholder="Full name"
-              value={data.fullName}
-              onChange={e => setData({ ...data, fullName: e.target.value })}
+              value={formData.fullName}
+              onChange={handleChange}
             />
             <input
               className="text-gray-700 mb-3 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
-              id="email"
+              name="email"
               placeholder="Phone number, or email"
-              value={data.email}
-              onChange={e => setData({ ...data, email: e.target.value })}
+              value={formData.email}
+              onChange={handleChange}
             />
             <input
               className="text-gray-700 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"
-              id="password"
+              name="password"
               type="password"
               placeholder="Password"
-              value={data.password}
-              onChange={e => setData({ ...data, password: e.target.value })}
+              value={formData.password}
+              onChange={handleChange}
             />
             {errorMessage && (
               <span className="my-5 block text-center text-sm text-red-primary">
@@ -118,10 +173,10 @@ const Register = () => {
             <button
               className="focus:shadow-outline mb-4 h-8 w-full rounded bg-blue-400 px-4 py-1 text-white hover:bg-blue-primary focus:outline-none disabled:bg-blue-200"
               disabled={
-                data.email === "" ||
-                data.password === "" ||
-                data.username === "" ||
-                data.fullName === "" ||
+                formData.email === "" ||
+                formData.password === "" ||
+                formData.username === "" ||
+                formData.fullName === "" ||
                 isLoading
               }
             >

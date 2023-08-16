@@ -11,26 +11,23 @@ import { validator } from "../utils/validator";
 import { ValidationConfig } from "../interfaces/validationConfig";
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   const isAuth = useAppSelector(selectIsAuth);
   const { error } = useAppSelector(state => state.auth);
   const errorMessage = Array.isArray(error) ? error[0]?.msg : error?.msg;
-
   const dispatch = useAppDispach();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [frontErrors, setFrontErrors] = useState<string[]>([]);
 
   useEffect(() => {
     if (isAuth) {
       navigate(FEED, { replace: true });
     }
   }, [isAuth, navigate]);
-
-  const [frontErrors, setFrontErrors] = useState<string[]>([]);
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
 
   useEffect(() => {
     validate();
