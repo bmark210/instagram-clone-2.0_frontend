@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { fetchAuth } from "../redux/slices/user";
 import { selectIsAuth } from "../redux/slices/user";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
-import * as ROUTES from "../constants/routes";
+import { LOGIN } from "../constants/routes";
 
 const AuthSecurity = () => {
   const dispatch = useAppDispach();
@@ -13,7 +13,7 @@ const AuthSecurity = () => {
   useEffect(() => {
     dispatch(fetchAuth());
     if (!isAuth && !window.localStorage.getItem("token")) {
-      navigate(ROUTES.LOGIN, { replace: true });
+      navigate(LOGIN, { replace: true });
     }
   }, []);
 

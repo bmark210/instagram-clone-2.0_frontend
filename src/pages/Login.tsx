@@ -7,7 +7,7 @@ import { LoginParams } from "../interfaces/auth";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import GoogleIcon from "../components/common/icons/Google/GoogleIcon";
 import AuthLoader from "../components/common/loaders/AuthLoader";
-import { REGISTER } from "../constants/routes";
+import { FEED, REGISTER } from "../constants/routes";
 
 const Login = () => {
   const isAuth = useAppSelector(selectIsAuth);
@@ -19,7 +19,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate("/feed", { replace: true });
+      navigate(FEED, { replace: true });
     }
   }, [isAuth, navigate]);
 

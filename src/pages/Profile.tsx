@@ -19,7 +19,7 @@ import ContentLoader from "react-content-loader";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import { openModal } from "../redux/slices/modal";
 import Footer from "../components/publications/Footer";
-import { EDIT_PROFILE } from "../constants/routes";
+import { EDIT_PROFILE, NOT_FOUND } from "../constants/routes";
 
 const Profile = () => {
   const [user, setUser] = useState<null | OneUser>(null);
@@ -55,7 +55,7 @@ const Profile = () => {
         fetchUserByUsername(username)
           .then(res => {
             if (res.data === null) {
-              navigate("/not-found");
+              navigate(NOT_FOUND, { replace: true });
             } else {
               setUserHandler(res.data, res.data?.followers ? res.data?.followers.length : 0);
             }
@@ -75,7 +75,6 @@ const Profile = () => {
     const target = e.target as HTMLImageElement;
     target.src = defaultAvatar;
   };
-
 
   const setFollow = async () => {
     if (user && currentUser) {

@@ -5,7 +5,7 @@ import { fetchRegister, selectIsAuth } from "../redux/slices/user";
 import { useAppDispach, useAppSelector } from "../redux/hooks";
 import GoogleIcon from "../components/common/icons/Google/GoogleIcon";
 import AuthLoader from "../components/common/loaders/AuthLoader";
-import { LOGIN } from "../constants/routes";
+import { FEED, LOGIN } from "../constants/routes";
 
 const Register = () => {
   const isAuth = useAppSelector(selectIsAuth);
@@ -17,7 +17,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate("/", { replace: true });
+      navigate(FEED, { replace: true });
     }
   }, [isAuth, navigate]);
 

@@ -10,6 +10,7 @@ import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
 import { addPostDataInFieldToUser } from "../../../api/endpoints/posts";
 import { Fields } from "../../../interfaces/fields";
 import { deleteImageFromDB, uploadImg } from "../../../api/serveses/image/setImage";
+import { FEED } from "../../../constants/routes";
 
 const Create = () => {
   const dispatch = useAppDispach();
@@ -51,7 +52,7 @@ const Create = () => {
         text: "",
         place: "",
       });
-      navigate("/feed");
+      navigate(FEED);
     } catch (error) {
       console.log(error);
     }
@@ -85,7 +86,7 @@ const Create = () => {
         place: "",
       });
       dispatch(closeModal("createModal"));
-      navigate("/feed");
+      navigate(FEED);
     } catch (error) {
       console.log(error);
       alert("Ошибка при добавлении поста");
