@@ -133,7 +133,7 @@ const Register = () => {
               type="text"
               placeholder="Username"
               value={formData.username}
-              onChange={e => setFormData({ ...formData, username: e.target.value })}
+              onChange={handleChange}
             />
             <input
               className="text-gray-700 mb-3 w-full appearance-none rounded border border-gray-primary px-3 py-2 text-xs leading-tight focus:border-gray-medium focus:outline-none"

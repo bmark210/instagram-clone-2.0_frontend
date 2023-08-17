@@ -46,7 +46,7 @@ const SearchModal = ({ setIsSearchModalOpen, isSearchModalOpen }: Props) => {
     >
       <div
         onClick={e => e.stopPropagation()}
-        className="fixed top-0 z-30 h-screen w-96 rounded-r-2xl bg-white shadow-right"
+        className="fixed top-0 z-30 h-screen w-96 rounded-r-2xl bg-white shadow-right overflow-y-auto"
       >
         <div className="flex-column h-32 w-full border-b border-gray-base px-5">
           <div className="my-2 w-full">
@@ -60,7 +60,7 @@ const SearchModal = ({ setIsSearchModalOpen, isSearchModalOpen }: Props) => {
             />
           </div>
         </div>
-        <div className="my-2 w-full overflow-y-auto px-6">
+        <div className="my-2 w-full px-6">
           <h4 className="font-medium">Resent</h4>
           {users === null ? (
             <p></p>
