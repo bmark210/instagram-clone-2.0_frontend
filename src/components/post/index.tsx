@@ -19,8 +19,8 @@ interface Props {
 const PostItem = ({ post, user }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [toggleLiked, setToggleLiked] = useState(false); /// I need to add this to modalPost- Actions also in just post Actions
-  const [likesLength, setLikesLength] = useState(post.likes.length);  this one state I also need to add in those two components
+  const [toggleLiked, setToggleLiked] = useState(false);
+  const [likesLength, setLikesLength] = useState(post.likes.length);
   const [isDisableLike, setIsDisableLike] = useState(false);
   const currentUser = useAppSelector(state => state.auth.data);
 

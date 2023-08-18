@@ -118,14 +118,3 @@ export const router = createBrowserRouter([
 
 export const rootNavigate = router.navigate;
 
-// i need to add routes.ts ----
-// to refactor actions in posts
-// to fix avatar uploaded
-// to do avatar img in global state
-// to update avatar after uploading without reloading
-// to do structure 1 states 2 constants 3 useEffects
-// to do validation in fronend
-// to fix Router.tsx
-// to fix password onChange and the same fields
-// to fix code in api
-// dont use axios req in components
