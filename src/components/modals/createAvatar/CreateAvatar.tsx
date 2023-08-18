@@ -3,7 +3,10 @@ import { useAppDispach, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/slices/modal";
 import { clearAvatar, getAvatar } from "../../../redux/slices/user";
 import CircleLoader from "../../common/loaders/circleLoader/CircleLoader";
-import { changeAvatarFieldInUser, deleteAvatarFieldInUser } from "../../../api/serveses/avatar/setAvatar";
+import {
+  changeAvatarFieldInUser,
+  deleteAvatarFieldInUser,
+} from "../../../api/serveses/avatar/setAvatar";
 import { uploadImg } from "../../../api/serveses/image/setImage";
 
 const CreateAvatar = () => {

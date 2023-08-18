@@ -13,5 +13,5 @@ export async function getPopularPosts() {
 
 export async function addPostDataInFieldToUser(fields: Fields) {
   const res = axios.post("/posts/create", fields);
-  return res
+  return res;
 }

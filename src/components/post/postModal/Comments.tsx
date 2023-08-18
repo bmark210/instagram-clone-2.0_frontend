@@ -34,7 +34,7 @@ const Comments = ({ post, commentItem }: Props) => {
           <CircleLoader color="gray-400" />
         </div>
       ) : comments.length === 0 && post.caption === "" && !commentItem.comment ? (
-        <div className="flex w-full mt-40 flex-col items-center justify-center">
+        <div className="mt-40 flex w-full flex-col items-center justify-center">
           <p className="mb-3 text-2xl font-bold">No comments yet.</p>
           <span className="text-sm">Start the conversation.</span>
         </div>
