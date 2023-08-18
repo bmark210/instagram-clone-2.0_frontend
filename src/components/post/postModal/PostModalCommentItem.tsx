@@ -25,9 +25,9 @@ const PostModalCommentItem = ({ avatar, username, text }: Props) => {
           />
         </Link>
 
-        <div className="inline-block w-96">
+        <div className="inline-block w-full">
           <span className="text-sm font-medium">{username}</span>
-          <span className="w-96 break-words px-2">{text}</span>
+          <span className="w-full break-words px-2 text-sm">{text}</span>
         </div>
       </div>
     </div>

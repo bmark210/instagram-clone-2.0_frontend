@@ -10,7 +10,7 @@ const Timeline = ({ posts }: Props) => {
 
   return (
     <>
-      <div className="col-span-2 mt-8 w-2/3 px-16">
+      <div className="col-span-2 mx-auto mt-8 px-16">
         {postsIsLoading ? (
           [...Array(5)].map((_, index) => (
             <ContentLoader
@@ -19,7 +19,7 @@ const Timeline = ({ posts }: Props) => {
               viewBox="0 0 220 300"
               backgroundColor="#f3f3f3"
               foregroundColor="#ecebeb"
-              className="mx-auto mb-12 w-2/3"
+              className="mb-12 w-[458px]"
             >
               <rect x="27" y="7" rx="3" ry="3" width="55" height="10" />
               <rect x="0" y="25" rx="3" ry="3" width="220" height="270" />

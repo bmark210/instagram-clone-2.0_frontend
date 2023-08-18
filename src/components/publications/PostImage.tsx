@@ -38,12 +38,12 @@ const PostImage = ({ post, currentUser }: Props) => {
     <>
       <div
         onClick={() => setIsOpen(true)}
-        className="group relative min-h-[250px] min-w-[313px]"
+        className="group relative min-h-[309px] min-w-[309px]"
         key={post._id}
       >
         <img
           src={post.image.downloadURL}
-          className="max-h-[250px] min-h-[250px] min-w-full max-w-[313px] object-cover"
+          className="max-h-[309px] min-h-[309px] min-w-full max-w-[309px] object-cover"
           alt="image"
         />
         <div className="absolute bottom-0 left-0 z-10 hidden h-full w-full items-center justify-evenly bg-black-faded group-hover:flex">

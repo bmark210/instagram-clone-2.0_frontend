@@ -30,7 +30,7 @@ const Profile = () => {
   const isCurrentUser = currentUser && username === currentUser.data?.username;
   const dispatch = useAppDispach();
   const navigate = useNavigate();
-  
+
   const handleOpenModal = (modalName: string) => {
     dispatch(openModal(modalName));
   };
@@ -82,31 +82,29 @@ const Profile = () => {
     }
   };
 
-  if (user === null || user?.followers === undefined) {
+  if (user === null || user === undefined) {
     return (
-      <div className="w-full">
-        <div className="mx-auto mt-10 flex w-3/4 min-w-max flex-row border-b border-gray-primary px-10 pb-3">
-          <ContentLoader viewBox="0 0 900 180" height={180} width={900} speed={2}>
-            <circle cx="125" cy="80" r="75" />
-            <rect x="270" y="10" rx="3" ry="3" width="125.5" height="17" />
-            <rect x="270" y="45" rx="3" ry="3" width="296" height="17" />
-            <rect x="270" y="80" rx="3" ry="3" width="253.5" height="17" />
-            <rect x="270" y="120" rx="3" ry="3" width="212.5" height="17" />
-          </ContentLoader>
-        </div>
+      <div className="mx-auto mt-10 flex min-w-max flex-row border-b border-gray-primary px-10 pb-3">
+        <ContentLoader viewBox="0 0 900 180" height={180} width={900} speed={2}>
+          <circle cx="125" cy="80" r="75" />
+          <rect x="270" y="10" rx="3" ry="3" width="125.5" height="17" />
+          <rect x="270" y="45" rx="3" ry="3" width="296" height="17" />
+          <rect x="270" y="80" rx="3" ry="3" width="253.5" height="17" />
+          <rect x="270" y="120" rx="3" ry="3" width="212.5" height="17" />
+        </ContentLoader>
       </div>
     );
   }
 
   return (
-    <div className="flex w-full flex-col items-center">
-      <div className="w-full overflow-y-auto overflow-x-hidden">
-        <div className="mx-auto mt-10 flex w-3/4 min-w-max flex-row border-b border-gray-primary px-20 pb-10 pl-28">
+    <div className="mx-auto">
+      <div className="overflow-y-auto overflow-x-hidden">
+        <div className="mx-auto mt-10 flex min-w-max flex-row border-b border-gray-primary px-32 pb-10 pl-28">
           <img
             className={`${
               isCurrentUser && "cursor-pointer"
             } mr-20 h-36 w-36 rounded-full object-cover`}
-            src={user.avatar?.downloadURL || defaultAvatar}
+            src={user?.avatar?.downloadURL || defaultAvatar}
             alt="avatar"
             onError={handleImageError}
             onClick={handleImageClick}
@@ -149,7 +147,7 @@ const Profile = () => {
                 </div>
               )}
             </div>
-            <div className="mb-4 flex w-3/4 flex-row items-center gap-6">
+            <div className="mb-4 flex flex-row items-center gap-6">
               <div className="flex flex-row">
                 <span className="mr-1 font-medium">{user.postsLength}</span>
                 <p className="text-base font-normal ">{user.postsLength > 1 ? "posts" : "post"}</p>
@@ -171,7 +169,7 @@ const Profile = () => {
             <div>{user?.bio && <p className="w-96 text-sm">{user?.bio}</p>}</div>
           </div>
         </div>
-        <div className="mx-auto mb-5 flex w-1/3 flex-row items-center justify-center">
+        <div className="mx-auto mb-5 flex flex-row items-center justify-center">
           <NavLink
             to={`/${user?.username}/`}
             className={({ isActive }) =>
@@ -236,13 +234,9 @@ const Profile = () => {
             )}
           </NavLink>
         </div>
-        <div className="mx-auto w-3/4">
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
-      <div className="my-10">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };

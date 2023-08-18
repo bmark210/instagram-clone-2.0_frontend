@@ -16,8 +16,8 @@ interface Props {
 
 const Actions = ({ postId, commentInput, likesLength, toggleLiked, handleToggleLiked }: Props) => {
   return (
-    <>
-      <div className="flex justify-between pb-2 pl-1 pt-3">
+    <div className="pl-3 ">
+      <div className="flex justify-between pb-2 pt-3">
         <div className="flex flex-row items-center gap-2">
           {
             <button onClick={() => handleToggleLiked(!postId ? "" : postId)} className="mr-1">
@@ -34,7 +34,7 @@ const Actions = ({ postId, commentInput, likesLength, toggleLiked, handleToggleL
           {likesLength === 1 ? `${likesLength} like` : `${likesLength} likes`}
         </p>
       </div>
-    </>
+    </div>
   );
 };
 export default Actions;

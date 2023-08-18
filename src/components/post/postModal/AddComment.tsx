@@ -25,16 +25,16 @@ const AddComment = ({ postId, commentItem, setCommentItem, commentInput }: Props
     }
   };
   return (
-    <div className="border-t border-gray-primary">
+    <div className="border-t border-gray-base">
       <form
-        className="flex w-full justify-between"
+        className="flex justify-between"
         method="POST"
         onSubmit={(event: React.FormEvent<HTMLFormElement>) => handleSubmitComment(event)}
       >
         <input
           aria-label="Add a comment"
           autoComplete="off"
-          className="mx-3 w-full px-2 py-2 text-sm outline-none"
+          className="mx-3 w-full px-2 py-3 text-sm outline-none"
           type="text"
           name="add-comment"
           placeholder="Add a comment..."

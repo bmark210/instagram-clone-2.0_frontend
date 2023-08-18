@@ -26,7 +26,7 @@ const Suggestions = () => {
   };
 
   return (
-    <div className="mt-4 flex w-80 flex-col rounded">
+    <div className="mt-4 flex h-72 min-h-max w-80 flex-col rounded">
       <div className="flex items-center justify-between text-sm">
         <div className="flex w-full flex-row items-center justify-between">
           <p className="font-medium text-gray-500">Suggestions for you</p>

@@ -34,13 +34,13 @@ const Explore = () => {
                 speed={2}
                 backgroundColor="#f3f3f3"
                 foregroundColor="#ecebeb"
-                className="h-[250px] w-[313px]"
+                className="max-h-[309px] min-h-[309px] min-w-[263px]"
               >
                 <rect width="100%" height="100%" />
               </ContentLoader>
             ))
           : posts.map((post: OnePost) => (
-              <PostImage currentUser={currentUser} key={post._id} post={post} />
+              <PostImage key={post._id} currentUser={currentUser} post={post} />
             ))}
       </div>
     </div>

@@ -36,7 +36,7 @@ const Publications = () => {
 
   return (
     <>
-      <div className="mx-auto min-h-[220px] w-full min-w-max">
+      <div className="mx-auto">
         {posts === null ? (
           <div className="mb-12 mt-6 grid grid-cols-3 gap-1">
             {[...Array(9)].map((_, index) => (
@@ -45,14 +45,14 @@ const Publications = () => {
                 speed={2}
                 backgroundColor="#f3f3f3"
                 foregroundColor="#ecebeb"
-                className="h-[250px] w-[313px]"
+                className="min-h-[309px] min-w-[309px]"
               >
                 <rect width="100%" height="100%" />
               </ContentLoader>
             ))}
           </div>
         ) : posts.length === 0 ? (
-          <div className="mx-auto my-16 h-40 w-96 min-w-max">
+          <div className="mx-auto my-16 h-40 w-[934px]">
             <img className="mx-auto my-3 w-14" src={CameraImage} alt="camera" />
             {isCurrentUser ? (
               <>
