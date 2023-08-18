@@ -5,7 +5,7 @@ import SearchModalItem from "./SearchModalItem";
 import CircleLoader from "../common/loaders/circleLoader/CircleLoader";
 
 interface Props {
-  setIsSearchModalOpen: React.Dispatch<React.SetStateAction<null | boolean>>;
+  setIsSearchModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSearchModalOpen: boolean;
 }
 
@@ -46,7 +46,7 @@ const SearchModal = ({ setIsSearchModalOpen, isSearchModalOpen }: Props) => {
     >
       <div
         onClick={e => e.stopPropagation()}
-        className="fixed top-0 z-30 h-screen w-96 rounded-r-2xl bg-white shadow-right overflow-y-auto"
+        className="fixed top-0 z-30 h-screen w-96 overflow-y-auto rounded-r-2xl bg-white shadow-right"
       >
         <div className="flex-column h-32 w-full border-b border-gray-base px-5">
           <div className="my-2 w-full">

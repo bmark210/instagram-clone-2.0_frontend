@@ -28,7 +28,7 @@ const SideBar = () => {
   const dispatch = useAppDispach();
   const avatarModalIsOpen = useAppSelector((state: RootState) => state.modals.avatarModal);
   const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState<null | boolean>(null);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
   const currentUsername = useAppSelector(state => state.auth.data?.username);
   const currentUserAvatarUrl = useAppSelector(state => state.auth.data?.avatar?.downloadURL);
 
