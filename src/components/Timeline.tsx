@@ -10,7 +10,7 @@ const Timeline = ({ posts }: Props) => {
 
   return (
     <>
-      <div className="col-span-2 mx-auto mt-8 px-16">
+      <div className="mx-auto mt-8">
         {postsIsLoading ? (
           [...Array(5)].map((_, index) => (
             <ContentLoader

@@ -43,130 +43,128 @@ const SideBar = () => {
 
   return (
     <>
-      <div className="z-40 flex h-screen min-h-screen w-64 flex-col">
-        <aside
+      <aside
+        className={`${
+          isSearchModalOpen ? "w-16 animate-changeWidthIn" : "w-64"
+        } max-w-64 min-w-18  fixed left-0 top-0 z-40 flex h-screen flex-col border-r  border-gray-primary bg-white px-2`}
+      >
+        <NavLink
+          onClick={() => setIsSearchModalOpen(false)}
+          to={ROUTES.FEED}
           className={`${
-            isSearchModalOpen ? "w-18 animate-changeWidthIn" : "w-64"
-          } fixed left-0 top-0 z-40 flex h-screen flex-col border-r  border-gray-primary bg-white px-2`}
+            isSearchModalOpen ? "p-3 transition-opacity duration-300" : "p-2"
+          }  mb-8 mt-6 h-10`}
         >
+          {isSearchModalOpen ? <BlackInstagramLogo /> : <InstagramLogoIcon />}
+        </NavLink>
+        <div className="mb-32 grid grid-rows-6 gap-2">
           <NavLink
             onClick={() => setIsSearchModalOpen(false)}
+            className="group flex flex-row items-center rounded-lg p-3 hover:bg-gray-100 active:opacity-75"
             to={ROUTES.FEED}
-            className={`${
-              isSearchModalOpen ? "p-3 transition-opacity duration-300" : "p-2"
-            }  mb-8 mt-6 h-10`}
           >
-            {isSearchModalOpen ? <BlackInstagramLogo /> : <InstagramLogoIcon />}
-          </NavLink>
-          <div className="mb-32 grid grid-rows-6 gap-2">
-            <NavLink
-              onClick={() => setIsSearchModalOpen(false)}
-              className="group flex flex-row items-center rounded-lg p-3 hover:bg-gray-100 active:opacity-75"
-              to={ROUTES.FEED}
-            >
-              {({ isActive }: { isActive: boolean }) => (
-                <>
-                  <div className="transform transition duration-300 ease-in-out group-hover:scale-110">
-                    {isActive ? <HomeIconActive /> : <HomeIcon />}
-                  </div>
-                  {!isSearchModalOpen && (
-                    <h2 className={`${isActive ? "font-bold" : ""} mx-4`}>Home</h2>
-                  )}
-                </>
-              )}
-            </NavLink>
-            <div
-              role="button"
-              className={`group flex flex-row items-center ${
-                isSearchModalOpen ? "border" : ""
-              } rounded-lg p-3 transition-opacity duration-300 hover:bg-gray-100 active:opacity-75`}
-              onClick={() => setIsSearchModalOpen(!isSearchModalOpen)}
-            >
-              <>
-                <div className="relative transform transition duration-300 ease-in-out group-hover:scale-110">
-                  {isSearchModalOpen ? <SearchActivIcon /> : <SearchIcon />}
-                </div>
-                {!isSearchModalOpen && (
-                  <h2 className={`${isSearchModalOpen ? "font-bold" : ""} mx-4`}>Search</h2>
-                )}
-              </>
-            </div>
-            <NavLink
-              onClick={() => setIsSearchModalOpen(false)}
-              className="group flex flex-row items-center rounded-lg p-3 hover:bg-gray-100 active:opacity-75"
-              to={ROUTES.EXPLORE}
-            >
-              {({ isActive }: { isActive: boolean }) => (
-                <>
-                  <div className="transform transition duration-300 ease-in-out group-hover:scale-110">
-                    {isActive ? <ExploreActiveIcon /> : <ExploreIcon />}
-                  </div>
-                  {!isSearchModalOpen && (
-                    <h2 className={`${isActive ? "font-bold" : ""} mx-4`}>Explore</h2>
-                  )}
-                </>
-              )}
-            </NavLink>
-            <div
-              role="button"
-              onClick={() => handleOpenModal("createModal")}
-              className="group flex flex-row items-center rounded-lg p-3 transition-opacity duration-300 hover:bg-gray-100 active:opacity-75"
-            >
+            {({ isActive }: { isActive: boolean }) => (
               <>
                 <div className="transform transition duration-300 ease-in-out group-hover:scale-110">
-                  {isCreateModalOpen ? <CreateActivIcon /> : <CreateIcon />}
+                  {isActive ? <HomeIconActive /> : <HomeIcon />}
                 </div>
                 {!isSearchModalOpen && (
-                  <h2 className={`${isCreateModalOpen ? "font-bold" : ""} mx-4`}>Create</h2>
+                  <h2 className={`${isActive ? "font-bold" : ""} mx-4`}>Home</h2>
                 )}
               </>
-            </div>
-            <NavLink
-              onClick={() => setIsSearchModalOpen(false)}
-              className="group flex flex-row items-center rounded-lg p-3 transition-opacity duration-300 hover:bg-gray-100 active:opacity-75"
-              to={`/${currentUsername}/`}
-            >
-              {({ isActive }: { isActive: boolean }) => (
-                <>
-                  <div className="transform transition duration-300 ease-in-out group-hover:scale-110">
-                    {
-                      <img
-                        className={`h-7 w-7 rounded-full object-cover ${
-                          isActive ? "border-2 border-black-dark" : ""
-                        }`}
-                        src={currentUserAvatarUrl ? currentUserAvatarUrl : defaultAvatar}
-                        onError={handleImageError}
-                        alt="avatar"
-                      />
-                    }
-                  </div>
-                  {!isSearchModalOpen && (
-                    <h2 className={`${isActive ? "font-bold" : ""} mx-4`}>Profile</h2>
-                  )}
-                </>
-              )}
-            </NavLink>
-          </div>
+            )}
+          </NavLink>
           <div
             role="button"
-            className={`${isSearchModalOpen ? "w-18" : "w-[235px]"} absolute bottom-0 my-3 `}
+            className={`group flex flex-row items-center ${
+              isSearchModalOpen ? "border" : ""
+            } rounded-lg p-3 transition-opacity duration-300 hover:bg-gray-100 active:opacity-75`}
+            onClick={() => setIsSearchModalOpen(!isSearchModalOpen)}
           >
-            <div
-              className="group flex flex-row items-center rounded-lg p-3 transition-opacity duration-300 hover:bg-gray-100 active:opacity-75"
-              onClick={() => setIsMoreModalOpen(true)}
-            >
+            <>
+              <div className="relative transform transition duration-300 ease-in-out group-hover:scale-110">
+                {isSearchModalOpen ? <SearchActivIcon /> : <SearchIcon />}
+              </div>
+              {!isSearchModalOpen && (
+                <h2 className={`${isSearchModalOpen ? "font-bold" : ""} mx-4`}>Search</h2>
+              )}
+            </>
+          </div>
+          <NavLink
+            onClick={() => setIsSearchModalOpen(false)}
+            className="group flex flex-row items-center rounded-lg p-3 hover:bg-gray-100 active:opacity-75"
+            to={ROUTES.EXPLORE}
+          >
+            {({ isActive }: { isActive: boolean }) => (
               <>
-                <div className="relative transform transition duration-300 ease-in-out group-hover:scale-110">
-                  {isMoreModalOpen ? <MoreActiveIcon /> : <MoreIcon />}
+                <div className="transform transition duration-300 ease-in-out group-hover:scale-110">
+                  {isActive ? <ExploreActiveIcon /> : <ExploreIcon />}
                 </div>
                 {!isSearchModalOpen && (
-                  <h2 className={`${isMoreModalOpen ? "font-bold" : ""} mx-4`}>More</h2>
+                  <h2 className={`${isActive ? "font-bold" : ""} mx-4`}>Explore</h2>
                 )}
               </>
-            </div>
+            )}
+          </NavLink>
+          <div
+            role="button"
+            onClick={() => handleOpenModal("createModal")}
+            className="group flex flex-row items-center rounded-lg p-3 transition-opacity duration-300 hover:bg-gray-100 active:opacity-75"
+          >
+            <>
+              <div className="transform transition duration-300 ease-in-out group-hover:scale-110">
+                {isCreateModalOpen ? <CreateActivIcon /> : <CreateIcon />}
+              </div>
+              {!isSearchModalOpen && (
+                <h2 className={`${isCreateModalOpen ? "font-bold" : ""} mx-4`}>Create</h2>
+              )}
+            </>
           </div>
-        </aside>
-      </div>
+          <NavLink
+            onClick={() => setIsSearchModalOpen(false)}
+            className="group flex flex-row items-center rounded-lg p-3 transition-opacity duration-300 hover:bg-gray-100 active:opacity-75"
+            to={`/${currentUsername}/`}
+          >
+            {({ isActive }: { isActive: boolean }) => (
+              <>
+                <div className="transform transition duration-300 ease-in-out group-hover:scale-110">
+                  {
+                    <img
+                      className={`h-7 w-7 rounded-full object-cover ${
+                        isActive ? "border-2 border-black-dark" : ""
+                      }`}
+                      src={currentUserAvatarUrl ? currentUserAvatarUrl : defaultAvatar}
+                      onError={handleImageError}
+                      alt="avatar"
+                    />
+                  }
+                </div>
+                {!isSearchModalOpen && (
+                  <h2 className={`${isActive ? "font-bold" : ""} mx-4`}>Profile</h2>
+                )}
+              </>
+            )}
+          </NavLink>
+        </div>
+        <div
+          role="button"
+          className={`${isSearchModalOpen ? "w-18" : "w-[235px]"} absolute bottom-0 my-3 `}
+        >
+          <div
+            className="group flex flex-row items-center rounded-lg p-3 transition-opacity duration-300 hover:bg-gray-100 active:opacity-75"
+            onClick={() => setIsMoreModalOpen(true)}
+          >
+            <>
+              <div className="relative transform transition duration-300 ease-in-out group-hover:scale-110">
+                {isMoreModalOpen ? <MoreActiveIcon /> : <MoreIcon />}
+              </div>
+              {!isSearchModalOpen && (
+                <h2 className={`${isMoreModalOpen ? "font-bold" : ""} mx-4`}>More</h2>
+              )}
+            </>
+          </div>
+        </div>
+      </aside>
       {isCreateModalOpen && (
         <Modal isOpen={isCreateModalOpen}>
           <Create />

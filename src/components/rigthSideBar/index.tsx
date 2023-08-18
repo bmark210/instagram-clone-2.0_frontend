@@ -9,7 +9,7 @@ interface Props {
 
 const RigthSideBar = ({ user }: Props) => {
   return (
-    <div className="mt-8 w-[500px] min-w-max p-4">
+    <div className="mr-10 mt-8 w-1/5 min-w-max p-4 tablet:hidden laptop:block desktop:block">
       <UserForm user={user} />
       <Suggestions />
       <Footer />
