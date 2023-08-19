@@ -43,7 +43,7 @@ const PostModal = ({
       <Image image={post.image} />
       <div className="w-2/3">
         <div className="border-b border-gray-base">
-          <div className="mx-3 border-b border-gray-base">
+          <div className="mx-3">
             <Header username={post.user?.username} avatarUrl={post.user?.avatar?.downloadURL} />
           </div>
         </div>
