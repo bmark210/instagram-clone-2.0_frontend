@@ -4,8 +4,8 @@ import SettingsLittleIcon from "../../common/icons/Settings/SettingsLittleIcon";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispach } from "../../../redux/hooks";
 import * as ROUTES from "../../../constants/routes";
-import MoonIcon from "../../common/icons/ThemeIcons/MoonIcon";
-import SunIcon from "../../common/icons/ThemeIcons/SunIcon";
+import MoonIcon from "../../common/icons/themeIcons/MoonIcon";
+import SunIcon from "../../common/icons/themeIcons/SunIcon";
 import { getPreferredTheme } from "../../../utils/getPreferredTheme";
 
 interface Props {
