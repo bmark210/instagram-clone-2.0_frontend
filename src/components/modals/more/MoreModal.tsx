@@ -5,8 +5,8 @@ import { useAppDispach } from "../../../redux/hooks";
 import * as ROUTES from "../../../constants/routes";
 import { getPreferredTheme } from "../../../utils/getPreferredTheme";
 import { logout } from "../../../redux/slices/user";
-import MoonIcon from "../../common/icons/ThemeIcons/MoonIcon";
-import SunIcon from "../../common/icons/ThemeIcons/SunIcon";
+import MoonIcon from "../../common/icons/ThemeIcons/MoonIcon.tsx";
+import SunIcon from "../../common/icons/ThemeIcons/SunIcon.tsx";
 
 interface Props {
   setIsMoreModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
