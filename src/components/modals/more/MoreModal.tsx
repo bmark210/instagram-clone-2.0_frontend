@@ -5,8 +5,8 @@ import { useAppDispach } from "../../../redux/hooks";
 import * as ROUTES from "../../../constants/routes";
 import { getPreferredTheme } from "../../../utils/getPreferredTheme";
 import { logout } from "../../../redux/slices/user";
-// import MoonIcon from "../../common/icons/ThemeIcons/MoonIcon.tsx";
-// import SunIcon from "../../common/icons/ThemeIcons/SunIcon.tsx";
+import MoonIcon from "../../common/icons/Theme/MoonIcon";
+import SunIcon from "../../common/icons/Theme/SunIcon";
 
 interface Props {
   setIsMoreModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -50,7 +50,7 @@ const MoreModal = ({ setIsMoreModalOpen, username }: Props) => {
           onClick={handleChangeTheme}
           className="flex flex-row items-center gap-3 rounded-md px-2 hover:bg-gray-100 dark:hover:bg-zinc-600"
         >
-          {/* {isDarkTheme ? <MoonIcon /> : <SunIcon />} */}
+          {isDarkTheme ? <MoonIcon /> : <SunIcon />}
           <button className=" py-3 text-left text-black-dark dark:text-white">
             Switch appearance
           </button>

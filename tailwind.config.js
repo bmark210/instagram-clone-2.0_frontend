@@ -46,7 +46,7 @@ export default {
             opacity: "0",
           },
           "100%": {
-            heigth: "25%",
+            height: "25%",
             width: "25%",
             opacity: "1",
           },
