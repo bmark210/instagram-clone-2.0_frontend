@@ -77,7 +77,7 @@ const PostItem = ({ post, user }: Props) => {
         currentUser={currentUser}
       />
       {isOpen && (
-        <Modal isOpen={isOpen} onRequestClose={()=> setIsOpen(false)}>
+        <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
           <PostModal
             setToggleLiked={setToggleLiked}
             likesLength={likesLength}

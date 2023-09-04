@@ -27,5 +27,5 @@ export interface UserData {
   error?: {
     login: error[] | error | null;
     register: error[] | error | null;
-  }
+  };
 }

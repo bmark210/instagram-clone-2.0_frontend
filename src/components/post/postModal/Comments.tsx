@@ -21,7 +21,7 @@ const Comments = ({ post, commentItem }: Props) => {
       });
   }, [post._id]);
   return (
-    <div className="h-96 overflow-y-auto border-b dark:text-white border-gray-base dark:border-zinc-600">
+    <div className="h-96 overflow-y-auto border-b border-gray-base dark:border-zinc-600 dark:text-white">
       {post.caption && (
         <PostModalCommentItem
           avatar={post.user.avatar?.downloadURL}

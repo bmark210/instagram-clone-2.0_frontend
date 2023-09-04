@@ -89,7 +89,7 @@ const Settings = () => {
           </div>
         </div>
         <div className="w-[693px]">
-        <Outlet />
+          <Outlet />
         </div>
       </div>
     </>

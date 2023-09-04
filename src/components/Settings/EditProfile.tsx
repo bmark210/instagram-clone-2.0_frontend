@@ -40,7 +40,7 @@ const EditProfile = () => {
           <p>{user?.username}</p>
           <button
             onClick={() => handleOpenModal("avatarModal")}
-            className="text-sm font-medium text-blue-primary"
+            className="text-blue-primary text-sm font-medium"
           >
             Change profile photo
           </button>
@@ -74,7 +74,7 @@ const EditProfile = () => {
       </div>
       <button
         disabled={!isValid}
-        className="ml-48 mt-3 w-20 rounded-lg bg-blue-primary px-2 py-1 font-medium text-white disabled:bg-blue-200"
+        className="bg-blue-primary ml-48 mt-3 w-20 rounded-lg px-2 py-1 font-medium text-white disabled:bg-blue-200"
         onClick={onSubmit}
       >
         Submit

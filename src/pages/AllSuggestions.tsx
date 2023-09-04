@@ -3,7 +3,6 @@ import { getAllSuggestions } from "../api/serveses/suggestions/getSuggestions";
 import ContentLoader from "react-content-loader";
 import Footer from "../components/rigthSideBar/Footer";
 import { OneUser } from "../interfaces/user";
-import SuggestedProfileDisappear from "../components/rigthSideBar/SuggestedProfileDisappear";
 import SuggestedProfile from "../components/rigthSideBar/SuggestedProfile";
 
 const AllSuggestions = () => {
