@@ -1,12 +1,12 @@
 import SavedLittleIcon from "../../common/icons/Saved/SavedLittleIcon";
-import { logout } from "../../../redux/slices/user";
 import SettingsLittleIcon from "../../common/icons/Settings/SettingsLittleIcon";
+import MoonIcon from "../../common/icons/ThemeIcons/MoonIcon";
+import SunIcon from "../../common/icons/ThemeIcons/SunIcon";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispach } from "../../../redux/hooks";
 import * as ROUTES from "../../../constants/routes";
-import MoonIcon from "../../common/icons/ThemeIcons/MoonIcon";
-import SunIcon from "../../common/icons/ThemeIcons/SunIcon";
 import { getPreferredTheme } from "../../../utils/getPreferredTheme";
+import { logout } from "../../../redux/slices/user";
 
 interface Props {
   setIsMoreModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
