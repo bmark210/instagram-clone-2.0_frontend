@@ -3,9 +3,8 @@ const CommentsIcon = () => {
     <>
       <svg
         aria-label="Комментировать"
-        className="hover:opacity-50"
-        color="rgb(0, 0, 0)"
-        fill="rgb(0,0,0)"
+        className="text-black-dark hover:opacity-50 dark:text-white"
+        style={{ fill: "currentcolor" }}
         height="24"
         role="img"
         viewBox="0 0 24 24"

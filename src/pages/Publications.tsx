@@ -43,9 +43,9 @@ const Publications = () => {
               <ContentLoader
                 key={index}
                 speed={2}
-                backgroundColor="#f3f3f3"
                 foregroundColor="#ecebeb"
-                className="min-h-[309px] min-w-[309px]"
+                backgroundColor="currentColor"
+                className="min-h-[309px] min-w-[309px] text-gray-70 dark:text-black-light dark:opacity-20"
               >
                 <rect width="100%" height="100%" />
               </ContentLoader>
@@ -53,22 +53,26 @@ const Publications = () => {
           </div>
         ) : posts.length === 0 ? (
           <div className="mx-auto my-16 h-40 w-[934px]">
-            <img className="mx-auto my-3 w-14" src={CameraImage} alt="camera" />
+            <img className="bg-camera mx-auto my-3 w-14" src={CameraImage} alt="camera" />
             {isCurrentUser ? (
               <>
-                <h2 className="my-2 text-center text-3xl font-extrabold">Share Photos</h2>
-                <p className="w-96 text-center font-thin">
+                <h2 className="my-2 text-center text-3xl font-extrabold dark:text-white">
+                  Share Photos
+                </h2>
+                <p className="mx-auto w-96 font-thin dark:text-white">
                   When you share photos, they will appear on your profile.
                 </p>
                 <a
                   onClick={() => handleOpenModal("createModal")}
-                  className="mt-4 block cursor-pointer text-center font-medium text-blue-medium hover:text-black-dark"
+                  className="mt-4 block cursor-pointer text-center font-medium text-blue-bright hover:text-black-dark dark:hover:text-white"
                 >
                   Share your first photo
                 </a>
               </>
             ) : (
-              <h2 className="my-2 text-center text-3xl font-extrabold">No posts yet</h2>
+              <h2 className="my-2 text-center text-3xl font-extrabold dark:text-white">
+                No posts yet
+              </h2>
             )}
           </div>
         ) : (

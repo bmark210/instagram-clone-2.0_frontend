@@ -76,7 +76,7 @@ const Footer = () => {
 
   return (
     <>
-      <div className="mt-8 flex w-[900px] flex-wrap justify-center text-xs">
+      <div className="my-5 flex w-[900px] flex-wrap justify-center text-xs">
         {footerParams.map(item => {
           return (
             <div key={item.id} className="text-gray-400 ">

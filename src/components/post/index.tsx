@@ -47,7 +47,7 @@ const PostItem = ({ post, user }: Props) => {
   }, [currentUser, post.likes, setToggleLiked]);
 
   return (
-    <div className="mx-auto mb-12 w-[468px] bg-white">
+    <div className="mx-auto mb-12 w-[468px]">
       <Header
         username={user.username}
         avatarUrl={user.avatar?.downloadURL}
@@ -77,7 +77,7 @@ const PostItem = ({ post, user }: Props) => {
         currentUser={currentUser}
       />
       {isOpen && (
-        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+        <Modal isOpen={isOpen} onRequestClose={()=> setIsOpen(false)}>
           <PostModal
             setToggleLiked={setToggleLiked}
             likesLength={likesLength}

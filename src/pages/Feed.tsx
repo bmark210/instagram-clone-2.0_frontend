@@ -18,7 +18,8 @@ const Feed = () => {
       dispatch(fetchPosts());
       dispatch(fetchAuth());
     }
-  }, [dispatch, user]);
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="flex w-full flex-row">

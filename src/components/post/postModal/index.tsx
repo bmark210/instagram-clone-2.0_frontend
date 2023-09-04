@@ -38,11 +38,11 @@ const PostModal = ({
       onClick={e => {
         e.stopPropagation();
       }}
-      className="mx-20 flex w-4/6 flex-row rounded bg-white"
+      className="mx-20 flex w-4/6 flex-row rounded bg-white dark:bg-black-dark"
     >
       <Image image={post.image} />
       <div className="w-2/3">
-        <div className="border-b border-gray-base">
+        <div className="border-b border-gray-base dark:border-zinc-600">
           <div className="mx-3">
             <Header username={post.user?.username} avatarUrl={post.user?.avatar?.downloadURL} />
           </div>

@@ -2,8 +2,8 @@ const SettingsIcon = () => {
   return (
     <svg
       aria-label="Параметры"
-      color="rgb(0, 0, 0)"
-      fill="rgb(0, 0, 0)"
+      style={{ fill: "currentColor" }}
+      className="dark:text-white"
       height="24"
       role="img"
       viewBox="0 0 24 24"

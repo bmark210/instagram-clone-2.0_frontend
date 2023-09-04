@@ -6,35 +6,17 @@ export default {
     "./index.html",
     "./src/components/**/*.{js,jsx,ts,tsx}",
   ],
-  darkMode: false,
+  darkMode: "class",
   theme: {
-    fill: (theme) => ({
-      red: theme("colors.red.primary"),
-    }),
     extend: {
       backdropBlur: {
         "3xl": "3rem",
       },
       keyframes: {
-        wiggle: {
-          "0%": { transform: "rotate(-3deg)" },
-          "50%": { transform: "rotate(3deg)" },
-          "100%": { transform: "rotate(-3deg)" },
-        },
         showRight: {
           "0%": {
             opacity: "0",
             transform: "translateX(-70px)",
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translateX(0px)",
-          },
-        },
-        showLeft: {
-          "0%": {
-            opacity: "0",
-            transform: "translateX(50px)",
           },
           "100%": {
             opacity: "1",
@@ -47,14 +29,6 @@ export default {
           },
           "100%": {
             width: "5%",
-          },
-        },
-        changeWidthOut: {
-          "0%": {
-            width: "10%",
-          },
-          "100%": {
-            width: "12%",
           },
         },
         showModal: {
@@ -76,26 +50,30 @@ export default {
             width: "25%",
             opacity: "1",
           },
-        }
+        },
       },
       boxShadow: {
         right: "4px 0 6px -4px rgba(0, 0, 0, 0.3)",
       },
       animation: {
-        wiggle: "wiggle 1s ease-in-out infinite",
         showRight: "showRight 0.2s ease-out",
-        showLeft: "showLeft 0.2s ease-out",
         changeWidthIn: "changeWidthIn 0.2s ease-out",
         changeWidthOut: "changeWidthOut 0.2s ease-out",
         showModal: "showModal 0.1s ease-out",
         hideModal: "hideModal 0.1s ease-out",
-        showCreateAvatar: "showCreateAvatar 0.1s ease-out"
+        showCreateAvatar: "showCreateAvatar 0.1s ease-out",
       },
       backdropOpacity: {
         50: "0.5",
       },
     },
     colors: {
+      current: "currentColor",
+      black: {
+        light: "#262626",
+        faded: "#00000059",
+        dark: "#000",
+      },
       white: "#ffffff",
       yellow: {
         300: "#fde047",
@@ -107,34 +85,34 @@ export default {
         500: "#f59e0b",
       },
       blue: {
-        medium: "#3b82f6",
-        primary: "#0095F6",
+        bright: "#3b82f6",
+        pure: "#0095F6",
         200: "#bae6fd",
         300: "#7dd3fc",
         400: "#38bdf8",
-      },
-      black: {
-        light: "#262626",
-        faded: "#00000059",
-        dark: "#020617",
       },
       slate: {
         100: "#f8fafc",
       },
       gray: {
         50: "#f9fafb",
+        70: "#f3f3f3",
         100: "#f3f4f6",
         200: "#e5e7eb",
         300: "#d1d5db",
         400: "#9ca3af",
         500: "#6b7280",
-        base: "rgba(0, 0, 0, 0.1)",
+        base: "#00000010",
         background: "#fafafa",
         primary: "#dbdbdb",
         medium: "#8e8e8e",
       },
-      red: {
-        primary: "#ed4956",
+      zinc: {
+        700: "#27272a",
+        600: "#52525b",
+      },
+      rose: {
+        500: "#f43f5e",
       },
     },
   },

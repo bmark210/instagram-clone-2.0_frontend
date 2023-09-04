@@ -6,9 +6,9 @@ import pMinDelay from "p-min-delay";
 
 import * as ROUTES from "./constants/routes";
 
-import AllSuggestions from "./components/rigthSideBar/AllSuggestions.tsx";
-import EditProfile from "./components/Settings/EditProfile.tsx";
-import AppsAndWebsites from "./components/Settings/AppsAndWebsites.tsx";
+import AllSuggestions from "./pages/AllSuggestions.tsx";
+import EditProfile from "./pages/EditProfile.tsx";
+import AppsAndWebsites from "./pages/AppsAndWebsites.tsx";
 import InstagramLoader from "./components/common/loaders/InstagramLoader.tsx";
 
 import NotFound from "./pages/NotFound.tsx";
@@ -117,4 +117,3 @@ export const router = createBrowserRouter([
 ]);
 
 export const rootNavigate = router.navigate;
-

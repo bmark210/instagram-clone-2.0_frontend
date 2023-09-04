@@ -84,22 +84,28 @@ const Profile = () => {
 
   if (user === null || user === undefined) {
     return (
-      <div className="mx-auto mt-10 flex min-w-max flex-row border-b border-gray-primary px-10 pb-3">
-        <ContentLoader viewBox="0 0 900 180" height={180} width={900} speed={2}>
-          <circle cx="125" cy="80" r="75" />
-          <rect x="270" y="10" rx="3" ry="3" width="125.5" height="17" />
-          <rect x="270" y="45" rx="3" ry="3" width="296" height="17" />
-          <rect x="270" y="80" rx="3" ry="3" width="253.5" height="17" />
-          <rect x="270" y="120" rx="3" ry="3" width="212.5" height="17" />
-        </ContentLoader>
-      </div>
+      <ContentLoader
+        className="mx-auto mt-10 flex min-w-max flex-row border-b border-gray-primary px-10 pb-3 text-gray-70 dark:text-black-light dark:opacity-20"
+        viewBox="0 0 900 180"
+        height={180}
+        width={900}
+        speed={2}
+        backgroundColor="currentColor"
+        foregroundColor="#ecebeb"
+      >
+        <circle cx="125" cy="80" r="75" />
+        <rect x="270" y="10" rx="3" ry="3" width="125.5" height="17" />
+        <rect x="270" y="45" rx="3" ry="3" width="296" height="17" />
+        <rect x="270" y="80" rx="3" ry="3" width="253.5" height="17" />
+        <rect x="270" y="120" rx="3" ry="3" width="212.5" height="17" />
+      </ContentLoader>
     );
   }
 
   return (
     <div className="mx-auto">
       <div className="overflow-y-auto overflow-x-hidden">
-        <div className="mx-auto mt-10 flex min-w-max flex-row border-b border-gray-primary px-32 pb-10 pl-28">
+        <div className="mx-auto mt-10 flex min-w-max flex-row border-b border-gray-primary px-32 pb-10 pl-28 dark:border-zinc-600">
           <img
             className={`${
               isCurrentUser && "cursor-pointer"
@@ -110,13 +116,13 @@ const Profile = () => {
             onClick={handleImageClick}
           />
           <div className="flex flex-col">
-            <div className="mb-5 flex flex-row items-center">
-              <p className="mr-6 text-xl font-normal">{user?.username}</p>
+            <div className="mb-5 flex flex-row items-center dark:text-white">
+              <p className="mr-6 text-xl font-normal dark:text-white">{user?.username}</p>
               {isCurrentUser ? (
                 <>
                   <NavLink
                     to={EDIT_PROFILE}
-                    className="font-xl mr-5 rounded-lg bg-gray-200 px-4 py-1 hover:bg-gray-primary"
+                    className="font-xl mr-5 rounded-lg bg-gray-200 px-4 py-1 hover:bg-gray-primary dark:bg-opacity-30"
                   >
                     Edit profile
                   </NavLink>
@@ -136,7 +142,7 @@ const Profile = () => {
                   ) : (
                     <button
                       onClick={setFollow}
-                      className="rounded-lg bg-blue-primary px-5 py-1 font-medium text-white"
+                      className="rounded-lg bg-blue-pure px-5 py-1 font-medium text-white"
                     >
                       Follow
                     </button>
@@ -147,7 +153,7 @@ const Profile = () => {
                 </div>
               )}
             </div>
-            <div className="mb-4 flex flex-row items-center gap-6">
+            <div className="mb-4 flex flex-row items-center gap-6 dark:text-white">
               <div className="flex flex-row">
                 <span className="mr-1 font-medium">{user.postsLength}</span>
                 <p className="text-base font-normal ">{user.postsLength > 1 ? "posts" : "post"}</p>
@@ -164,17 +170,17 @@ const Profile = () => {
               </div>
             </div>
             <div>
-              <p className="text-base font-medium">{user?.fullName}</p>
+              <p className="text-base font-medium dark:text-white">{user?.fullName}</p>
             </div>
-            <div>{user?.bio && <p className="w-96 text-sm">{user?.bio}</p>}</div>
+            <div>{user?.bio && <p className="w-96 text-sm dark:text-white">{user?.bio}</p>}</div>
           </div>
         </div>
-        <div className="mx-auto mb-5 flex flex-row items-center justify-center">
+        <div className="mx-auto mb-5 flex flex-row items-center justify-center dark:text-white">
           <NavLink
             to={`/${user?.username}/`}
             className={({ isActive }) =>
               `${
-                isActive ? "border-t border-black-dark pt-1" : ""
+                isActive ? "border-t border-black-dark pt-1 dark:border-white" : ""
               } mx-5 flex flex-row items-center pt-5`
             }
           >
@@ -196,7 +202,7 @@ const Profile = () => {
               to={`/${user?.username}/saved/`}
               className={({ isActive }) =>
                 `${
-                  isActive ? "border-t border-black-dark" : ""
+                  isActive ? "border-t border-black-dark pt-1 dark:border-white" : ""
                 } mx-5 flex flex-row items-center pt-5`
               }
             >
@@ -217,7 +223,9 @@ const Profile = () => {
           <NavLink
             to={`/${user?.username}/tagged/`}
             className={({ isActive }) =>
-              `${isActive ? "border-t border-black-dark" : ""} mx-5 flex flex-row items-center pt-5`
+              `${
+                isActive ? "border-t border-black-dark dark:border-white" : ""
+              } mx-5 flex flex-row items-center pt-5`
             }
           >
             {({ isActive }: { isActive: boolean }) => (

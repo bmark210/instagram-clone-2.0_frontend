@@ -28,7 +28,7 @@ const Actions = ({ postId, setIsOpen, toggleLiked, likesLength, handleToggleLike
         </div>
       </div>
       <div className="py-0 pl-2">
-        <p className="font-medium">
+        <p className="font-medium dark:text-white">
           {likesLength === 1 ? `${likesLength} like` : `${likesLength} likes`}
         </p>
       </div>

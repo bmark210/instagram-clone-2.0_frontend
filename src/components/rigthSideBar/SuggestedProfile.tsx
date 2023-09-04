@@ -1,36 +1,29 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { fetchUserById } from "../../api/endpoints/users";
-import defaultAvatar from "../../assets/avatars/default_avatar.jpg";
 import { OneUser } from "../../interfaces/user";
 import {
   updateFollowersByUserId,
   updateFollowingsByUserId,
 } from "../../api/serveses/follows/setFollowing";
-import { useAppDispach } from "../../redux/hooks";
-import { fetchPosts } from "../../redux/slices/posts";
+import ProfileForm from "../common/forms/profileForm";
+import CircleLoader from "../common/loaders/circleLoader/CircleLoader";
 
 interface Props {
   userId: string;
 }
 const SuggestedProfile = ({ userId }: Props) => {
-  const dispatch = useAppDispach();
-
   const [followed, setFollowed] = useState(false);
   const [user, setUser] = useState<OneUser | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleFollow = async () => {
-    setFollowed(followed => !followed);
+  const handleFollowUpdate = async () => {
     if (user) {
+      setIsLoading(true);
       await updateFollowersByUserId(user?._id);
       await updateFollowingsByUserId(user?._id);
+      setIsLoading(false);
+      setFollowed(followed => !followed);
     }
-    dispatch(fetchPosts());
-  };
-
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    const target = e.target as HTMLImageElement;
-    target.src = defaultAvatar;
   };
 
   useEffect(() => {
@@ -41,30 +34,20 @@ const SuggestedProfile = ({ userId }: Props) => {
     fetchUser();
   }, [userId]);
   if (!user) return null;
-  return !followed ? (
-    <div className="align-items flex flex-row items-center justify-between">
-      <Link to={`/${user?.username}/`}>
-        <div className="flex items-center justify-between">
-          <img
-            className="mr-3 flex h-8 w-8 rounded-full object-cover"
-            src={user?.avatar?.downloadURL || defaultAvatar}
-            alt={`${user?.username}'s avatar`}
-            onError={handleImageError}
-          />
-          <div className="flex flex-col">
-            <p className="text-xs font-bold">{user?.username}</p>
-            <p className="text-xs text-gray-medium">Recommended by Instagram</p>
-          </div>
-        </div>
-      </Link>
+  return (
+    <div className="align-items flex w-full flex-row items-center justify-between">
+      <ProfileForm user={user} />
+
       <button
-        onClick={handleFollow}
-        className="text-xs font-medium text-blue-primary"
+        onClick={handleFollowUpdate}
+        className={`${
+          followed ? "bg-gray-medium" : "bg-blue-pure"
+        } h-8 w-24 rounded-lg px-4 py-1 text-sm font-medium text-white`}
         type="button"
       >
-        Follow
+        {isLoading ? <CircleLoader size="xs" color={"white"} /> : followed ? "Unfollow" : "Follow"}
       </button>
     </div>
-  ) : null;
+  );
 };
 export default SuggestedProfile;

@@ -2,7 +2,9 @@ const HeartActiveIcon = () => {
   return (
     <svg
       aria-label="Не нравится"
-      color="rgb(255, 48, 64)"
+      // color="rgb(255, 48, 64)"
+      className=" dark:text-white"
+      // style={{ fill: "rgb(255, 48, 64)" }}
       fill="rgb(255, 48, 64)"
       height="24"
       role="img"

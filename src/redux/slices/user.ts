@@ -36,7 +36,10 @@ export const fetchAuth = createAsyncThunk("auth/fetchAuth", async () => {
 const initialState: UserData = {
   data: null,
   status: "loading",
-  error: undefined,
+  error: {
+    login: null,
+    register: null,
+  },
 };
 
 const authSlice = createSlice({
@@ -63,6 +66,12 @@ const authSlice = createSlice({
         state.data.bio = action.payload;
       }
     },
+    clearErrors: state => {
+      state.error = {
+        login: null,
+        register: null,
+      };
+    },
   },
   extraReducers: builder => {
     builder
@@ -78,9 +87,11 @@ const authSlice = createSlice({
         state.data = null;
         state.status = "error";
         if (action.payload) {
-          state.error = action.payload;
-        } else {
-          state.error = action.error.message;
+          if (state.error) {
+            state.error.login = action.payload;
+          } else {
+            state.error = { login: action.payload, register: null };
+          }
         }
       })
       .addCase(fetchAuth.pending, state => {
@@ -107,9 +118,11 @@ const authSlice = createSlice({
         state.data = null;
         state.status = "error";
         if (action.payload) {
-          state.error = action.payload;
-        } else {
-          state.error = action.error.message;
+          if (state.error) {
+            state.error.register = action.payload;
+          } else {
+            state.error = { register: action.payload, login: null };
+          }
         }
       });
   },
@@ -121,4 +134,5 @@ export const selectAuthError = (state: RootState) => state.auth.error;
 export const { logout } = authSlice.actions;
 export const { getAvatar, clearAvatar } = authSlice.actions;
 export const { changeBio } = authSlice.actions;
+export const { clearErrors } = authSlice.actions;
 export const authReducer = authSlice.reducer;

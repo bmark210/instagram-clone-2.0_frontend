@@ -78,20 +78,22 @@ const CreateAvatar = () => {
         onClick={e => e.stopPropagation()}
         className="flex h-60 w-96 items-center justify-center rounded-2xl bg-white"
       >
-        <CircleLoader color="gray-400" />
+        <CircleLoader size="3xl" color="gray-400" />
       </div>
     );
   }
   return (
     <div
       onClick={e => e.stopPropagation()}
-      className="flex h-60 w-96 animate-showCreateAvatar items-center justify-between rounded-2xl bg-white"
+      className="flex h-60 w-96 animate-showCreateAvatar items-center justify-between rounded-2xl bg-white dark:bg-black-light dark:text-white"
     >
       <div className="grid h-full w-full">
-        <h2 className="border-b border-gray-base pt-5 text-center text-xl">Change Profile Photo</h2>
+        <h2 className="border-b border-gray-base pt-5 text-center text-xl dark:border-zinc-600">
+          Change Profile Photo
+        </h2>
         <button
           onClick={() => image.current?.click()}
-          className="mb-2 border-b border-gray-base font-medium text-blue-primary"
+          className="mb-2 border-b border-gray-base font-medium text-blue-pure dark:border-zinc-600"
         >
           Upload photo
         </button>
@@ -99,7 +101,7 @@ const CreateAvatar = () => {
         {currentAvatar?.downloadURL && (
           <button
             onClick={handleDeleteAvatar}
-            className="mb-2 border-b border-gray-base font-medium text-red-primary"
+            className="mb-2 border-b border-gray-base font-medium text-rose-500 dark:border-zinc-600"
           >
             Remove current photo
           </button>

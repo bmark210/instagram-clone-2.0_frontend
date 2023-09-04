@@ -23,11 +23,11 @@ const Comments = ({ post, commentsLength, setIsOpen, currentUser, user }: Commen
   const [commentsValue, setCommentsValue] = useState(commentsLength);
   return (
     <>
-      <div className="pt-1">
+      <div className="pt-1 dark:text-white">
         {commentItem.comment !== "" && (
           <p className="mb-1 ml-2">
             <Link to={"/" + currentUser?.username}>
-              <span className="mr-1 font-medium">{currentUser?.username}</span>
+              <span className="mr-1 font-medium hover:opacity-50">{currentUser?.username}</span>
             </Link>
             <span className="w-[467px] break-words text-sm font-thin">{commentItem.comment}</span>
           </p>

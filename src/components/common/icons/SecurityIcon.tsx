@@ -2,8 +2,8 @@ const SecurityIcon = () => {
   return (
     <svg
       aria-label=""
-      color="rgb(0, 0, 0)"
-      fill="rgb(0, 0, 0)"
+      style={{ fill: "currentColor" }}
+      className="dark:text-white"
       height="16"
       role="img"
       viewBox="0 0 24 24"

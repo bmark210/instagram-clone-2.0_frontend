@@ -30,7 +30,7 @@ const Actions = ({ postId, commentInput, likesLength, toggleLiked, handleToggleL
         </div>
       </div>
       <div className="ml-1">
-        <p className="font-medium">
+        <p className="font-medium dark:text-white">
           {likesLength === 1 ? `${likesLength} like` : `${likesLength} likes`}
         </p>
       </div>

@@ -25,8 +25,8 @@ const SearchModalItem = ({ user, handleHideSearchModal }: Props) => {
         onError={handleImageError}
       />
       <div>
-        <h2 className="font-medium">{user.username}</h2>
-        <p className="text-sm font-thin text-gray-500">{user.fullName}</p>
+        <h2 className="font-medium dark:text-white">{user.username}</h2>
+        <p className="text-sm text-gray-400">{user.fullName}</p>
       </div>
     </Link>
   );

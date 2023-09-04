@@ -2,8 +2,8 @@ const TaggedActiveIcon = () => {
   return (
     <svg
       aria-label=""
-      color="rgb(0, 0, 0)"
-      fill="rgb(0, 0, 0)"
+      className="text-black-dark dark:text-white"
+      style={{ fill: "currentColor" }}
       height="12"
       role="img"
       viewBox="0 0 24 24"

@@ -59,7 +59,7 @@ const PostImage = ({ post, currentUser }: Props) => {
         </div>
       </div>
       {isOpen && (
-        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+        <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
           <PostModal
             handleToggleLiked={handleToggleLiked}
             currentUser={currentUser}

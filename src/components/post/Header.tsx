@@ -17,7 +17,7 @@ const Header = ({ username, avatarUrl, createdAt, place }: Props) => {
   };
 
   return (
-    <div className="flex items-center py-4 pl-2">
+    <div className="flex items-center py-4 pl-2 dark:text-white">
       <div className="flex items-center">
         <Link to={`/${username}/`} className="flex items-center">
           <img
@@ -28,7 +28,7 @@ const Header = ({ username, avatarUrl, createdAt, place }: Props) => {
           />
           <div className="col-span-3 flex flex-col">
             <div className="flex flex-row items-center">
-              <p className="text-sm font-medium">{username}</p>
+              <h3 className="text-sm font-medium">{username}</h3>
               {createdAt && (
                 <span className="ml-2 text-sm text-gray-medium">
                   • {getTimeDifferenceInShortWords(createdAt)}

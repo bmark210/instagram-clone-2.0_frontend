@@ -17,11 +17,11 @@ const Footer = ({ caption, username }: Props) => {
   };
 
   return (
-    <div className="pl-2 pt-2">
+    <div className="pl-2 pt-2 dark:text-white">
       {caption && (
         <>
           <Link to={`/${username}/`}>
-            <span className="mr-1 font-medium">{username}</span>
+            <span className="mr-1 font-medium hover:opacity-50">{username}</span>
           </Link>
           <span className="text-sm font-thin">
             {firstPart}

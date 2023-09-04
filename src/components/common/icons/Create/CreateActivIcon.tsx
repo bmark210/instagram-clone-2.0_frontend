@@ -2,8 +2,8 @@ const CreateActivIcon = () => {
   return (
     <svg
       aria-label="Новая публикация"
-      color="rgb(0, 0, 0)"
-      fill="rgb(0, 0, 0)"
+      className="text-black-dark dark:text-white"
+      style={{ fill: "currentColor" }}
       height="24"
       role="img"
       viewBox="0 0 24 24"

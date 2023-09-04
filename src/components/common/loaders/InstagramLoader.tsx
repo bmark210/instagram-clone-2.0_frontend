@@ -1,6 +1,6 @@
 const InstagramLoader = () => {
   return (
-    <div className="flex h-screen w-full items-center justify-center">
+    <div className="flex h-screen w-full items-center justify-center bg-white">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="132.004"

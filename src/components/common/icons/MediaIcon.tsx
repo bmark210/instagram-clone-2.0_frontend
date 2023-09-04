@@ -1,9 +1,8 @@
 const MediaIcon = () => {
   return (
     <svg
-      className="x1lliihq x1n2onr6"
-      color="rgb(0, 0, 0)"
-      fill="rgb(0, 0, 0)"
+      style={{ fill: "currentColor" }}
+      className="dark:text-white"
       height="77"
       role="img"
       viewBox="0 0 97.6 77.3"

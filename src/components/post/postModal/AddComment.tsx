@@ -25,7 +25,7 @@ const AddComment = ({ postId, commentItem, setCommentItem, commentInput }: Props
     }
   };
   return (
-    <div className="border-t border-gray-base">
+    <div className="border-t border-gray-base dark:border-zinc-600">
       <form
         className="flex justify-between"
         method="POST"
@@ -34,7 +34,7 @@ const AddComment = ({ postId, commentItem, setCommentItem, commentInput }: Props
         <input
           aria-label="Add a comment"
           autoComplete="off"
-          className="mx-3 w-full px-2 py-3 text-sm outline-none"
+          className="mx-3 w-full px-2 py-3 text-sm outline-none dark:bg-black-dark dark:text-white"
           type="text"
           name="add-comment"
           placeholder="Add a comment..."
@@ -44,7 +44,7 @@ const AddComment = ({ postId, commentItem, setCommentItem, commentInput }: Props
           maxLength={200}
         />
         <button
-          className={`mr-3 text-sm font-bold text-blue-primary ${!commentText && "opacity-25"}`}
+          className={`mr-3 text-sm font-bold text-blue-pure ${!commentText && "opacity-25"}`}
           type="button"
           hidden={commentText.length < 1}
           onClick={handleSubmitComment}

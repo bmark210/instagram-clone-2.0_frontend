@@ -2,16 +2,14 @@ const MoreActiveIcon = () => {
   return (
     <svg
       aria-label="Settings"
-      color="rgb(0, 0, 0)"
-      fill="rgb(0, 0, 0)"
+      className="text-black-dark dark:text-white"
       height="24"
       role="img"
       viewBox="0 0 24 24"
       width="24"
     >
       <line
-        fill="none"
-        stroke="currentColor"
+        stroke="currentColor" // Set the stroke color here
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="3"
@@ -21,8 +19,7 @@ const MoreActiveIcon = () => {
         y2="4"
       ></line>
       <line
-        fill="none"
-        stroke="currentColor"
+        stroke="currentColor" // Set the stroke color here
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="3"
@@ -32,8 +29,7 @@ const MoreActiveIcon = () => {
         y2="12"
       ></line>
       <line
-        fill="none"
-        stroke="currentColor"
+        stroke="currentColor" // Set the stroke color here
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="3"

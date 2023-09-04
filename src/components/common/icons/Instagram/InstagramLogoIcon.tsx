@@ -2,8 +2,8 @@ const InstagramLogoIcon = () => {
   return (
     <svg
       aria-label="Instagram"
-      color="#000"
-      fill="#000"
+      className="text-black-dark dark:text-white"
+      style={{ fill: "currentColor" }}
       height={"29"}
       role="img"
       viewBox="32 4 113 32"

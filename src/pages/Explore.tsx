@@ -32,9 +32,9 @@ const Explore = () => {
               <ContentLoader
                 key={index}
                 speed={2}
-                backgroundColor="#f3f3f3"
                 foregroundColor="#ecebeb"
-                className="max-h-[309px] min-h-[309px] min-w-[263px]"
+                backgroundColor="currentColor"
+                className="max-h-[309px] min-h-[309px] min-w-[263px] text-gray-70 dark:text-black-light dark:opacity-20"
               >
                 <rect width="100%" height="100%" />
               </ContentLoader>

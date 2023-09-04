@@ -24,5 +24,8 @@ interface error {
 export interface UserData {
   data: OneUser | null;
   status: string;
-  error?: error | error[];
+  error?: {
+    login: error[] | error | null;
+    register: error[] | error | null;
+  }
 }

@@ -38,7 +38,7 @@ const AddComment = ({ postId, commentItem, setCommentItem, username, setComments
         <input
           aria-label="Add a comment"
           autoComplete="off"
-          className="mr-3 w-full px-2 py-3 text-sm outline-none"
+          className="mr-3 w-full px-2 py-3 text-sm outline-none dark:bg-black-dark dark:text-white"
           type="text"
           name="add-comment"
           placeholder="Add a comment..."
@@ -47,7 +47,7 @@ const AddComment = ({ postId, commentItem, setCommentItem, username, setComments
           maxLength={200}
         />
         <button
-          className={`text-sm font-bold text-blue-primary ${!commentText && "opacity-25"}`}
+          className={`text-sm font-bold text-blue-pure ${!commentText && "opacity-25"}`}
           type="button"
           hidden={commentText.length < 1}
           onClick={handleSubmitComment}

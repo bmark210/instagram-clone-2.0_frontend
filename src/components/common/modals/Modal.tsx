@@ -1,24 +1,12 @@
 import React, { useEffect } from "react";
-import { useAppDispach } from "../../../redux/hooks";
-import { closeModal } from "../../../redux/slices/modal";
 
 type Props = {
   children?: React.ReactNode;
   isOpen: boolean;
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  onRequestClose?: () => void;
 };
 
-const Modal = ({ children, isOpen, setIsOpen }: Props) => {
-  const dispatch = useAppDispach();
-  const handleCloseModal = () => {
-    if (setIsOpen) {
-      setIsOpen(false);
-    } else {
-      dispatch(closeModal("createModal"));
-      dispatch(closeModal("avatarModal"));
-    }
-  };
-
+const Modal = ({ children, isOpen, onRequestClose }: Props) => {
   useEffect(() => {
     const rootElement: HTMLElement = document.body;
     if (isOpen) {
@@ -33,7 +21,7 @@ const Modal = ({ children, isOpen, setIsOpen }: Props) => {
 
   return (
     <div
-      onClick={handleCloseModal}
+      onClick={onRequestClose}
       className="fixed inset-0 z-50 flex animate-showModal items-center justify-center bg-black-faded/60 backdrop-opacity-10 transition-opacity duration-1000 ease-in-out"
     >
       <button className="fixed right-0 top-0 p-4 text-3xl text-white">🞪</button>

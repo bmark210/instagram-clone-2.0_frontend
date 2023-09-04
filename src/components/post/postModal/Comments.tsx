@@ -21,7 +21,7 @@ const Comments = ({ post, commentItem }: Props) => {
       });
   }, [post._id]);
   return (
-    <div className="h-96 overflow-y-auto border-b border-gray-base">
+    <div className="h-96 overflow-y-auto border-b dark:text-white border-gray-base dark:border-zinc-600">
       {post.caption && (
         <PostModalCommentItem
           avatar={post.user.avatar?.downloadURL}
@@ -31,7 +31,7 @@ const Comments = ({ post, commentItem }: Props) => {
       )}
       {comments === null ? (
         <div className="mt-5 flex justify-center">
-          <CircleLoader color="gray-400" />
+          <CircleLoader size="3xl" color="gray-400" />
         </div>
       ) : comments.length === 0 && post.caption === "" && !commentItem.comment ? (
         <div className="mt-40 flex w-full flex-col items-center justify-center">

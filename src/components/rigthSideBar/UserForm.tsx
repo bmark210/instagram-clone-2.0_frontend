@@ -17,7 +17,11 @@ const UserForm = ({ user }: Props) => {
 
   if (usersIsLoading) {
     return (
-      <ContentLoader className="mr-3 flex h-14 w-80">
+      <ContentLoader
+        backgroundColor="currentColor"
+        foregroundColor="#ecebeb"
+        className="mr-3 flex h-14 w-80 text-gray-70 dark:text-black-light dark:opacity-20"
+      >
         <circle cx="30" cy="28" r="28" />
         <rect x="80" y="3" rx="3" ry="3" width="70" height="10" />
         <rect x="80" y="25" rx="3" ry="3" width="140" height="10" />
@@ -37,8 +41,8 @@ const UserForm = ({ user }: Props) => {
         />
       </div>
       <div className="col-span-2 ml-4">
-        <p className="text-sm font-bold">{user.data?.username}</p>
-        <p className="text-sm text-gray-500">{user.data?.fullName}</p>
+        <p className="text-sm font-bold dark:text-white">{user.data?.username}</p>
+        <p className="text-sm text-gray-400">{user.data?.fullName}</p>
       </div>
     </Link>
   );
