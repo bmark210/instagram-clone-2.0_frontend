@@ -2,8 +2,6 @@ const SettingsLittleIcon = () => {
   return (
     <svg
       aria-label="Settings"
-      // color="rgb(0, 0, 0)"
-      // fill="rgb(0, 0, 0)"
       className="text-black-dark dark:text-white"
       height="18"
       role="img"
