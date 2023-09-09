@@ -54,7 +54,7 @@ const SideBar = () => {
         <aside
           className={`${
             isSearchModalOpen ? "w-16 animate-changeWidthIn" : "w-64 border-r"
-          } max-w-64 min-w-18 fixed left-0 top-0 z-40 flex h-screen flex-col border-gray-primary bg-white px-2 dark:border-zinc-600 dark:bg-black-dark`}
+          } max-w-64 min-w-18 fixed left-0 top-0 z-40 dark:border-none border-r border-gray-primary flex h-screen flex-col bg-white px-2 dark:border-zinc-600 dark:bg-black-dark`}
         >
           <NavLink
             onClick={() => setIsSearchModalOpen(false)}
