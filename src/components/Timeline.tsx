@@ -1,6 +1,7 @@
 import ContentLoader from "react-content-loader";
 import { Posts } from "../interfaces/post";
 import PostItem from "./post";
+import BlackInstagramLogo from "./common/icons/Instagram/BlackInstagramLogo";
 
 interface Props {
   posts: Posts;
@@ -28,8 +29,8 @@ const Timeline = ({ posts }: Props) => {
           ))
         ) : posts.items.length === 0 ? (
           <div className="mt-10 flex flex-col items-center">
-            <img src="src/assets/instagram-logo.png" className="w-16" alt="instagram_logo" />
-            <h2 className="mt-8 text-center text-2xl dark:text-white">Here will be your feed</h2>
+            <BlackInstagramLogo />
+            <h2 className="mt-4 text-center text-2xl dark:text-white">Here will be your feed</h2>
             <p className="mt-3 text-sm dark:text-white">Follow people to see their posts</p>
           </div>
         ) : (

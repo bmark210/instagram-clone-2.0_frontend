@@ -2,8 +2,6 @@ const BlackInstagramLogo = () => {
   return (
     <svg
       aria-label="Instagram"
-      // color="rgb(0, 0, 0)"
-      // fill="rgb(0, 0, 0)"
       className="text-black-dark dark:text-white"
       style={{ fill: "currentColor" }}
       height="24"
