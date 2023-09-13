@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { OnePost } from "../../interfaces/post";
 import HeartWhiteIcon from "../common/icons/PostIcons/HeartWhiteIcon";
 import CommentsWhiteIcon from "../common/icons/PostIcons/CommentsWhiteIcon";
@@ -15,8 +15,17 @@ type Props = {
 const PostImage = ({ post, currentUser }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [toggleLiked, setToggleLiked] = useState(false);
+  const likesArray = post.likes;
   const [likesLength, setLikesLength] = useState(post.likes?.length);
   const [isDisableLike, setIsDisableLike] = useState(false);
+
+  useEffect(() => {
+    if (currentUser) {
+      if (likesArray.includes(currentUser._id)) {
+        setToggleLiked(true);
+      }
+    }
+  }, [likesArray, currentUser]);
 
   async function handleToggleLiked(postId: string) {
     if (postId.length > 0 && !isDisableLike) {
